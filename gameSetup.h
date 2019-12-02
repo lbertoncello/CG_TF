@@ -37,6 +37,7 @@ public:
     void display(void);
     void idle(void);
     void init(void);
+    void reshape (int w, int h);
 };
 
 #endif

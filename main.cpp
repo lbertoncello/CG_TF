@@ -23,6 +23,11 @@ void gameSetupIdleFunctionWrapper(void)
     gameSetup->idle();
 }
 
+void gameSetupReshapeFunctionWrapper(int w, int h)
+{
+    gameSetup->reshape(w, h);
+}
+
 void gameRuntimeMouseFunctionWrapper(int button, int state, int x, int y)
 {
     gameSetup->getGameRuntime().mouse(button, state, x, y);
@@ -55,6 +60,7 @@ int main(int argc, char **argv)
                 glutInitWindowPosition(gameSetup->getGameRuntime().getWindowInitial_x_position(), gameSetup->getGameRuntime().getWindowInitial_y_position());
                 glutCreateWindow(gameSetup->getGameRuntime().getWindowTitle().c_str());
                 gameSetup->init();
+                glutReshapeFunc(gameSetupReshapeFunctionWrapper);
                 glutDisplayFunc(gameSetupDisplayFunctionWrapper);
 
                 glutKeyboardFunc(gameSetup->getGameRuntime().keyPress);
