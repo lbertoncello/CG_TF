@@ -27,7 +27,7 @@ void Draw::drawCircle(GLfloat cx, GLfloat cy, GLfloat r, GLint num_segments, Col
         GLfloat x = r * cosf(theta); //calculate the x component
         GLfloat y = r * sinf(theta); //calculate the y component
 
-        glVertex2f(x, y); //output vertex
+        glVertex3f(x, y, 1.0); //output vertex
     }
     glEnd();
 }
@@ -48,7 +48,7 @@ void Draw::drawEllipse(GLfloat rx, GLfloat ry, Color color, GLint num_segments)
     for (GLint ii = 0; ii < num_segments; ii++)
     {
         //apply radius and offset
-        glVertex2f(x * rx, y * ry); //output vertex
+        glVertex3f(x * rx, y * ry, 1.0); //output vertex
 
         //apply the rotation matrix
         t = x;
@@ -69,13 +69,13 @@ void Draw::drawFilledCircle(GLfloat radius, Color color)
     glColor3f(color.getR(), color.getG(), color.getB());
 
     glBegin(GL_TRIANGLE_FAN);
-    glVertex2f(x1, y1);
+    glVertex3f(x1, y1, 1.0);
 
     for (angle = 1.0f; angle < 361.0f; angle += 0.2)
     {
         x2 = x1 + sin(angle) * radius;
         y2 = y1 + cos(angle) * radius;
-        glVertex2f(x2, y2);
+        glVertex3f(x2, y2, 1.0);
     }
 
     glEnd();
@@ -85,10 +85,10 @@ void Draw::drawRectangle(Point p1, Point p2, Point p3, Point p4, Color color)
 {
     glColor3f(color.getR(), color.getG(), color.getB());
     glBegin(GL_POLYGON);
-    glVertex3f(p1.getX(), p1.getY(), 0.0);
-    glVertex3f(p2.getX(), p2.getY(), 0.0);
-    glVertex3f(p3.getX(), p3.getY(), 0.0);
-    glVertex3f(p4.getX(), p4.getY(), 0.0);
+    glVertex3f(p1.getX(), p1.getY(), 1.0);
+    glVertex3f(p2.getX(), p2.getY(), 1.0);
+    glVertex3f(p3.getX(), p3.getY(), 1.0);
+    glVertex3f(p4.getX(), p4.getY(), 1.0);
     glEnd();
 }
 
@@ -96,10 +96,10 @@ void Draw::drawRectangle(GLfloat width, GLfloat height, Color color)
 {
     glColor3f(color.getR(), color.getG(), color.getB());
     glBegin(GL_QUADS);
-    glVertex3f(-width / 2.0, 0, 0.0);
-    glVertex3f(width / 2.0, 0, 0.0);
-    glVertex3f(width / 2.0, height, 0.0);
-    glVertex3f(-width / 2.0, height, 0.0);
+    glVertex3f(-width / 2.0, 0, 1.0);
+    glVertex3f(width / 2.0, 0, 1.0);
+    glVertex3f(width / 2.0, height, 1.0);
+    glVertex3f(-width / 2.0, height, 1.0);
     glEnd();
 }
 
@@ -107,10 +107,10 @@ void Draw::drawRectangle2(GLfloat width, GLfloat height, Color color)
 {
     glColor3f(color.getR(), color.getG(), color.getB());
     glBegin(GL_QUADS);
-    glVertex3f(-width / 2.0, -height / 2.0, 0.0);
-    glVertex3f(width / 2.0, -height / 2.0, 0.0);
-    glVertex3f(width / 2.0, height / 2.0, 0.0);
-    glVertex3f(-width / 2.0, height / 2.0, 0.0);
+    glVertex3f(-width / 2.0, -height / 2.0, 1.0);
+    glVertex3f(width / 2.0, -height / 2.0, 1.0);
+    glVertex3f(width / 2.0, height / 2.0, 1.0);
+    glVertex3f(-width / 2.0, height / 2.0, 1.0);
     glEnd();
 }
 
@@ -119,9 +119,9 @@ void Draw::drawTriangle(Point p1, Point p2, Point p3, Color color)
     glColor3f(color.getR(), color.getG(), color.getB());
 
     glBegin(GL_TRIANGLES);
-    glVertex3f(p1.getX(), p1.getY(), 0.0);
-    glVertex3f(p2.getX(), p2.getY(), 0.0);
-    glVertex3f(p3.getX(), p3.getY(), 0.0);
+    glVertex3f(p1.getX(), p1.getY(), 1.0);
+    glVertex3f(p2.getX(), p2.getY(), 1.0);
+    glVertex3f(p3.getX(), p3.getY(), 1.0);
     glEnd();
 }
 

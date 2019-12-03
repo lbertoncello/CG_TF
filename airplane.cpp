@@ -1,19 +1,5 @@
 #include "airplane.h"
 
-// void Airplane::draw()
-// {
-//     glPushMatrix();
-//     glTranslatef(dX, dY, 0.0);
-//     glRotatef(inclinationAngle, 0.0, 0.0, 1.0);
-
-//     drawWings();
-//     drawCannon();
-//     drawMainBody();
-//     drawCockpit();
-//     drawTail();
-//     glPopMatrix();
-// }
-
 void Airplane::draw()
 {
     // if (!isDestroyed())
