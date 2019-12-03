@@ -37,17 +37,7 @@ void GameSetup::display(void)
     glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
     glMaterialfv(GL_FRONT, GL_SHININESS, no_mat);
 
-    glPushMatrix();
-
-    GLfloat mat_ambient_r[] = {1.0, 0.0, 0.0, 1.0};
-
-    glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_r);
-    glColor3fv(mat_ambient_r);
-
-    glutSolidCube(1.0);
-    glPopMatrix();
-
-    // gameRuntime.getGame().drawGame(deltaIdleTime);
+    gameRuntime.getGame().drawGame(deltaIdleTime);
 
     /* Não esperar */
     glutSwapBuffers();

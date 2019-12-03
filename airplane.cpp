@@ -16,19 +16,30 @@
 
 void Airplane::draw()
 {
-    if (!isDestroyed())
-    {
-        glPushMatrix();
-        glTranslatef(dX, dY, 0.0);
-        glRotatef(inclinationAngle, 0.0, 0.0, 1.0);
+    // if (!isDestroyed())
+    // {
+    //     glPushMatrix();
+    //     glTranslatef(dX, dY, 0.0);
+    //     glRotatef(inclinationAngle, 0.0, 0.0, 1.0);
 
-        drawWings();
-        drawCannon();
-        drawMainBody();
-        drawCockpit();
-        drawTail();
-        glPopMatrix();
-    }
+    //     drawWings();
+    //     drawCannon();
+    //     drawMainBody();
+    //     drawCockpit();
+    //     drawTail();
+    //     glPopMatrix();
+    // }
+    glPushMatrix();
+
+    GLfloat mat_ambient_r[] = {1.0, 0.0, 0.0, 1.0};
+
+    glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_r);
+    glColor3fv(mat_ambient_r);
+
+    glRotatef(45,1,1,1);
+
+    glutSolidCube(1.0);
+    glPopMatrix();
 }
 
 void Airplane::drawMainBody()

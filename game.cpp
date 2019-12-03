@@ -294,6 +294,9 @@ void Game::initTerrestrialEnemiesPosition()
 
 void Game::drawPlayer()
 {
+    player.draw();
+    return ;
+    
     if (player.isTakingOff())
     {
         high_resolution_clock::time_point currentTime = high_resolution_clock::now();
