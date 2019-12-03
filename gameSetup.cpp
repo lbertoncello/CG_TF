@@ -2,7 +2,7 @@
 
 void GameSetup::display(void)
 {
-    double camDist = 50;
+    double camDist = 300;
     double camXYAngle = 0;
     double camXZAngle = 0;
     int toggleCam = 0;
@@ -60,9 +60,9 @@ void GameSetup::reshape(int w, int h)
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     if (w <= h)
-        gluPerspective(45, (GLfloat)h / (GLfloat)w, 2, 50);
+        gluPerspective(45, (GLfloat)h / (GLfloat)w, 2, 1000);
     else
-        gluPerspective(45, (GLfloat)w / (GLfloat)h, 2, 50);
+        gluPerspective(45, (GLfloat)w / (GLfloat)h, 2, 1000);
     glMatrixMode(GL_MODELVIEW);
 }
 
