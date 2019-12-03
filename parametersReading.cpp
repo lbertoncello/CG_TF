@@ -159,7 +159,7 @@ void ParametersReading::readLine(TiXmlElement *line)
     Line _line;
 
     while (lineAttribute)
-    {
+    { 
         if (strcmp(lineAttribute->Name(), "x1") == 0)
         {
             _line.setPoint1_x(stof(lineAttribute->Value()));

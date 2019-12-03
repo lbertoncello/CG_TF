@@ -166,6 +166,8 @@ bool Game::checkBombCollision(Bomb *bomb)
 
 void Game::init()
 {
+    cout << "flightX: " << flightArea.getArea().getCenter_x();
+    cout << "flightY: " << flightArea.getArea().getCenter_y();
     airportRunway.setAdjustedBody(flightArea.getArea().getCenter_x(), flightArea.getArea().getCenter_y());
     player.setCurrentPosition(airportRunway.getAdjustedBody().getPoint1());
     player.setInclinationAngle(airportRunway.calcInclinationAngle());
@@ -190,6 +192,10 @@ void Game::takeOff()
 
 Point Game::currentTakeOffPosition(GLfloat time)
 {
+    cout << "runawayX 1: " << airportRunway.getBody().getPoint1().getX() << endl;
+    cout << "runawayX 2: " << airportRunway.getBody().getPoint2().getX() << endl;
+    cout << "runawayX 1 adjusted: " << airportRunway.getAdjustedBody().getPoint1().getX() << endl;
+    cout << "runawayX 2 adjusted: " << airportRunway.getAdjustedBody().getPoint2().getX() << endl;
     Point initialPosition = airportRunway.getAdjustedBody().getPoint1();
     vector<GLfloat> acceleration = takeOffAcceleration;
     vector<GLfloat> initialSpeed = calc.zerosVector(2);
@@ -225,8 +231,10 @@ GLfloat Game::currentRadius(GLfloat time)
 void Game::updateTakeOff(high_resolution_clock::time_point currentTime, GLfloat takeOffTimeElapsed)
 {
     Point currentPositionVariation = currentTakeOffPosition(takeOffTimeElapsed);
+    cout << "currentVariationX: " << currentPositionVariation.getX() << endl;
     Point currentPosition(player.getStartPosition().getX() + currentPositionVariation.getX(), player.getStartPosition().getY() + currentPositionVariation.getY());
     player.setCurrentPosition(currentPosition);
+    cout << "currentPositionX: " << player.getStartPosition().getX() << endl;
 
     if (beforeAirportRunwayMiddle == false)
     {
@@ -294,9 +302,6 @@ void Game::initTerrestrialEnemiesPosition()
 
 void Game::drawPlayer()
 {
-    player.draw();
-    return ;
-    
     if (player.isTakingOff())
     {
         high_resolution_clock::time_point currentTime = high_resolution_clock::now();

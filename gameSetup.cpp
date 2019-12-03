@@ -2,7 +2,7 @@
 
 void GameSetup::display(void)
 {
-    double camDist = 10;
+    double camDist = 50;
     double camXYAngle = 0;
     double camXZAngle = 0;
     int toggleCam = 0;
@@ -68,7 +68,7 @@ void GameSetup::reshape(int w, int h)
 
 void GameSetup::init(void)
 {
-    // gameRuntime.getGame().init();
+    gameRuntime.getGame().init();
 
     glClearColor(0.0, 0.0, 0.0, 0.0);
     //    glShadeModel (GL_FLAT);
