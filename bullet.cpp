@@ -29,7 +29,10 @@ void Bullet::draw()
 {
     glPushMatrix();
 
-    glTranslatef(dX, dY, 0.0);
+    GLfloat mat_ambient_color[] = {0.62, 0.80, 0.22, 1.0};
+    glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_color);
+
+    glTranslatef(dX, -dY, 0.0);
     drawer.drawFilledCircle(this->body);
 
     glPopMatrix();

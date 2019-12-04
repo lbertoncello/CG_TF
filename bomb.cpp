@@ -66,7 +66,10 @@ void Bomb::draw()
 {
     glPushMatrix();
 
-    glTranslatef(dX, dY, 0.0);
+    GLfloat mat_ambient_color[] = {0.33, 0.12, 0.42, 1.0};
+    glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_color);
+
+    glTranslatef(dX, -dY, 0.0);
     drawer.drawFilledCircle(this->body);
 
     glPopMatrix();

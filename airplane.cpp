@@ -15,17 +15,16 @@ void Airplane::draw()
     //     drawTail();
     //     glPopMatrix();
     // }
+    GLfloat no_mat[] = {0.0, 0.0, 0.0, 1.0};
+    glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,
+                 no_mat);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
+    glMaterialfv(GL_FRONT, GL_SHININESS, no_mat);
+
     glPushMatrix();
 
-    GLfloat mat_ambient_r[] = {1.0, 0.0, 0.0, 1.0};
-
-    glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_r);
-    glColor3fv(mat_ambient_r);
-
-    // glTranslatef(dX, dY, 0.0);
-    // glRotatef(inclinationAngle, 0.0, 0.0, 1.0);
-
-    // glutSolidCube(1.0);
+    glTranslatef(dX, -dY, 0.0);
+    glRotatef(-inclinationAngle, 0.0, 0.0, 1.0);
 
     drawWings();
     drawCannon();
@@ -38,6 +37,10 @@ void Airplane::draw()
 
 void Airplane::drawMainBody()
 {
+    GLfloat mat_ambient_g[] = { 0.0, 1.0, 0.0, 1.0 };
+
+    glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_g);
+
     drawer.drawEllipse(this->body);
 }
 
@@ -70,6 +73,9 @@ void Airplane::drawCockpit()
 void Airplane::drawWings()
 {
     Color wingsColor(0.0, 0.0, 0.0);
+    GLfloat mat_ambient_r[] = {1.0, 0.0, 0.0, 1.0};
+
+    glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_r);
 
     glPushMatrix();
     Point p1(0.0, 0.0);

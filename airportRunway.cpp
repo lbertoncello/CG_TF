@@ -10,7 +10,15 @@ void AirportRunway::setAdjustedBody(GLfloat coordinateCorrection_x, GLfloat coor
 
 void AirportRunway::draw()
 {
-    drawer.drawLine(this->adjustedBody);
+    GLfloat mat_ambient_color[] = {1.0, 1.0, 0.5, 1.0};
+
+    glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_color);
+
+    Line temp = this->adjustedBody;
+    temp.getPoint1().setY(-temp.getPoint1_y());
+    temp.getPoint2().setY(-temp.getPoint2_y());
+
+    drawer.drawLine(temp);
 }
 
 GLfloat AirportRunway::calcInclinationAngle()
