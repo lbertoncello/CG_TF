@@ -23,7 +23,8 @@ void Airplane::draw()
 
     glPushMatrix();
 
-    glTranslatef(dX, -dY, 0.0);
+    glTranslatef(dX, -dY, dZ);
+    cout << "dZ: " << dZ << endl;
     glRotatef(-inclinationAngle, 0.0, 0.0, 1.0);
 
     drawWings();
@@ -160,47 +161,66 @@ void Airplane::drawCannon()
 
 GLfloat Airplane::calcMovement_x(GLfloat deltaIdleTime)
 {
-    return speedNorm * deltaIdleTime * cos(moveAngle);
+    return speedNorm * deltaIdleTime * cos(moveAngleXY);
 }
 
 GLfloat Airplane::calcMovement_y(GLfloat deltaIdleTime)
 {
-    return speedNorm * deltaIdleTime * sin(moveAngle);
+    return speedNorm * deltaIdleTime * sin(moveAngleXY);
+}
+
+GLfloat Airplane::calcMovement_z(GLfloat deltaIdleTime)
+{
+    cout << "speedZ: " << speedNorm * deltaIdleTime * sin(moveAngleYZ) << endl;
+    cout << "angle: " << moveAngleYZ << endl;
+    return speedNorm * deltaIdleTime * sin(moveAngleYZ);
 }
 
 void Airplane::move(GLfloat deltaIdleTime)
 {
     updateTurnLeftAngle(deltaIdleTime);
     updateTurnRightAngle(deltaIdleTime);
+    updateTurnUpAngle(deltaIdleTime);
+    updateTurnDownAngle(deltaIdleTime);
     updateInclinationAngle(deltaIdleTime);
 
     dX += calcMovement_x(deltaIdleTime);
     dY -= calcMovement_y(deltaIdleTime);
+    dZ += calcMovement_z(deltaIdleTime);
 }
 
 void Airplane::updateTurningAngles(GLfloat deltaIdleTime)
 {
     updateTurnLeftAngle(deltaIdleTime);
     updateTurnRightAngle(deltaIdleTime);
+    updateTurnUpAngle(deltaIdleTime);
+    updateTurnDownAngle(deltaIdleTime);
 }
 
-GLfloat Airplane::calcNextMovement_x(GLfloat deltaIdleTime, GLfloat nextMoveAngle)
+GLfloat Airplane::calcNextMovement_x(GLfloat deltaIdleTime, GLfloat nextMoveAngleXY)
 {
-    return speedNorm * deltaIdleTime * cos(nextMoveAngle);
+    return speedNorm * deltaIdleTime * cos(nextMoveAngleXY);
 }
 
-GLfloat Airplane::calcNextMovement_y(GLfloat deltaIdleTime, GLfloat nextMoveAngle)
+GLfloat Airplane::calcNextMovement_y(GLfloat deltaIdleTime, GLfloat nextMoveAngleXY)
 {
-    return speedNorm * deltaIdleTime * sin(nextMoveAngle);
+    return speedNorm * deltaIdleTime * sin(nextMoveAngleXY);
+}
+
+GLfloat Airplane::calcNextMovement_z(GLfloat deltaIdleTime, GLfloat nextMoveAngleYZ)
+{
+    return speedNorm * deltaIdleTime * sin(nextMoveAngleYZ);
 }
 
 Point Airplane::getNextPosition(GLfloat deltaIdleTime)
 {
-    GLfloat nextMoveAngle = getNextMoveAngle(deltaIdleTime);
+    GLfloat nextMoveAngleXY = getNextMoveAngleXY(deltaIdleTime);
+    GLfloat nextMoveAngleYZ = getNextMoveAngleYZ(deltaIdleTime);
     Point nextPosition;
 
-    nextPosition.setX(dX + calcNextMovement_x(deltaIdleTime, nextMoveAngle));
-    nextPosition.setY(dY - calcNextMovement_y(deltaIdleTime, nextMoveAngle));
+    nextPosition.setX(dX + calcNextMovement_x(deltaIdleTime, nextMoveAngleXY));
+    nextPosition.setY(dY - calcNextMovement_y(deltaIdleTime, nextMoveAngleXY));
+    nextPosition.setZ(dZ - calcNextMovement_z(deltaIdleTime, nextMoveAngleYZ));
 
     return nextPosition;
 }
@@ -248,9 +268,9 @@ Circle Airplane::getAdjustedBody()
     return adjustedBody;
 }
 
-GLfloat Airplane::getNextMoveAngle(GLfloat deltaIdleTime)
+GLfloat Airplane::getNextMoveAngleXY(GLfloat deltaIdleTime)
 {
-    GLfloat nextAngle = moveAngle;
+    GLfloat nextAngle = moveAngleXY;
 
     if (isTurningLeft())
     {
@@ -265,11 +285,28 @@ GLfloat Airplane::getNextMoveAngle(GLfloat deltaIdleTime)
     return nextAngle;
 }
 
+GLfloat Airplane::getNextMoveAngleYZ(GLfloat deltaIdleTime)
+{
+    GLfloat nextAngle = moveAngleYZ;
+
+    if (isTurningUp())
+    {
+        nextAngle += (M_PI / 2.0 * deltaIdleTime);
+    }
+
+    if (isTurningDown())
+    {
+        nextAngle -= (M_PI / 2.0 * deltaIdleTime);
+    }
+
+    return nextAngle;
+}
+
 void Airplane::updateTurnRightAngle(GLfloat deltaIdleTime)
 {
     if (isTurningRight())
     {
-        moveAngle -= M_PI / 2.0 * deltaIdleTime;
+        moveAngleXY -= M_PI / 2.0 * deltaIdleTime;
     }
 }
 
@@ -277,7 +314,24 @@ void Airplane::updateTurnLeftAngle(GLfloat deltaIdleTime)
 {
     if (isTurningLeft())
     {
-        moveAngle += M_PI / 2.0 * deltaIdleTime;
+        moveAngleXY += M_PI / 2.0 * deltaIdleTime;
+    }
+}
+
+void Airplane::updateTurnUpAngle(GLfloat deltaIdleTime)
+{
+    if (isTurningUp())
+    {
+        cout << "pra cima" << endl;
+        moveAngleYZ += M_PI / 2.0 * deltaIdleTime;
+    }
+}
+
+void Airplane::updateTurnDownAngle(GLfloat deltaIdleTime)
+{
+    if (isTurningDown())
+    {
+        moveAngleYZ -= M_PI / 2.0 * deltaIdleTime;
     }
 }
 
@@ -303,6 +357,9 @@ void Airplane::reset()
     body.setRadius(initialRadius);
     dX = 0.0; //variação em X
     dY = 0.0; //variação em Y
+    dZ = 0.0;
+    moveAngleXY = 0.0;
+    moveAngleYZ = 0.0;
     inclinationAngle = 0;
     speedNorm = 0.0;
     turningLeft = false;

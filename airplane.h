@@ -22,18 +22,22 @@ protected:
     GLfloat initialRadius;
     GLfloat dX = 0.0; //variação em X
     GLfloat dY = 0.0; //variação em Y
+    GLfloat dZ = 0.0; //variação em Z
     GLfloat inclinationAngle = 0.0;
     GLfloat speedNorm = 0.0;
     GLfloat speedIncrement = 5.0;
     bool turningLeft = false;
     bool turningRight = false;
+    bool turningUp = false;
+    bool turningDown = false;
     bool flying = false;
     bool takingOff = false;
     bool startPositionInitialized = false;
     bool initialRadiusInitialized = false;
     Draw drawer;
     vector<GLfloat> speed;
-    GLfloat moveAngle;
+    GLfloat moveAngleXY;
+    GLfloat moveAngleYZ;
     GLfloat airplaneSpeedMultiplier = 1.0;
     GLfloat bulletSpeedMultiplier = 1.0;
     Calc calc;
@@ -43,6 +47,7 @@ protected:
 
     void speedInit()
     {
+        speed.push_back(0.0);
         speed.push_back(0.0);
         speed.push_back(0.0);
     }
@@ -55,9 +60,13 @@ protected:
     void drawCannon();
     void updateTurnRightAngle(GLfloat deltaIdleTime);
     void updateTurnLeftAngle(GLfloat deltaIdleTime);
-    GLfloat getNextMoveAngle(GLfloat deltaIdleTime);
-    GLfloat calcNextMovement_x(GLfloat deltaIdleTime, GLfloat nextMoveAngle);
-    GLfloat calcNextMovement_y(GLfloat deltaIdleTime, GLfloat nextMoveAngle);
+    void updateTurnUpAngle(GLfloat deltaIdleTime);
+    void updateTurnDownAngle(GLfloat deltaIdleTime);
+    GLfloat getNextMoveAngleXY(GLfloat deltaIdleTime);
+    GLfloat getNextMoveAngleYZ(GLfloat deltaIdleTime);
+    GLfloat calcNextMovement_x(GLfloat deltaIdleTime, GLfloat nextMoveAngleXY);
+    GLfloat calcNextMovement_y(GLfloat deltaIdleTime, GLfloat nextMoveAngleXY);
+    GLfloat calcNextMovement_z(GLfloat deltaIdleTime, GLfloat nextMoveAngleYZ);
     void updateInclinationAngle(GLfloat deltaIdleTime);
     Point getPositionAdjusted(Point position);
 
@@ -125,6 +134,16 @@ public:
         return turningRight;
     }
 
+    bool isTurningUp()
+    {
+        return turningUp;
+    }
+
+    bool isTurningDown()
+    {
+        return turningDown;
+    }
+
     vector<GLfloat> &getSpeed()
     {
         return speed;
@@ -184,7 +203,7 @@ public:
     void setSpeed(vector<GLfloat> speed)
     {
         speedNorm = calc.norm(speed) * this->airplaneSpeedMultiplier;
-        moveAngle = 0;
+        moveAngleXY = 0;
     }
 
     void setSpeedNorm(GLfloat speedNorm)
@@ -222,6 +241,16 @@ public:
         this->turningRight = turningRight;
     }
 
+    void setTurningUp(bool turningUp) 
+    {
+        this->turningUp = turningUp;
+    }
+
+    void setTurningDown(bool turningDown)
+    {
+        this->turningDown = turningDown;
+    }
+
     void setSpeedIncrement(GLfloat speedIncrement)
     {
         this->speedIncrement = speedIncrement;
@@ -252,6 +281,7 @@ public:
     bool checkIntersection(Circle flightAreaBody, Circle enemyBody, GLfloat deltaIdleTime);
     GLfloat calcMovement_x(GLfloat deltaIdleTime);
     GLfloat calcMovement_y(GLfloat deltaIdleTime);
+    GLfloat calcMovement_z(GLfloat deltaIdleTime);
     Circle getAdjustedBody();
     bool isInside(Circle circle, GLint moveDirection, GLfloat deltaIdleTime);
     Point getNextPosition(GLfloat deltaIdleTime);
