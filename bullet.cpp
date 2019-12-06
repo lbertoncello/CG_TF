@@ -33,7 +33,8 @@ void Bullet::draw()
     glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_color);
 
     glTranslatef(dX, -dY, 0.0);
-    drawer.drawFilledCircle(this->body);
+    // drawer.drawFilledCircle(this->body);
+    drawer.drawSphere(this->body);
 
     glPopMatrix();
 }

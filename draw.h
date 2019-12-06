@@ -98,6 +98,9 @@ public:
     void drawAllLines();
     void drawGame();
     void chooseCircleToMove();
+    void drawEllipsoid(Circle circle);
+    void drawCylinder(Circle circle);
+    void drawSphere(Circle circle);
 };
 
 #endif

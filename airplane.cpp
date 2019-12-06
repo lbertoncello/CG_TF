@@ -27,7 +27,7 @@ void Airplane::draw()
     glRotatef(-inclinationAngle, 0.0, 0.0, 1.0);
 
     // drawWings();
-    // drawCannon();
+    drawCannon();
     drawMainBody();
     // drawCockpit();
     // drawTail();
@@ -41,8 +41,11 @@ void Airplane::drawMainBody()
 
     glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_g);
 
-    glutSolidCube(this->body.getRadius());
-
+    // glutSolidCube(this->body.getRadius());
+    glPushMatrix();
+    glScalef(1, 0.25, 0.35);
+    drawer.drawEllipsoid(this->body);
+    glPopMatrix();
     // drawer.drawEllipse(this->body);
 }
 
@@ -147,6 +150,7 @@ void Airplane::drawPropeller()
     glPopMatrix();
 }
 
+
 void Airplane::drawCannon()
 {
     glPushMatrix();
@@ -155,8 +159,8 @@ void Airplane::drawCannon()
 
     glTranslatef(this->body.getRadius() * 0.9, 0.0, 0.0);
     glRotatef(-90 + calc.radiansToDegrees(cannonAngle), 0.0, 0.0, 1.0);
-    drawer.drawRectangle(this->body.getRadius() / 5.0, this->body.getRadius() / 2.0, color);
-
+    // drawer.drawRectangle(this->body.getRadius() / 5.0, this->body.getRadius() / 2.0, color);
+    drawer.drawCylinder(this->body);
     glPopMatrix();
 }
 
