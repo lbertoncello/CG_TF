@@ -10,6 +10,7 @@
 #include <vector>
 
 #include "circle.h"
+#include "sphere.h"
 #include "line.h"
 
 using namespace std;
@@ -98,9 +99,9 @@ public:
     void drawAllLines();
     void drawGame();
     void chooseCircleToMove();
-    void drawEllipsoid(Circle circle);
-    void drawCylinder(Circle circle);
-    void drawSphere(Circle circle);
+    void drawEllipsoid(Sphere sphere);
+    void drawCylinder(Sphere sphere);
+    void drawSphere(Sphere sphere);
 };
 
 #endif

@@ -248,15 +248,15 @@ void Draw::drawText(string text, Point position)
     glPopMatrix();
 }
 
-void Draw::drawEllipsoid(Circle circle)
+void Draw::drawEllipsoid(Sphere sphere)
 {
-    glutSolidSphere(circle.getRadius(), 30, 30);
+    glutSolidSphere(sphere.getRadius(), 30, 30);
 }
 
-void Draw::drawCylinder(Circle circle)
+void Draw::drawCylinder(Sphere sphere)
 {
-    GLfloat radius = circle.getRadius() * 0.1;
-    GLfloat height = circle.getRadius() * 0.5;
+    GLfloat radius = sphere.getRadius() * 0.1;
+    GLfloat height = sphere.getRadius() * 0.5;
     GLfloat R = 0.0;
     GLfloat G = 0.0;
     GLfloat B = 0.0;
@@ -301,7 +301,7 @@ void Draw::drawCylinder(Circle circle)
     glEnd();
 }
 
-void Draw::drawSphere(Circle circle)
+void Draw::drawSphere(Sphere sphere)
 {
-    glutSolidSphere(circle.getRadius(), 100, 100);
+    glutSolidSphere(sphere.getRadius(), 100, 100);
 }
