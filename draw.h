@@ -99,9 +99,10 @@ public:
     void drawAllLines();
     void drawGame();
     void chooseCircleToMove();
-    void drawEllipsoid(Sphere sphere);
-    void drawCylinder(Sphere sphere);
-    void drawSphere(Sphere sphere);
+    void drawEllipsoid(Circle circle);
+    void drawCylinder(Circle circle);
+    void drawCylinder(GLfloat radius, GLfloat height);
+    void drawSphere(Circle circle);
 };
 
 #endif
