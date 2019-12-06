@@ -43,7 +43,7 @@ void Airplane::drawMainBody()
 
     // glutSolidCube(this->body.getRadius());
     glPushMatrix();
-    glScalef(1, 0.25, 0.35);
+    // glScalef(1, 0.25, 0.35);
     drawer.drawEllipsoid(this->body);
     glPopMatrix();
     // drawer.drawEllipse(this->body);
