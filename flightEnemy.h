@@ -26,7 +26,7 @@ class FlightEnemy : public Airplane
 public:
     FlightEnemy() {}
 
-    FlightEnemy(Circle body, GLfloat airplaneSpeedMultiplier, GLfloat bulletSpeedMultiplier, GLfloat shotsFrequency) : Airplane(body, airplaneSpeedMultiplier, bulletSpeedMultiplier)
+    FlightEnemy(Sphere body, GLfloat airplaneSpeedMultiplier, GLfloat bulletSpeedMultiplier, GLfloat shotsFrequency) : Airplane(body, airplaneSpeedMultiplier, bulletSpeedMultiplier)
     {
         this->shotsFrequency = shotsFrequency;
         this->timeToShot = 1.0 / shotsFrequency;

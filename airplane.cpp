@@ -237,7 +237,7 @@ Point Airplane::getNextPosition(GLfloat deltaIdleTime)
     return nextPosition;
 }
 
-bool Airplane::checkIntersection(Circle flightAreaBody, Circle enemyBody, GLfloat deltaIdleTime)
+bool Airplane::checkIntersection(Circle flightAreaBody, Sphere enemyBody, GLfloat deltaIdleTime)
 {
     Circle adjustedBody = Circle(this->getNextPosition(deltaIdleTime), this->body.getRadius());
     adjustedBody.setCenter_x(flightAreaBody.getCenter_x() + adjustedBody.getCenter_x());
@@ -246,34 +246,34 @@ bool Airplane::checkIntersection(Circle flightAreaBody, Circle enemyBody, GLfloa
     return adjustedBody.checkIntersection(enemyBody, this->drawer.getNumSegments());
 }
 
-bool Airplane::isInside(Circle circle, GLint moveDirection, GLfloat deltaIdleTime)
+// bool Airplane::isInside(Sphere sphere, GLint moveDirection, GLfloat deltaIdleTime)
+// {
+//     Sphere adjustedBody = this->body;
+//     adjustedBody.setCenter_x(sphere.getCenter_x() + this->dX);
+//     adjustedBody.setCenter_y(sphere.getCenter_y() + this->dY);
+
+//     switch (moveDirection)
+//     {
+//     case MOVE_UP:
+//         adjustedBody.setCenter_y(adjustedBody.getCenter_y() - calcMovement_y(deltaIdleTime));
+//         break;
+//     case MOVE_DOWN:
+//         adjustedBody.setCenter_y(adjustedBody.getCenter_y() + calcMovement_y(deltaIdleTime));
+//         break;
+//     case MOVE_LEFT:
+//         adjustedBody.setCenter_x(adjustedBody.getCenter_x() - calcMovement_x(deltaIdleTime));
+//         break;
+//     case MOVE_RIGHT:
+//         adjustedBody.setCenter_x(adjustedBody.getCenter_x() + calcMovement_x(deltaIdleTime));
+//         break;
+//     }
+
+//     return sphere.isInside(adjustedBody, this->drawer.getNumSegments());
+// }
+
+Sphere Airplane::getAdjustedBody()
 {
-    Circle adjustedBody = this->body;
-    adjustedBody.setCenter_x(circle.getCenter_x() + this->dX);
-    adjustedBody.setCenter_y(circle.getCenter_y() + this->dY);
-
-    switch (moveDirection)
-    {
-    case MOVE_UP:
-        adjustedBody.setCenter_y(adjustedBody.getCenter_y() - calcMovement_y(deltaIdleTime));
-        break;
-    case MOVE_DOWN:
-        adjustedBody.setCenter_y(adjustedBody.getCenter_y() + calcMovement_y(deltaIdleTime));
-        break;
-    case MOVE_LEFT:
-        adjustedBody.setCenter_x(adjustedBody.getCenter_x() - calcMovement_x(deltaIdleTime));
-        break;
-    case MOVE_RIGHT:
-        adjustedBody.setCenter_x(adjustedBody.getCenter_x() + calcMovement_x(deltaIdleTime));
-        break;
-    }
-
-    return circle.isInside(adjustedBody, this->drawer.getNumSegments());
-}
-
-Circle Airplane::getAdjustedBody()
-{
-    Circle adjustedBody = this->body;
+    Sphere adjustedBody = this->body;
     adjustedBody.setCenter_x(adjustedBody.getCenter_x() - startPosition.getX() + this->dX);
     adjustedBody.setCenter_y(adjustedBody.getCenter_y() - startPosition.getY() + this->dY);
 
@@ -512,7 +512,7 @@ Point Airplane::getCam1Point()
     // GLfloat camPoint_z = dZ + (body.getRadius() * sin((moveAngleYZ + 45)) * 0.8);
     GLfloat camPoint_x = dX + (body.getRadius() * cos((moveAngleYZ + calc.degreesToRadians(45))) * cos(moveAngleXY) * 0.9);
     GLfloat camPoint_y = -dY + (body.getRadius() * cos((moveAngleYZ + calc.degreesToRadians(45))) * sin(moveAngleXY) * 0.9);
-    GLfloat camPoint_z = dZ + (body.getRadius() * sin((moveAngleYZ + calc.degreesToRadians(45))) * 2.0);
+    GLfloat camPoint_z = dZ + (body.getRadius() * sin((moveAngleYZ + calc.degreesToRadians(45))) * 1.5);
 
     return Point(camPoint_x, camPoint_y, camPoint_z);
 }

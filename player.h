@@ -12,7 +12,7 @@ class Player : public Airplane
 public:
     Player() {}
 
-    Player(Circle body) : Airplane(body) {}
+    Player(Sphere body) : Airplane(body) {}
 
     void setSpeed(vector<GLfloat> speed)
     {

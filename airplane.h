@@ -1,6 +1,7 @@
 #ifndef AIRPLANE_H
 #define AIRPLANE_H
 
+#include "sphere.h"
 #include "circle.h"
 #include "bullet.h"
 #include "draw.h"
@@ -16,7 +17,7 @@
 class Airplane
 {
 protected:
-    Circle body;
+    Sphere body;
     Point currentPosition;
     Point startPosition;
     GLfloat initialRadius;
@@ -76,7 +77,7 @@ public:
         speedInit();
     }
 
-    Airplane(Circle body)
+    Airplane(Sphere body)
     {
         this->body = body;
         initialRadius = body.getRadius();
@@ -84,7 +85,7 @@ public:
         speedInit();
     }
 
-    Airplane(Circle body, GLfloat airplaneSpeedMultiplier, GLfloat bulletSpeedMultiplier)
+    Airplane(Sphere body, GLfloat airplaneSpeedMultiplier, GLfloat bulletSpeedMultiplier)
     {
         this->body = body;
         this->airplaneSpeedMultiplier = airplaneSpeedMultiplier;
@@ -94,7 +95,7 @@ public:
         speedInit();
     }
 
-    Circle &getBody()
+    Sphere &getBody()
     {
         return body;
     }
@@ -176,7 +177,7 @@ public:
         return dZ;
     }
 
-    void setBody(Circle body)
+    void setBody(Sphere body)
     {
         this->body = body;
 
@@ -293,12 +294,12 @@ public:
 
     void draw();
     void move(GLfloat deltaIdleTime);
-    bool checkIntersection(Circle flightAreaBody, Circle enemyBody, GLfloat deltaIdleTime);
+    bool checkIntersection(Circle flightAreaBody, Sphere enemyBody, GLfloat deltaIdleTime);
     GLfloat calcMovement_x(GLfloat deltaIdleTime);
     GLfloat calcMovement_y(GLfloat deltaIdleTime);
     GLfloat calcMovement_z(GLfloat deltaIdleTime);
-    Circle getAdjustedBody();
-    bool isInside(Circle circle, GLint moveDirection, GLfloat deltaIdleTime);
+    Sphere getAdjustedBody();
+    bool isInside(Sphere sphere, GLint moveDirection, GLfloat deltaIdleTime);
     Point getNextPosition(GLfloat deltaIdleTime);
     void updateTurningAngles(GLfloat deltaIdleTime);
     void incrementSpeed();

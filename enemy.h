@@ -2,6 +2,7 @@
 #define ENEMY_H
 
 #include "circle.h"
+#include "sphere.h"
 
 class Enemy
 {

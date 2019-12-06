@@ -86,31 +86,31 @@ void ParametersReading::windowInit(GLfloat x_size, GLfloat y_size)
 void ParametersReading::readCircle(TiXmlElement *circle)
 {
     TiXmlAttribute *circleAttribute = circle->FirstAttribute();
-    Circle _circle;
+    Sphere _sphere;
     string color;
 
     while (circleAttribute)
     {
         if (strcmp(circleAttribute->Name(), "cx") == 0)
         {
-            _circle.setCenter_x(stof(circleAttribute->Value()));
+            _sphere.setCenter_x(stof(circleAttribute->Value()));
         }
         else if (strcmp(circleAttribute->Name(), "cy") == 0)
         {
-            _circle.setCenter_y(stof(circleAttribute->Value()));
+            _sphere.setCenter_y(stof(circleAttribute->Value()));
         }
         else if (strcmp(circleAttribute->Name(), "r") == 0)
         {
-            _circle.setRadius(stof(circleAttribute->Value()));
+            _sphere.setRadius(stof(circleAttribute->Value()));
         }
         else if (strcmp(circleAttribute->Name(), "fill") == 0)
         {
-            _circle.setColor(Color(circleAttribute->Value()));
+            _sphere.setColor(Color(circleAttribute->Value()));
             color = circleAttribute->Value();
         }
         else if (strcmp(circleAttribute->Name(), "id") == 0)
         {
-            _circle.setId(stoi(circleAttribute->Value()));
+            _sphere.setId(stoi(circleAttribute->Value()));
         }
 
         circleAttribute = circleAttribute->Next();
@@ -118,6 +118,13 @@ void ParametersReading::readCircle(TiXmlElement *circle)
 
     if (color == string("blue"))
     {
+        Circle _circle;
+        _circle.setId(_sphere.getId());
+        _circle.setCenter_x(_sphere.getCenter_x());
+        _circle.setCenter_y(_sphere.getCenter_y());
+        _circle.setRadius(_sphere.getRadius());
+        _circle.setColor(_sphere.getColor());
+
         FlightArea flightArea(_circle);
         this->gameRuntime->getGame().setFlightArea(flightArea);
 
@@ -126,18 +133,18 @@ void ParametersReading::readCircle(TiXmlElement *circle)
     }
     else if (color == string("green"))
     {
-        Player player(_circle);
+        Player player(_sphere);
         this->gameRuntime->getGame().setPlayer(player);
     }
     else if (color == string("red"))
     {
-        FlightEnemy flightEnemy(_circle, this->gameRuntime->getEnemyAirplaneSpeedMult(), this->gameRuntime->getEnemyBulletSpeedMult(), this->gameRuntime->getEnemyShotsFrequency());
+        FlightEnemy flightEnemy(_sphere, this->gameRuntime->getEnemyAirplaneSpeedMult(), this->gameRuntime->getEnemyBulletSpeedMult(), this->gameRuntime->getEnemyShotsFrequency());
         // FlightEnemy flightEnemy(_circle);
         this->gameRuntime->getGame().addFlightEnemy(flightEnemy);
     }
     else if (color == string("orange"))
     {
-        TerrestrialEnemy terrestrialEnemy(_circle);
+        TerrestrialEnemy terrestrialEnemy(_sphere);
         this->gameRuntime->getGame().addTerrestrialEnemy(terrestrialEnemy);
     }
 }
