@@ -310,6 +310,8 @@ public:
     Point getCurrentPositionAdjusted();
     void rotateCannon(GLfloat moviment, GLfloat deltaIdleTime);
     Bullet *shoot(GLfloat deltaIdleTime);
+    Point getLookingPoint();
+    Point getCam1Point();
 };
 
 #endif
