@@ -41,20 +41,11 @@ void Airplane::drawMainBody()
 
     glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_g);
 
-<<<<<<< HEAD
-    glPushMatrix();
-    // glutSolidCube(this->body.getRadius());
-    cout << "radius: " << body.getRadius() << endl;
-    glutSolidSphere(body.getRadius(), 100, 100);
-    glPopMatrix();
-
-=======
     // glutSolidCube(this->body.getRadius());
     glPushMatrix();
     glScalef(1, 0.25, 0.35);
     drawer.drawEllipsoid(this->body);
     glPopMatrix();
->>>>>>> origin/develop
     // drawer.drawEllipse(this->body);
 }
 
