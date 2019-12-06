@@ -136,17 +136,17 @@ bool Game::checkPlayerBulletCollision(FlightEnemy &flightEnemy)
 
 bool Game::checkEnemyBulletCollision()
 {
-    // vector<Bullet *>::iterator enemyBullets_it;
-    // for (enemyBullets_it = enemyBullets.begin(); enemyBullets_it != enemyBullets.end();)
-    // {
-    //     if (player.isFlying() && player.getAdjustedBody().checkIntersection((*enemyBullets_it)->getAdjustedBody()))
-    //     {
-    //         player.setDestroyed(true);
-    //         return true;
-    //     }
+    vector<Bullet *>::iterator enemyBullets_it;
+    for (enemyBullets_it = enemyBullets.begin(); enemyBullets_it != enemyBullets.end();)
+    {
+        if (player.isFlying() && player.getAdjustedBody().checkIntersection((*enemyBullets_it)->getAdjustedBody()))
+        {
+            player.setDestroyed(true);
+            return true;
+        }
 
-    //     enemyBullets_it++;
-    // }
+        enemyBullets_it++;
+    }
 
     return false;
 }
