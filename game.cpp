@@ -510,14 +510,14 @@ void Game::drawGame(GLfloat deltaIdleTime)
 {
     this->deltaIdleTime = deltaIdleTime;
 
-    // drawFlightArea();
-    // drawTerrestrialEnemies();
-    // drawFlightEnemies();
-    // drawAirportRunway();
-    // drawBombs();
+    drawFlightArea();
+    drawTerrestrialEnemies();
+    drawFlightEnemies();
+    drawAirportRunway();
+    drawBombs();
     drawPlayer();
-    // drawBullets();
-    // drawScoreboard();
+    drawBullets();
+    drawScoreboard();
 }
 
 GLint Game::amountOfUndamagedTerrestrialEnemies()

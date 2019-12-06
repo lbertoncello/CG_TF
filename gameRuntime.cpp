@@ -29,6 +29,28 @@ void GameRuntime::keyOperations(void)
         {
             game.getPlayer().setTurningRight(false);
         }
+        if (keyStates['w'])
+        {
+            if (game.isPlayerFlying())
+            {
+                game.getPlayer().setTurningUp(true);
+            }
+        }
+        else
+        {
+            game.getPlayer().setTurningUp(false);
+        }
+        if (keyStates['s'])
+        {
+            if (game.isPlayerFlying())
+            {
+                game.getPlayer().setTurningDown(true);
+            }
+        }
+        else
+        {
+            game.getPlayer().setTurningDown(false);
+        }
         if (keyStates['u'])
         {
             if (game.isPlayerFlying() == false && game.isPlayerTakingOff() == false)
@@ -65,6 +87,14 @@ void GameRuntime::keyPress(unsigned char key, GLint x, GLint y)
         keyStates[key] = true;
     }
     if (key == 'd')
+    {
+        keyStates[key] = true;
+    }
+    if (key == 'w')
+    {
+        keyStates[key] = true;
+    }
+    if (key == 's')
     {
         keyStates[key] = true;
     }

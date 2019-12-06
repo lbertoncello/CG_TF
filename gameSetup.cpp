@@ -2,7 +2,7 @@
 
 void GameSetup::display(void)
 {
-    double camDist = 300;
+    double camDist = 800;
     double camXYAngle = 0;
     double camXZAngle = 0;
     int toggleCam = 0;
@@ -14,6 +14,8 @@ void GameSetup::display(void)
     {
         // PrintText(0.1, 0.1, "Movable Camera", 0, 1, 0);
         glTranslatef(0, 0, -camDist);
+        // glTranslatef(gameRuntime.getGame().getPlayer().getDX(), gameRuntime.getGame().getPlayer().getDY(), -camDist);
+        // gluLookAt(gameRuntime.getGame().getPlayer().getDX(), -gameRuntime.getGame().getPlayer().getDY(), 200 + gameRuntime.getGame().getPlayer().getDZ(), 400, 400, 0, 0, 0, 1);
         glRotatef(camXZAngle, 1, 0, 0);
         glRotatef(camXYAngle, 0, 1, 0);
     }
@@ -28,14 +30,14 @@ void GameSetup::display(void)
         // gluLookAt(0, 0, 0, -sin(angleYear / 180 * M_PI), 0, -cos(angleYear / 180 * M_PI), 0, 1, 0);
     }
 
-    GLfloat light_position[] = {0.0, 0.0, 0.0, 1.0};
+    GLfloat light_position[] = {0.0, 0.0, 10.0, 1.0};
     glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 
-    GLfloat no_mat[] = {0.0, 0.0, 0.0, 1.0};
-    glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,
-                 no_mat);
-    glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
-    glMaterialfv(GL_FRONT, GL_SHININESS, no_mat);
+    // GLfloat no_mat[] = {0.0, 0.0, 0.0, 1.0};
+    // glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,
+    //              no_mat);
+    // glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
+    // glMaterialfv(GL_FRONT, GL_SHININESS, no_mat);
 
     gameRuntime.getGame().drawGame(deltaIdleTime);
 
@@ -57,12 +59,15 @@ void GameSetup::idle(void)
 void GameSetup::reshape(int w, int h)
 {
     glViewport(0, 0, (GLsizei)w, (GLsizei)h);
+    // glViewport(0, 0, (GLsizei)500, (GLsizei)500);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     if (w <= h)
-        gluPerspective(45, (GLfloat)h / (GLfloat)w, 2, 1000);
+        gluPerspective(45, (GLfloat)h / (GLfloat)w, 2, 2000);
     else
-        gluPerspective(45, (GLfloat)w / (GLfloat)h, 2, 1000);
+        gluPerspective(45, (GLfloat)w / (GLfloat)h, 2, 2000);
+
+    // gluPerspective(45, (GLfloat)w *0 / (GLfloat)h, 2, 1000);
     glMatrixMode(GL_MODELVIEW);
 }
 
