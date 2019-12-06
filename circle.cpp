@@ -65,3 +65,28 @@ bool Circle::isInside(Circle circle, GLint num_segments)
 
     return true;
 }
+
+bool Circle::checkIntersection(Sphere sphere, GLint num_segments)
+{
+    float r0sqr = sphere.getRadius() * sphere.getRadius();
+    float r1sqr = this->radius * this->radius;
+
+    float distX = sphere.getCenter_x() - this->getCenter_x();
+    float distY = sphere.getCenter_y() - this->getCenter_y();
+    float distZ = sphere.getCenter_z() - 0;
+
+    // Since we already need to square these, we won't need to take the absolute value
+    // to accurately compare them to the radii
+    distX *= distX;
+    distY *= distY;
+    distZ *= distZ;
+
+    float sqrDist = (distX + distY + distZ);
+
+    if ((r0sqr + r1sqr) > sqrDist)
+    {
+        return true;
+    }
+
+    return false;
+}

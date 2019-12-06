@@ -34,7 +34,7 @@ void Bullet::draw()
 
     glTranslatef(dX, -dY, 0.0);
     // drawer.drawFilledCircle(this->body);
-    drawer.drawSphere(this->body);
+    // drawer.drawSphere(this->body);
 
     glPopMatrix();
 }

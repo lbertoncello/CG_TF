@@ -1,55 +1,53 @@
-#ifndef CIRCLE_H
-#define CIRCLE_H
+#ifndef SPHERE_H
+#define SPHERE_H
 
 #include <iostream>
 #include <GL/glut.h>
 
 #include "point.h"
 #include "color.h"
-#include "sphere.h"
 
-class Circle
+class Sphere
 {
-private:
     GLint id;
     Point center;
     GLfloat radius;
     Color color;
     bool moving = false;
     bool terrestrial = false;
-    bool mainCircle = false;
+    bool mainSphere = false;
 
 public:
-    Circle() {}
+    Sphere() {}
 
-    Circle(Point center, GLfloat radius)
+    Sphere(Point center, GLfloat radius)
     {
         this->center = center;
         this->radius = radius;
     }
 
-    Circle(Point center, GLfloat radius, Color color)
+    Sphere(Point center, GLfloat radius, Color color)
     {
         this->center = center;
         this->radius = radius;
         this->color = color;
     }
 
-    Circle(GLint id, Point center, GLfloat radius)
+    Sphere(GLint id, Point center, GLfloat radius)
     {
         this->id = id;
         this->center = center;
         this->radius = radius;
     }
 
-    Circle(GLfloat center_x, GLfloat center_y, GLfloat radius)
+    Sphere(GLfloat center_x, GLfloat center_y, GLfloat radius)
     {
         this->center.setX(center_x);
         this->center.setY(center_y);
         this->radius = radius;
     }
 
-    Circle(GLint id, GLfloat center_x, GLfloat center_y, GLfloat radius)
+    Sphere(GLint id, GLfloat center_x, GLfloat center_y, GLfloat radius)
     {
         this->id = id;
         this->center.setX(center_x);
@@ -62,7 +60,8 @@ public:
         return id;
     }
 
-    Point getCenter() {
+    Point getCenter()
+    {
         return center;
     }
 
@@ -76,12 +75,17 @@ public:
         return center.getY();
     }
 
+    GLfloat getCenter_z()
+    {
+        return center.getZ();
+    }
+
     GLfloat getRadius()
     {
         return radius;
     }
 
-    Color& getColor()
+    Color &getColor()
     {
         return color;
     }
@@ -96,9 +100,9 @@ public:
         return terrestrial;
     }
 
-    bool isMainCircle()
+    bool isMainSphere()
     {
-        return mainCircle;
+        return mainSphere;
     }
 
     void setId(GLint id)
@@ -114,6 +118,11 @@ public:
     void setCenter_y(GLfloat center_y)
     {
         this->center.setY(center_y);
+    }
+
+    void setCenter_z(GLfloat center_z)
+    {
+        this->center.setZ(center_z);
     }
 
     void setRadius(GLfloat radius)
@@ -136,9 +145,9 @@ public:
         this->terrestrial = terrestrial;
     }
 
-    void setMainCircle(bool mainCircle)
+    void setMainSphere(bool mainSphere)
     {
-        this->mainCircle = mainCircle;
+        this->mainSphere = mainSphere;
     }
 
     void updateCenter(Point p)
@@ -153,12 +162,11 @@ public:
         this->center.setY(y);
     }
 
-    bool isPointInCircle(Point p);
-    bool isPointInCircle(GLfloat x, GLfloat y);
-    bool checkIntersection(Circle circle, GLint num_segments);
-    bool checkIntersection(Circle circle);
-    bool checkIntersection(Sphere sphere, GLint num_segments);
-    bool isInside(Circle circle, GLint num_segments);
+    bool isPointInSphere(Point p);
+    bool isPointInSphere(GLfloat x, GLfloat y, GLfloat z);
+    bool checkIntersection(Sphere Sphere, GLint num_segments);
+    bool checkIntersection(Sphere Sphere);
+    bool isInside(Sphere Sphere, GLint num_segments);
 };
 
 #endif

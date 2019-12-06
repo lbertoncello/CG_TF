@@ -118,48 +118,48 @@ void Game::reset()
 
 bool Game::checkPlayerBulletCollision(FlightEnemy &flightEnemy)
 {
-    vector<Bullet *>::iterator playerBullets_it;
-    for (playerBullets_it = playerBullets.begin(); playerBullets_it != playerBullets.end();)
-    {
-        if (flightEnemy.getAdjustedBody().checkIntersection((*playerBullets_it)->getAdjustedBody()))
-        {
-            return true;
-        }
+    // vector<Bullet *>::iterator playerBullets_it;
+    // for (playerBullets_it = playerBullets.begin(); playerBullets_it != playerBullets.end();)
+    // {
+    //     if (flightEnemy.getAdjustedBody().checkIntersection((*playerBullets_it)->getAdjustedBody()))
+    //     {
+    //         return true;
+    //     }
 
-        playerBullets_it++;
-    }
+    //     playerBullets_it++;
+    // }
 
     return false;
 }
 
 bool Game::checkEnemyBulletCollision()
 {
-    vector<Bullet *>::iterator enemyBullets_it;
-    for (enemyBullets_it = enemyBullets.begin(); enemyBullets_it != enemyBullets.end();)
-    {
-        if (player.isFlying() && player.getAdjustedBody().checkIntersection((*enemyBullets_it)->getAdjustedBody()))
-        {
-            player.setDestroyed(true);
-            return true;
-        }
+    // vector<Bullet *>::iterator enemyBullets_it;
+    // for (enemyBullets_it = enemyBullets.begin(); enemyBullets_it != enemyBullets.end();)
+    // {
+    //     if (player.isFlying() && player.getAdjustedBody().checkIntersection((*enemyBullets_it)->getAdjustedBody()))
+    //     {
+    //         player.setDestroyed(true);
+    //         return true;
+    //     }
 
-        enemyBullets_it++;
-    }
+    //     enemyBullets_it++;
+    // }
 
     return false;
 }
 
 bool Game::checkBombCollision(Bomb *bomb)
 {
-    vector<TerrestrialEnemy>::iterator terrestrialEnemies_it;
-    for (terrestrialEnemies_it = terrestrialEnemies.begin(); terrestrialEnemies_it != terrestrialEnemies.end(); terrestrialEnemies_it++)
-    {
-        if (terrestrialEnemies_it->getAdjustedBody().checkIntersection(bomb->getAdjustedBody()))
-        {
-            terrestrialEnemies_it->setDestroyed(true);
-            return true;
-        }
-    }
+    // vector<TerrestrialEnemy>::iterator terrestrialEnemies_it;
+    // for (terrestrialEnemies_it = terrestrialEnemies.begin(); terrestrialEnemies_it != terrestrialEnemies.end(); terrestrialEnemies_it++)
+    // {
+    //     if (terrestrialEnemies_it->getAdjustedBody().checkIntersection(bomb->getAdjustedBody()))
+    //     {
+    //         terrestrialEnemies_it->setDestroyed(true);
+    //         return true;
+    //     }
+    // }
 
     return false;
 }
@@ -235,11 +235,11 @@ void Game::updateTakeOff(high_resolution_clock::time_point currentTime, GLfloat 
 
     if (beforeAirportRunwayMiddle == false)
     {
-        duration<GLfloat> timeSpan = duration_cast<duration<GLfloat>>(currentTime - sizeIncreaseStartTime);
-        GLfloat sizeIncreaseTimeElapsed = timeSpan.count();
+        // duration<GLfloat> timeSpan = duration_cast<duration<GLfloat>>(currentTime - sizeIncreaseStartTime);
+        // GLfloat sizeIncreaseTimeElapsed = timeSpan.count();
 
-        GLfloat newRadius = player.getInitialRadius() + currentRadius(sizeIncreaseTimeElapsed);
-        player.getBody().setRadius(newRadius);
+        // GLfloat newRadius = player.getInitialRadius() + currentRadius(sizeIncreaseTimeElapsed);
+        // player.getBody().setRadius(newRadius);
     }
     else
     {
@@ -581,7 +581,7 @@ bool Game::checkFlightEnemiesCollision()
     for (flightEnemy_it = flightEnemies.begin(); flightEnemy_it != flightEnemies.end(); flightEnemy_it++)
     {
         if (!flightEnemy_it->isDestroyed() && player.checkIntersection(flightArea.getArea(),
-                                                                       Circle(flightEnemy_it->getCurrentPositionAdjusted(), flightEnemy_it->getBody().getRadius()),
+                                                                       Sphere(flightEnemy_it->getCurrentPositionAdjusted(), flightEnemy_it->getBody().getRadius()),
                                                                        deltaIdleTime))
         {
             player.setDestroyed(true);

@@ -8,7 +8,7 @@ class TerrestrialEnemy
 {
 private:
     Draw drawer;
-    Circle body;
+    Sphere body;
     Point currentPosition;
     Point startPosition;
     GLfloat dX;
@@ -20,12 +20,12 @@ private:
 public:
     TerrestrialEnemy() {}
 
-    TerrestrialEnemy(Circle body)
+    TerrestrialEnemy(Sphere body)
     {
         this->body = body;
     }
 
-    Circle &getBody()
+    Sphere &getBody()
     {
         return body;
     }
@@ -55,7 +55,7 @@ public:
         this->currentPosition = currentPosition;
     }
 
-    void setBody(Circle body)
+    void setBody(Sphere body)
     {
         this->body = body;
     }
@@ -66,7 +66,7 @@ public:
     }
 
     Point getCurrentPositionAdjusted();
-    Circle getAdjustedBody();
+    Sphere getAdjustedBody();
     void draw();
     void reset();
 };
