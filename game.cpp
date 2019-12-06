@@ -175,17 +175,22 @@ void Game::init()
     initFlightEnemiesPosition();
     initTerrestrialEnemiesPosition();
     initFlightEnemiesSpeed();
+
+    takeOffAcceleration = calcTakeOffAcceleration();
+    sizeIncreaseAcceleration = calcSizeIncreaseAcceleration();
+    vector<GLfloat> finalSpeed = calc.calcFinalSpeedRequired(calc.zerosVector(2), takeOffAcceleration, TAKEOFF_TIME);
+    player.setSpeed(finalSpeed);
 }
 
 void Game::takeOff()
 {
     player.setTakingOff(true);
-    player.setCurrentPosition(airportRunway.getAdjustedBody().getPoint1());
-    takeOffAcceleration = calcTakeOffAcceleration();
-    sizeIncreaseAcceleration = calcSizeIncreaseAcceleration();
+    // player.setCurrentPosition(airportRunway.getAdjustedBody().getPoint1());
+    // takeOffAcceleration = calcTakeOffAcceleration();
+    // sizeIncreaseAcceleration = calcSizeIncreaseAcceleration();
     takeOffStartTime = std::chrono::high_resolution_clock::now();
-    vector<GLfloat> finalSpeed = calc.calcFinalSpeedRequired(calc.zerosVector(2), takeOffAcceleration, TAKEOFF_TIME);
-    player.setSpeed(finalSpeed);
+    // vector<GLfloat> finalSpeed = calc.calcFinalSpeedRequired(calc.zerosVector(2), takeOffAcceleration, TAKEOFF_TIME);
+    // player.setSpeed(finalSpeed);
 }
 
 Point Game::currentTakeOffPosition(GLfloat time)
