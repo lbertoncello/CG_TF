@@ -13,11 +13,13 @@ void GameSetup::display(void)
     if (toggleCam == 0)
     {
         // PrintText(0.1, 0.1, "Movable Camera", 0, 1, 0);
-        glTranslatef(0, 0, -camDist);
+        // glTranslatef(0, 0, -camDist);
         // glTranslatef(gameRuntime.getGame().getPlayer().getDX(), gameRuntime.getGame().getPlayer().getDY(), -camDist);
-        // gluLookAt(gameRuntime.getGame().getPlayer().getDX(), -gameRuntime.getGame().getPlayer().getDY(), 200 + gameRuntime.getGame().getPlayer().getDZ(), 400, 400, 0, 0, 0, 1);
-        glRotatef(camXZAngle, 1, 0, 0);
-        glRotatef(camXYAngle, 0, 1, 0);
+        Point cam1Point = gameRuntime.getGame().getPlayer().getCam1Point();
+        Point lookingPoint = gameRuntime.getGame().getPlayer().getLookingPoint();
+        gluLookAt(cam1Point.getX(), cam1Point.getY(), cam1Point.getZ(), lookingPoint.getX(), lookingPoint.getY(), lookingPoint.getZ(), 0, 0, 1);
+        // glRotatef(camXZAngle, 1, 0, 0);
+        // glRotatef(camXYAngle, 0, 1, 0);
     }
     else if (toggleCam == 1)
     {
@@ -62,10 +64,15 @@ void GameSetup::reshape(int w, int h)
     // glViewport(0, 0, (GLsizei)500, (GLsizei)500);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    if (w <= h)
-        gluPerspective(45, (GLfloat)h / (GLfloat)w, 2, 2000);
-    else
-        gluPerspective(45, (GLfloat)w / (GLfloat)h, 2, 2000);
+    // if (w <= h)
+    //     gluPerspective(90, (GLfloat)h / (GLfloat)w, 10, 2000);
+    // else
+    //     gluPerspective(90, (GLfloat)w / (GLfloat)h, 10, 2000);
+    // gluPerspective(90, (arena->getRaio() * 2) / (arena->getRaio() * 2), arena->getJogador()->getRaio()*0.3, arena->getRaio() * 2);
+    gluPerspective(90, 
+        (gameRuntime.getGame().getFlightArea().getArea().getRadius() * 2) / (gameRuntime.getGame().getFlightArea().getArea().getRadius() * 2), 
+        gameRuntime.getGame().getPlayer().getBody().getRadius() *0.3, 
+        gameRuntime.getGame().getFlightArea().getArea().getRadius() * 2);
 
     // gluPerspective(45, (GLfloat)w *0 / (GLfloat)h, 2, 1000);
     glMatrixMode(GL_MODELVIEW);
