@@ -6,6 +6,10 @@ void FlightArea::draw()
 
     glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_b);
 
-    drawer.drawFilledCircle(this->area);
+    // drawer.drawFilledCircle(this->area);
+    glPushMatrix();
+    glRotatef(90, 1.0, 0.0, 0.0);
+    drawer.drawCylinder(this->area);
+    glPopMatrix();
 }
 

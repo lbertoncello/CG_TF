@@ -250,16 +250,40 @@ void Draw::drawText(string text, Point position)
 
 void Draw::drawEllipsoid(Circle circle)
 {
-    glutSolidSphere(circle.getRadius(), 30, 30);
+    // glutSolidSphere(circle.getRadius(), 30, 30);
+    GLfloat r = circle.getRadius();
+    int i, j;
+    for(i = 0; i <= 30; i++) {
+        double lat0 = M_PI * (-0.5 + (double) (i - 1) / 30);
+        double z0  = sin(lat0);
+        double zr0 =  cos(lat0);
+
+        double lat1 = M_PI * (-0.5 + (double) i / 30);
+        double z1 = sin(lat1);
+        double zr1 = cos(lat1);
+
+        glBegin(GL_QUAD_STRIP);
+        for(j = 0; j <= 30; j++) {
+            double lng = 2 * M_PI * (double) (j - 1) / 30;
+            double x = cos(lng);
+            double y = sin(lng);
+
+            glNormal3f(x * zr0, y * zr0, z0);
+            glVertex3f(r * x * zr0, 0.25*r * y * zr0, 0.30*r * z0);
+            glNormal3f(x * zr1, y * zr1, z1);
+            glVertex3f(r * x * zr1, 0.25 * r * y * zr1, 0.30 * r * z1);
+        }
+        glEnd();
+    }
 }
 
 void Draw::drawCylinder(Circle circle)
 {
-    GLfloat radius = circle.getRadius() * 0.1;
-    GLfloat height = circle.getRadius() * 0.5;
-    GLfloat R = 0.0;
-    GLfloat G = 0.0;
-    GLfloat B = 0.0;
+    GLfloat radius = circle.getRadius(); // * 0.1;
+    GLfloat height = circle.getRadius(); // * 0.5;
+    GLfloat R = 1.0;
+    GLfloat G = 1.0;
+    GLfloat B = 1.0;
 
     GLfloat x = 0.0;
     GLfloat z = 0.0;
@@ -288,6 +312,52 @@ void Draw::drawCylinder(Circle circle)
     /** Draw the circle on top of cylinder */
     // glColor3ub(R,G,B);
     glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_g);
+    glBegin(GL_POLYGON);
+    angle = 0.0;
+    while (angle < 2 * PI)
+    {
+        x = radius * cos(angle);
+        z = radius * sin(angle);
+        glVertex3f(x, height, z);
+        angle = angle + angle_stepsize;
+    }
+    glVertex3f(radius, height, 0.0);
+    glEnd();
+}
+
+void Draw::drawCylinder(GLfloat radius, GLfloat height)
+{
+    // GLfloat R = 1.0;
+    // GLfloat G = 1.0;
+    // GLfloat B = 1.0;
+
+    GLfloat x = 0.0;
+    GLfloat z = 0.0;
+    GLfloat angle = 0.0;
+    GLfloat angle_stepsize = 0.1;
+
+    /** Draw the tube */
+    // glColor3ub(R-40,G-40,B-40);
+    // GLfloat mat_ambient_g[] = {R, G, B, 1.0};
+
+    // glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_g);
+    glBegin(GL_QUAD_STRIP);
+    angle = 0.0;
+    while (angle < 2 * PI)
+    {
+        x = radius * cos(angle);
+        z = radius * sin(angle);
+        glVertex3f(x, height, z);
+        glVertex3f(x, 0.0, z);
+        angle = angle + angle_stepsize;
+    }
+    glVertex3f(radius, height, 0.0);
+    glVertex3f(radius, 0.0, 0.0);
+    glEnd();
+
+    /** Draw the circle on top of cylinder */
+    // glColor3ub(R,G,B);
+    // glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_g);
     glBegin(GL_POLYGON);
     angle = 0.0;
     while (angle < 2 * PI)

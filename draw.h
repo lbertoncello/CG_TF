@@ -100,6 +100,7 @@ public:
     void chooseCircleToMove();
     void drawEllipsoid(Circle circle);
     void drawCylinder(Circle circle);
+    void drawCylinder(GLfloat radius, GLfloat height);
     void drawSphere(Circle circle);
 };
 
