@@ -28,11 +28,10 @@ void Airplane::draw()
 
     // drawWings();
     // drawCannon();
-    // drawMainBody();
+    drawMainBody();
     // drawCockpit();
     // drawTail();
 
-    glutSolidCube(this->body.getRadius());
 
     glPopMatrix();
 }
@@ -43,7 +42,9 @@ void Airplane::drawMainBody()
 
     glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_g);
 
-    drawer.drawEllipse(this->body);
+    glutSolidCube(this->body.getRadius());
+
+    // drawer.drawEllipse(this->body);
 }
 
 void Airplane::drawTail()
