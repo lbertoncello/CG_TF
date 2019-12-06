@@ -24,7 +24,6 @@ void Airplane::draw()
     glPushMatrix();
 
     glTranslatef(dX, -dY, dZ);
-    cout << "dZ: " << dZ << endl;
     glRotatef(-inclinationAngle, 0.0, 0.0, 1.0);
 
     // drawWings();

@@ -164,6 +164,18 @@ public:
         return speedIncrement;
     }
 
+    GLfloat getDX(){
+        return dX;
+    }
+
+    GLfloat getDY(){
+        return dY;
+    }
+
+    GLfloat getDZ(){
+        return dZ;
+    }
+
     void setBody(Circle body)
     {
         this->body = body;

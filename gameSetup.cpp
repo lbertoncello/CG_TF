@@ -4,7 +4,7 @@ void GameSetup::display(void)
 {
     double camDist = 800;
     double camXYAngle = 0;
-    double camXZAngle = -60;
+    double camXZAngle = 0;
     int toggleCam = 0;
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -14,6 +14,8 @@ void GameSetup::display(void)
     {
         // PrintText(0.1, 0.1, "Movable Camera", 0, 1, 0);
         glTranslatef(0, 0, -camDist);
+        // glTranslatef(gameRuntime.getGame().getPlayer().getDX(), gameRuntime.getGame().getPlayer().getDY(), -camDist);
+        // gluLookAt(gameRuntime.getGame().getPlayer().getDX(), -gameRuntime.getGame().getPlayer().getDY(), 200 + gameRuntime.getGame().getPlayer().getDZ(), 400, 400, 0, 0, 0, 1);
         glRotatef(camXZAngle, 1, 0, 0);
         glRotatef(camXYAngle, 0, 1, 0);
     }
@@ -64,7 +66,7 @@ void GameSetup::reshape(int w, int h)
         gluPerspective(45, (GLfloat)h / (GLfloat)w, 2, 2000);
     else
         gluPerspective(45, (GLfloat)w / (GLfloat)h, 2, 2000);
-    
+
     // gluPerspective(45, (GLfloat)w *0 / (GLfloat)h, 2, 1000);
     glMatrixMode(GL_MODELVIEW);
 }
