@@ -235,11 +235,11 @@ void Game::updateTakeOff(high_resolution_clock::time_point currentTime, GLfloat 
 
     if (beforeAirportRunwayMiddle == false)
     {
-        duration<GLfloat> timeSpan = duration_cast<duration<GLfloat>>(currentTime - sizeIncreaseStartTime);
-        GLfloat sizeIncreaseTimeElapsed = timeSpan.count();
+        // duration<GLfloat> timeSpan = duration_cast<duration<GLfloat>>(currentTime - sizeIncreaseStartTime);
+        // GLfloat sizeIncreaseTimeElapsed = timeSpan.count();
 
-        GLfloat newRadius = player.getInitialRadius() + currentRadius(sizeIncreaseTimeElapsed);
-        player.getBody().setRadius(newRadius);
+        // GLfloat newRadius = player.getInitialRadius() + currentRadius(sizeIncreaseTimeElapsed);
+        // player.getBody().setRadius(newRadius);
     }
     else
     {

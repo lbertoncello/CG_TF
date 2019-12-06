@@ -69,10 +69,10 @@ void GameSetup::reshape(int w, int h)
     // else
     //     gluPerspective(90, (GLfloat)w / (GLfloat)h, 10, 2000);
     // gluPerspective(90, (arena->getRaio() * 2) / (arena->getRaio() * 2), arena->getJogador()->getRaio()*0.3, arena->getRaio() * 2);
-    gluPerspective(90, 
-        (gameRuntime.getGame().getFlightArea().getArea().getRadius() * 2) / (gameRuntime.getGame().getFlightArea().getArea().getRadius() * 2), 
-        gameRuntime.getGame().getPlayer().getBody().getRadius() *0.3, 
-        gameRuntime.getGame().getFlightArea().getArea().getRadius() * 2);
+    gluPerspective(90,
+                   (gameRuntime.getGame().getFlightArea().getArea().getRadius() * 2) / (gameRuntime.getGame().getFlightArea().getArea().getRadius() * 2),
+                   gameRuntime.getGame().getPlayer().getBody().getRadius() * 0.3,
+                   gameRuntime.getGame().getFlightArea().getArea().getRadius() * 2);
 
     // gluPerspective(45, (GLfloat)w *0 / (GLfloat)h, 2, 1000);
     glMatrixMode(GL_MODELVIEW);

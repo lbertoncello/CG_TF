@@ -24,7 +24,7 @@ void Airplane::draw()
     glPushMatrix();
 
     glTranslatef(dX, -dY, dZ);
-    glRotatef(-inclinationAngle, 0.0, 0.0, 1.0);
+    // glRotatef(-inclinationAngle, 0.0, 0.0, 1.0);
 
     // drawWings();
     // drawCannon();
@@ -41,7 +41,11 @@ void Airplane::drawMainBody()
 
     glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_g);
 
-    glutSolidCube(this->body.getRadius());
+    glPushMatrix();
+    // glutSolidCube(this->body.getRadius());
+    cout << "radius: " << body.getRadius() << endl;
+    glutSolidSphere(body.getRadius(), 100, 100);
+    glPopMatrix();
 
     // drawer.drawEllipse(this->body);
 }
@@ -506,9 +510,9 @@ Point Airplane::getCam1Point()
     // GLfloat camPoint_x = dX + (body.getRadius() * cos((moveAngleYZ + 45)) * cos(moveAngleXY) * 0.8);
     // GLfloat camPoint_y = -dY + (body.getRadius() * cos((moveAngleYZ + 45)) * sin(moveAngleXY) * 0.8);
     // GLfloat camPoint_z = dZ + (body.getRadius() * sin((moveAngleYZ + 45)) * 0.8);
-    GLfloat camPoint_x = dX + (body.getRadius() * cos((moveAngleYZ + calc.degreesToRadians(45))) * cos(moveAngleXY) * 0.8);
-    GLfloat camPoint_y = -dY + (body.getRadius() * cos((moveAngleYZ + calc.degreesToRadians(45))) * sin(moveAngleXY) * 0.8);
-    GLfloat camPoint_z = dZ + (body.getRadius() * sin((moveAngleYZ + calc.degreesToRadians(45))) * 0.8);
+    GLfloat camPoint_x = dX + (body.getRadius() * cos((moveAngleYZ + calc.degreesToRadians(45))) * cos(moveAngleXY) * 0.9);
+    GLfloat camPoint_y = -dY + (body.getRadius() * cos((moveAngleYZ + calc.degreesToRadians(45))) * sin(moveAngleXY) * 0.9);
+    GLfloat camPoint_z = dZ + (body.getRadius() * sin((moveAngleYZ + calc.degreesToRadians(45))) * 2.0);
 
     return Point(camPoint_x, camPoint_y, camPoint_z);
 }
