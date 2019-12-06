@@ -47,6 +47,9 @@ bool Sphere::checkIntersection(Sphere sphere, GLint num_segments)
     float r0sqr = sphere.radius * sphere.radius;
     float r1sqr = this->radius * this->radius;
 
+    // float r0sqr = sphere.radius;
+    // float r1sqr = this->radius;
+
     float distX = sphere.getCenter_x() - this->getCenter_x();
     float distY = sphere.getCenter_y() - this->getCenter_y();
     float distZ = sphere.getCenter_z() - this->getCenter_z();
@@ -93,25 +96,27 @@ bool Sphere::checkIntersection(Sphere Sphere)
 
 bool Sphere::isInside(Sphere sphere, GLint num_segments)
 {
-    float r0sqr = sphere.radius * sphere.radius;
-    float r1sqr = this->radius * this->radius;
+    checkIntersection(sphere);
 
-    float distX = sphere.getCenter_x() - this->getCenter_x();
-    float distY = sphere.getCenter_y() - this->getCenter_y();
-    float distZ = sphere.getCenter_z() - this->getCenter_z();
+    // float r0sqr = sphere.radius * sphere.radius;
+    // float r1sqr = this->radius * this->radius;
 
-    // Since we already need to square these, we won't need to take the absolute value
-    // to accurately compare them to the radii
-    distX *= distX;
-    distY *= distY;
-    distZ *= distZ;
+    // float distX = sphere.getCenter_x() - this->getCenter_x();
+    // float distY = sphere.getCenter_y() - this->getCenter_y();
+    // float distZ = sphere.getCenter_z() - this->getCenter_z();
 
-    float sqrDist = (distX + distY + distZ);
+    // // Since we already need to square these, we won't need to take the absolute value
+    // // to accurately compare them to the radii
+    // distX *= distX;
+    // distY *= distY;
+    // distZ *= distZ; 
 
-    if ((r0sqr + r1sqr) > sqrDist)
-    {
-        return true;
-    }
+    // float sqrDist = (distX + distY + distZ);
 
-    return false;
+    // if ((r0sqr + r1sqr) < sqrDist)
+    // {
+    //     return true;
+    // }
+
+    // return false;
 }

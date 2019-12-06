@@ -45,6 +45,7 @@ void Airplane::drawMainBody()
     glPushMatrix();
     // glScalef(1, 0.25, 0.30);
     drawer.drawEllipsoid(this->body);
+    glutWireSphere(body.getRadius(), 100, 100);
     glPopMatrix();
     // drawer.drawEllipse(this->body);
 }
@@ -242,9 +243,10 @@ Point Airplane::getNextPosition(GLfloat deltaIdleTime)
 
 bool Airplane::checkIntersection(Circle flightAreaBody, Sphere enemyBody, GLfloat deltaIdleTime)
 {
-    Circle adjustedBody = Circle(this->getNextPosition(deltaIdleTime), this->body.getRadius());
+    Sphere adjustedBody = Sphere(this->getNextPosition(deltaIdleTime), this->body.getRadius());
     adjustedBody.setCenter_x(flightAreaBody.getCenter_x() + adjustedBody.getCenter_x());
     adjustedBody.setCenter_y(flightAreaBody.getCenter_y() + adjustedBody.getCenter_y());
+    adjustedBody.setCenter_z(adjustedBody.getCenter_z());
 
     return adjustedBody.checkIntersection(enemyBody, this->drawer.getNumSegments());
 }
@@ -435,6 +437,7 @@ Point Airplane::getCurrentPositionAdjusted()
     Point currentPositionAdjusted;
     currentPositionAdjusted.setX(this->body.getCenter_x() + dX - this->startPosition.getX());
     currentPositionAdjusted.setY(this->body.getCenter_y() + dY - this->startPosition.getY());
+    currentPositionAdjusted.setZ(dZ);
 
     return currentPositionAdjusted;
 }
@@ -444,6 +447,7 @@ Point Airplane::getPositionAdjusted(Point position)
     Point currentPositionAdjusted;
     currentPositionAdjusted.setX(this->body.getCenter_x() + position.getX() - this->startPosition.getX());
     currentPositionAdjusted.setY(this->body.getCenter_y() + position.getY() - this->startPosition.getY());
+    currentPositionAdjusted.setY(this->body.getCenter_z() + position.getZ());
 
     return currentPositionAdjusted;
 }
