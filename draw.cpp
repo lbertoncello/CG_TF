@@ -119,9 +119,9 @@ void Draw::drawTriangle(Point p1, Point p2, Point p3, Color color)
     glColor3f(color.getR(), color.getG(), color.getB());
 
     glBegin(GL_TRIANGLES);
-    glVertex3f(p1.getX(), p1.getY(), 1.0);
-    glVertex3f(p2.getX(), p2.getY(), 1.0);
-    glVertex3f(p3.getX(), p3.getY(), 1.0);
+    glVertex3f(p1.getX(), p1.getY(), p1.getZ());
+    glVertex3f(p2.getX(), p2.getY(), p2.getZ());
+    glVertex3f(p3.getX(), p3.getY(), p3.getZ());
     glEnd();
 }
 
