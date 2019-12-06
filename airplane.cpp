@@ -15,26 +15,29 @@ void Airplane::draw()
     //     drawTail();
     //     glPopMatrix();
     // }
-    GLfloat no_mat[] = {0.0, 0.0, 0.0, 1.0};
-    glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,
-                 no_mat);
-    glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
-    glMaterialfv(GL_FRONT, GL_SHININESS, no_mat);
+    if (!isDestroyed())
+    {
+        GLfloat no_mat[] = {0.0, 0.0, 0.0, 1.0};
+        glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,
+                     no_mat);
+        glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
+        glMaterialfv(GL_FRONT, GL_SHININESS, no_mat);
 
-    glPushMatrix();
+        glPushMatrix();
 
-    glTranslatef(dX, -dY, dZ);
-    glRotatef(-inclinationAngle, 0.0, 0.0, 1.0);
-    glRotatef(-calc.radiansToDegrees(moveAngleYZ), 0.0, 1.0, 0.0);
-    // glRotatef(45, 0.0, 1.0, 0.0);
+        glTranslatef(dX, -dY, dZ);
+        glRotatef(-inclinationAngle, 0.0, 0.0, 1.0);
+        glRotatef(-calc.radiansToDegrees(moveAngleYZ), 0.0, 1.0, 0.0);
+        // glRotatef(45, 0.0, 1.0, 0.0);
 
-    drawWings();
-    drawCannon();
-    drawMainBody();
-    // drawCockpit();
-    // drawTail();
+        drawWings();
+        drawCannon();
+        drawMainBody();
+        // drawCockpit();
+        // drawTail();
 
-    glPopMatrix();
+        glPopMatrix();
+    }
 }
 
 void Airplane::drawMainBody()
@@ -91,14 +94,14 @@ void Airplane::drawWings()
     // Point p3(p1.getX() - this->body.getRadius() / 6.0, this->body.getRadius());
     // Point p4(p1.getX() + this->body.getRadius() / 3.0 - this->body.getRadius() / 6.0, this->body.getRadius());
 
-    Point p1(this->body.getRadius()/4.0, -this->body.getRadius(), this->body.getRadius()/16.0);
-    Point p2(-this->body.getRadius()/4.0, -this->body.getRadius(), this->body.getRadius()/16.0);
-    Point p3(-this->body.getRadius()/4.0, this->body.getRadius(), this->body.getRadius()/16.0);
-    Point p4(this->body.getRadius()/4.0, this->body.getRadius(), this->body.getRadius()/16.0);
-    Point p5(this->body.getRadius()/4.0, this->body.getRadius(), -this->body.getRadius()/16.0);
-    Point p6(this->body.getRadius()/4.0, -this->body.getRadius(), -this->body.getRadius()/16.0);
-    Point p7(-this->body.getRadius()/4.0, -this->body.getRadius(), -this->body.getRadius()/16.0);
-    Point p8(-this->body.getRadius()/4.0, this->body.getRadius(), -this->body.getRadius()/16.0);
+    Point p1(this->body.getRadius() / 4.0, -this->body.getRadius(), this->body.getRadius() / 16.0);
+    Point p2(-this->body.getRadius() / 4.0, -this->body.getRadius(), this->body.getRadius() / 16.0);
+    Point p3(-this->body.getRadius() / 4.0, this->body.getRadius(), this->body.getRadius() / 16.0);
+    Point p4(this->body.getRadius() / 4.0, this->body.getRadius(), this->body.getRadius() / 16.0);
+    Point p5(this->body.getRadius() / 4.0, this->body.getRadius(), -this->body.getRadius() / 16.0);
+    Point p6(this->body.getRadius() / 4.0, -this->body.getRadius(), -this->body.getRadius() / 16.0);
+    Point p7(-this->body.getRadius() / 4.0, -this->body.getRadius(), -this->body.getRadius() / 16.0);
+    Point p8(-this->body.getRadius() / 4.0, this->body.getRadius(), -this->body.getRadius() / 16.0);
 
     drawer.drawParallelSolid(p1, p2, p3, p4, p5, p6, p7, p8);
 
@@ -162,10 +165,10 @@ void Airplane::drawPropeller()
     // Point p6(0.0, 0.0, 0.0);
 
     Point p1(0.0, 0.0, 0.0);
-    Point p2(0.0, this->body.getRadius()/ 4.0, this->body.getRadius() / 8.0);
-    Point p3(0.0, this->body.getRadius()/ 4.0, -this->body.getRadius() / 8.0);
-    Point p4(0.0, -this->body.getRadius()/ 4.0, -this->body.getRadius() / 8.0);
-    Point p5(0.0, -this->body.getRadius()/ 4.0, this->body.getRadius() / 8.0);
+    Point p2(0.0, this->body.getRadius() / 4.0, this->body.getRadius() / 8.0);
+    Point p3(0.0, this->body.getRadius() / 4.0, -this->body.getRadius() / 8.0);
+    Point p4(0.0, -this->body.getRadius() / 4.0, -this->body.getRadius() / 8.0);
+    Point p5(0.0, -this->body.getRadius() / 4.0, this->body.getRadius() / 8.0);
     Point p6(0.0, 0.0, 0.0);
 
     incrementPropellerAngle();
@@ -179,7 +182,6 @@ void Airplane::drawPropeller()
 
     glPopMatrix();
 }
-
 
 void Airplane::drawCannon()
 {
@@ -369,7 +371,10 @@ void Airplane::updateTurnUpAngle(GLfloat deltaIdleTime)
 {
     if (isTurningUp())
     {
-        moveAngleYZ += M_PI / 2.0 * deltaIdleTime;
+        if (moveAngleYZ < M_PI / 4.0)
+        {
+            moveAngleYZ += M_PI / 2.0 * deltaIdleTime;
+        }
     }
 }
 
@@ -377,7 +382,10 @@ void Airplane::updateTurnDownAngle(GLfloat deltaIdleTime)
 {
     if (isTurningDown())
     {
-        moveAngleYZ -= M_PI / 2.0 * deltaIdleTime;
+        if (moveAngleYZ > -M_PI / 4.0)
+        {
+            moveAngleYZ -= M_PI / 2.0 * deltaIdleTime;
+        }
     }
 }
 
