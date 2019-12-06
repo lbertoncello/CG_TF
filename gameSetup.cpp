@@ -15,6 +15,7 @@ void GameSetup::display(void)
         // PrintText(0.1, 0.1, "Movable Camera", 0, 1, 0);
         // glTranslatef(0, 0, -camDist);
         // glTranslatef(gameRuntime.getGame().getPlayer().getDX(), gameRuntime.getGame().getPlayer().getDY(), -camDist);
+        // glRotatef(-gameRuntime.getGame().getPlayer().getInclinationAngle(), 0, 0, 1.0);
         Point cam1Point = gameRuntime.getGame().getPlayer().getCam1Point();
         Point lookingPoint = gameRuntime.getGame().getPlayer().getLookingPoint();
         gluLookAt(cam1Point.getX(), cam1Point.getY(), cam1Point.getZ(), lookingPoint.getX(), lookingPoint.getY(), lookingPoint.getZ(), 0, 0, 1);
