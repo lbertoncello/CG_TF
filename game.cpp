@@ -118,16 +118,18 @@ void Game::reset()
 
 bool Game::checkPlayerBulletCollision(FlightEnemy &flightEnemy)
 {
-    // vector<Bullet *>::iterator playerBullets_it;
-    // for (playerBullets_it = playerBullets.begin(); playerBullets_it != playerBullets.end();)
-    // {
-    //     if (flightEnemy.getAdjustedBody().checkIntersection((*playerBullets_it)->getAdjustedBody()))
-    //     {
-    //         return true;
-    //     }
+    vector<Bullet *>::iterator playerBullets_it;
+    for (playerBullets_it = playerBullets.begin(); playerBullets_it != playerBullets.end();)
+    {
+        if (flightEnemy.getAdjustedBody().checkIntersection((*playerBullets_it)->getAdjustedBody()))
+        {
+            delete (*playerBullets_it);
+            playerBullets_it = playerBullets.erase(playerBullets_it);
+            return true;
+        }
 
-    //     playerBullets_it++;
-    // }
+        playerBullets_it++;
+    }
 
     return false;
 }
@@ -262,7 +264,7 @@ void Game::initFlightEnemiesSpeed()
 {
     takeOffAcceleration = calcTakeOffAcceleration();
     sizeIncreaseAcceleration = calcSizeIncreaseAcceleration();
-    takeOffStartTime = std::chrono::high_resolution_clock::now();
+    // takeOffStartTime = std::chrono::high_resolution_clock::now();
     vector<GLfloat> finalSpeed = calc.calcFinalSpeedRequired(calc.zerosVector(2), takeOffAcceleration, TAKEOFF_TIME);
 
     vector<FlightEnemy>::iterator flightEnemy_it;

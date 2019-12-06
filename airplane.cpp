@@ -283,6 +283,7 @@ Sphere Airplane::getAdjustedBody()
     Sphere adjustedBody = this->body;
     adjustedBody.setCenter_x(adjustedBody.getCenter_x() - startPosition.getX() + this->dX);
     adjustedBody.setCenter_y(adjustedBody.getCenter_y() - startPosition.getY() + this->dY);
+    adjustedBody.setCenter_z(dZ);
 
     return adjustedBody;
 }
@@ -449,7 +450,7 @@ Point Airplane::getPositionAdjusted(Point position)
     Point currentPositionAdjusted;
     currentPositionAdjusted.setX(this->body.getCenter_x() + position.getX() - this->startPosition.getX());
     currentPositionAdjusted.setY(this->body.getCenter_y() + position.getY() - this->startPosition.getY());
-    currentPositionAdjusted.setY(this->body.getCenter_z() + position.getZ());
+    currentPositionAdjusted.setZ(this->body.getCenter_z() + position.getZ());
 
     return currentPositionAdjusted;
 }
@@ -474,19 +475,21 @@ void Airplane::rotateCannon(GLfloat moviment, GLfloat deltaIdleTime)
 
 Bullet *Airplane::shoot(GLfloat deltaIdleTime)
 {
-    GLfloat resultingAngle = calc.degreesToRadians(inclinationAngle) + cannonAngle;
+    GLfloat resultingAngleXY = calc.degreesToRadians(inclinationAngle) + cannonAngle;
+    GLfloat resultingAngleYZ = moveAngleYZ;
     GLfloat bulletSpeed = speedNorm * bulletSpeedMultiplier;
     GLfloat bulletRadius = this->body.getRadius() / 8.0;
     Point bulletCoordinates;
 
     bulletCoordinates.setX(
-        dX + body.getRadius() * cos(calc.degreesToRadians(inclinationAngle)) + this->body.getRadius() / 2.0 * cos(resultingAngle));
+        dX + body.getRadius() * cos(calc.degreesToRadians(inclinationAngle)) + this->body.getRadius() / 2.0 * cos(resultingAngleXY));
     bulletCoordinates.setY(
-        dY + body.getRadius() * sin(calc.degreesToRadians(inclinationAngle)) + this->body.getRadius() / 2.0 * sin(resultingAngle));
+        dY + body.getRadius() * sin(calc.degreesToRadians(inclinationAngle)) + this->body.getRadius() / 2.0 * sin(resultingAngleXY));
+    bulletCoordinates.setZ(dZ);
 
     Point bulletBodyCoordinates = getPositionAdjusted(bulletCoordinates);
 
-    return new Bullet(bulletBodyCoordinates, bulletRadius, bulletCoordinates, bulletSpeed, resultingAngle);
+    return new Bullet(bulletBodyCoordinates, bulletRadius, bulletCoordinates, bulletSpeed, resultingAngleXY, resultingAngleYZ);
 }
 
 Point Airplane::getLookingPoint()
