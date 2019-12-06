@@ -181,11 +181,13 @@ public:
         {
             startPosition.setX(currentPosition.getX());
             startPosition.setY(currentPosition.getY());
+            startPosition.setZ(currentPosition.getZ());
             startPositionInitialized = true;
         }
 
         dX = currentPosition.getX();
         dY = currentPosition.getY();
+        dZ = currentPosition.getZ();
 
         this->currentPosition = currentPosition;
     }
@@ -204,6 +206,7 @@ public:
     {
         speedNorm = calc.norm(speed) * this->airplaneSpeedMultiplier;
         moveAngleXY = 0;
+        moveAngleYZ = 0;
     }
 
     void setSpeedNorm(GLfloat speedNorm)
