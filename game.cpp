@@ -299,7 +299,7 @@ void Game::initTerrestrialEnemiesPosition()
     }
 }
 
-void Game::drawPlayer()
+void Game::movePlayer()
 {
     if (player.isTakingOff())
     {
@@ -346,7 +346,10 @@ void Game::drawPlayer()
     {
         callGameWin();
     }
+}
 
+void Game::drawPlayer()
+{
     player.draw();
 }
 
@@ -355,14 +358,13 @@ void Game::drawAirportRunway()
     airportRunway.draw();
 }
 
-void Game::drawFlightEnemies()
+void Game::moveFlightEnemies()
 {
     vector<FlightEnemy>::iterator flightEnemy_it;
     for (flightEnemy_it = flightEnemies.begin(); flightEnemy_it != flightEnemies.end(); flightEnemy_it++)
     {
         if (!flightEnemy_it->isDestroyed())
         {
-            glPushMatrix();
             if (!gameOver && !gameWin)
             {
                 if (isFlightEnemyInsideFlightArea(*flightEnemy_it))
@@ -393,6 +395,19 @@ void Game::drawFlightEnemies()
             }
 
             // glTranslatef(-flightArea.getArea().getCenter_x() + flightEnemy_it->getBody().getCenter_x(), -flightArea.getArea().getCenter_y() + flightEnemy_it->getBody().getCenter_y(), 0.0);
+        }
+    }
+}
+
+void Game::drawFlightEnemies()
+{
+    vector<FlightEnemy>::iterator flightEnemy_it;
+    for (flightEnemy_it = flightEnemies.begin(); flightEnemy_it != flightEnemies.end(); flightEnemy_it++)
+    {
+        if (!flightEnemy_it->isDestroyed())
+        {
+            glPushMatrix();
+            // glTranslatef(-flightArea.getArea().getCenter_x() + flightEnemy_it->getBody().getCenter_x(), -flightArea.getArea().getCenter_y() + flightEnemy_it->getBody().getCenter_y(), 0.0);
             flightEnemy_it->draw();
             glPopMatrix();
         }
@@ -411,10 +426,8 @@ void Game::drawTerrestrialEnemies()
     }
 }
 
-void Game::drawPlayerBullets()
+void Game::movePlayerBullets()
 {
-    glPushMatrix();
-
     vector<Bullet *>::iterator playerBullets_it;
     for (playerBullets_it = playerBullets.begin(); playerBullets_it != playerBullets.end();)
     {
@@ -425,7 +438,6 @@ void Game::drawPlayerBullets()
                 (*playerBullets_it)->move(deltaIdleTime);
             }
 
-            (*playerBullets_it)->draw();
             playerBullets_it++;
         }
         else
@@ -434,8 +446,45 @@ void Game::drawPlayerBullets()
             playerBullets_it = playerBullets.erase(playerBullets_it);
         }
     }
+}
+
+void Game::drawPlayerBullets()
+{
+    glPushMatrix();
+
+    vector<Bullet *>::iterator playerBullets_it;
+    for (playerBullets_it = playerBullets.begin(); playerBullets_it != playerBullets.end();)
+    {
+        if (isBulletInsideFlightArea((*playerBullets_it)))
+        {
+            (*playerBullets_it)->draw();
+        }
+        playerBullets_it++;
+    }
 
     glPopMatrix();
+}
+
+void Game::moveEnemyBullets()
+{
+    vector<Bullet *>::iterator enemyBullets_it;
+    for (enemyBullets_it = enemyBullets.begin(); enemyBullets_it != enemyBullets.end();)
+    {
+        if (isBulletInsideFlightArea((*enemyBullets_it)))
+        {
+            if (!isGameOver() && !isGameWin())
+            {
+                (*enemyBullets_it)->move(deltaIdleTime);
+            }
+
+            enemyBullets_it++;
+        }
+        else
+        {
+            delete (*enemyBullets_it);
+            enemyBullets_it = enemyBullets.erase(enemyBullets_it);
+        }
+    }
 }
 
 void Game::drawEnemyBullets()
@@ -447,22 +496,22 @@ void Game::drawEnemyBullets()
     {
         if (isBulletInsideFlightArea((*enemyBullets_it)))
         {
-            if (!isGameOver() && !isGameWin())
-            {
-                (*enemyBullets_it)->move(deltaIdleTime);
-            }
-
             (*enemyBullets_it)->draw();
-            enemyBullets_it++;
         }
-        else
-        {
-            delete (*enemyBullets_it);
-            enemyBullets_it = enemyBullets.erase(enemyBullets_it);
-        }
+        enemyBullets_it++;
     }
 
     glPopMatrix();
+}
+
+void Game::moveBullets()
+{
+    movePlayerBullets();
+    moveEnemyBullets();
+}
+
+void Game::moveBombs()
+{
 }
 
 void Game::drawBullets()
@@ -617,4 +666,12 @@ void Game::shoot()
 void Game::dropBomb()
 {
     bombs.push_back(this->player.dropBomb(deltaIdleTime));
+}
+
+void Game::calcMoviments()
+{
+    movePlayer();
+    moveFlightEnemies();
+    moveBullets();
+    // moveBombs();
 }
