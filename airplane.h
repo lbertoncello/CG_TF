@@ -45,6 +45,8 @@ protected:
     GLfloat cannonAngle = 0.0;
     GLfloat propellerAngle = 0.0;
     bool destroyed = false;
+    GLfloat camAngleX = 0;
+    GLfloat camAngleY = 0;
 
     void speedInit()
     {
@@ -70,6 +72,8 @@ protected:
     GLfloat calcNextMovement_z(GLfloat deltaIdleTime, GLfloat nextMoveAngleYZ);
     void updateInclinationAngle(GLfloat deltaIdleTime);
     Point getPositionAdjusted(Point position);
+    void moveCameraX(GLfloat moviment, GLfloat deltaIdleTime);
+    void moveCameraY(GLfloat moviment, GLfloat deltaIdleTime);
 
 public:
     Airplane()
@@ -175,6 +179,15 @@ public:
 
     GLfloat getDZ(){
         return dZ;
+    }
+
+    GLfloat getCamAngleX_radians() {
+        return camAngleX;
+    }
+
+
+    GLfloat getCamAngleX_degrees() {
+        return calc.radiansToDegrees(camAngleX);
     }
 
     void setBody(Sphere body)
@@ -315,6 +328,10 @@ public:
     Point getCamPoint1();
     Point getLookingPoint2();
     Point getCamPoint2();
+    Point getLookingPoint3();
+    Point getCamPoint3();
+    void moveCamera(GLfloat movimentX, GLfloat movimentY, GLfloat deltaIdleTime);
+    void resetCameraAngle();
 };
 
 #endif

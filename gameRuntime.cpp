@@ -78,6 +78,23 @@ void GameRuntime::keyOperations(void)
     {
         game.reset();
     }
+
+    if (keyStates['1'])
+    {
+        game.resetCameraAngle();
+        this->toggleCam = 0;
+    }
+
+    if (keyStates['2'])
+    {
+        game.resetCameraAngle();
+        this->toggleCam = 1;
+    }
+
+    if (keyStates['3'])
+    {
+        this->toggleCam = 2;
+    }
 }
 
 void GameRuntime::keyPress(unsigned char key, GLint x, GLint y)
@@ -114,6 +131,18 @@ void GameRuntime::keyPress(unsigned char key, GLint x, GLint y)
     {
         keyStates[key] = true;
     }
+    if (key == '1')
+    {
+        keyStates[key] = true;
+    }
+    if (key == '2')
+    {
+        keyStates[key] = true;
+    }
+    if (key == '3')
+    {
+        keyStates[key] = true;
+    }
 }
 
 void GameRuntime::keyUp(unsigned char key, GLint x, GLint y)
@@ -137,11 +166,24 @@ void GameRuntime::mouse(GLint button, GLint state, GLint x, GLint y)
 
             if (button == GLUT_RIGHT_BUTTON)
             {
+                rightMouseButtonPressed = true;
+
                 if (state == GLUT_UP)
                 {
                     game.dropBomb();
+                    rightMouseButtonPressed = false;
                 }
             }
+        }
+    }
+
+    if (button == GLUT_RIGHT_BUTTON)
+    {
+        rightMouseButtonPressed = true;
+
+        if (state == GLUT_UP)
+        {
+            rightMouseButtonPressed = false;
         }
     }
 }
@@ -156,18 +198,13 @@ void GameRuntime::motion(GLint x, GLint y)
             previousX = x;
         }
     }
-
-    if (isLeftMouseButtonPressed)
-    {
-    }
-
-    if (isRightMouseButtonPressed)
-    {
-    }
 }
 
 void GameRuntime::passiveMotion(GLint x, GLint y)
 {
+    previousMousePosition = mousePosition;
+    mousePosition = Point(x, y);
+
     if (!game.isGameOver() && !game.isGameWin())
     {
         if (game.isPlayerFlying())
@@ -175,5 +212,22 @@ void GameRuntime::passiveMotion(GLint x, GLint y)
             game.rotatePlayerAirplaneCannon(x - previousX);
             previousX = x;
         }
+    }
+
+    if (isLeftMouseButtonPressed())
+    {
+    }
+
+    if (isRightMouseButtonPressed())
+    {
+        movingCamera = true;
+        camMovimentX = mousePosition.getX() - previousMousePosition.getX();
+        camMovimentY = mousePosition.getY() - previousMousePosition.getY();
+
+        game.moveCamera(camMovimentX, camMovimentY);
+    }
+    else
+    {
+        movingCamera = false;
     }
 }

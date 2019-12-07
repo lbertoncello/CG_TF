@@ -675,3 +675,13 @@ void Game::calcMoviments()
     moveBullets();
     // moveBombs();
 }
+
+void Game::moveCamera(GLfloat movimentX, GLfloat movimentY)
+{
+    player.moveCamera(movimentX, movimentY, deltaIdleTime);
+}
+
+void Game::resetCameraAngle()
+{
+    player.resetCameraAngle();
+}

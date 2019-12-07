@@ -28,12 +28,26 @@ private:
     Game game;
 
     static bool *keyStates;
-    bool isLeftMouseButtonPressed = false;
-    bool isRightMouseButtonPressed = false;
+    bool leftMouseButtonPressed = false;
+    bool rightMouseButtonPressed = false;
     GLfloat previousX = 0;
+    GLint toggleCam = 0;
+    Point mousePosition;
+    Point previousMousePosition;
+    GLfloat camMovimentX = 0;
+    GLfloat camMovimentY = 0;
+    bool movingCamera = false;
 
 public:
     GameRuntime() {}
+
+    bool isLeftMouseButtonPressed() {
+        return leftMouseButtonPressed;
+    }
+
+    bool isRightMouseButtonPressed() {
+        return rightMouseButtonPressed;
+    }
 
     Game &getGame()
     {
@@ -93,6 +107,14 @@ public:
     GLint getWindowInitial_y_position()
     {
         return this->windowInitial_y_position;
+    }
+
+    GLint getToggleCam() {
+        return this->toggleCam;
+    }
+
+    bool isMovingCamera() {
+        return movingCamera;
     }
 
     void setPlayerSpeedMult(GLfloat playerAirplaneSpeedMult)
