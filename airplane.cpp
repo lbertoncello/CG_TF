@@ -15,29 +15,26 @@ void Airplane::draw()
     //     drawTail();
     //     glPopMatrix();
     // }
-    if (!isDestroyed())
-    {
-        GLfloat no_mat[] = {0.0, 0.0, 0.0, 1.0};
-        glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,
-                     no_mat);
-        glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
-        glMaterialfv(GL_FRONT, GL_SHININESS, no_mat);
+    GLfloat no_mat[] = {0.0, 0.0, 0.0, 1.0};
+    glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,
+                 no_mat);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
+    glMaterialfv(GL_FRONT, GL_SHININESS, no_mat);
 
-        glPushMatrix();
+    glPushMatrix();
 
-        glTranslatef(dX, -dY, dZ);
-        glRotatef(-inclinationAngle, 0.0, 0.0, 1.0);
-        glRotatef(-calc.radiansToDegrees(moveAngleYZ), 0.0, 1.0, 0.0);
-        // glRotatef(45, 0.0, 1.0, 0.0);
+    glTranslatef(dX, -dY, dZ);
+    glRotatef(-inclinationAngle, 0.0, 0.0, 1.0);
+    glRotatef(-calc.radiansToDegrees(moveAngleYZ), 0.0, 1.0, 0.0);
+    // glRotatef(45, 0.0, 1.0, 0.0);
 
-        drawWings();
-        drawCannon();
-        drawMainBody();
-        // drawCockpit();
-        // drawTail();
+    drawWings();
+    drawCannon();
+    drawMainBody();
+    drawCockpit();
+    drawTail();
 
-        glPopMatrix();
-    }
+    glPopMatrix();
 }
 
 void Airplane::drawMainBody()
@@ -46,13 +43,10 @@ void Airplane::drawMainBody()
 
     glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_g);
 
-    // glutSolidCube(this->body.getRadius());
     glPushMatrix();
-    // glScalef(1, 0.25, 0.30);
     drawer.drawEllipsoid(this->body);
-    glutWireSphere(body.getRadius(), 100, 100);
+    // glutWireSphere(body.getRadius(), 100, 100);
     glPopMatrix();
-    // drawer.drawEllipse(this->body);
 }
 
 void Airplane::drawTail()
@@ -61,9 +55,22 @@ void Airplane::drawTail()
 
     Color color(0.0, 0.0, 0.0);
 
-    glTranslatef(-this->body.getRadius() / 2, 0.0, 0.0);
-    glRotatef(90, 0.0, 0.0, 1.0);
-    drawer.drawRectangle(this->body.getRadius() / 5.0, this->body.getRadius() / 2.0, color);
+    GLfloat mat_ambient_r[] = {0.0, 0.0, 0.0, 1.0};
+
+    glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_r);
+
+    glTranslatef(-this->body.getRadius() * 0.7, 0.0, 0.0);
+
+    Point p1(this->body.getRadius() * 0.125, -this->body.getRadius() * 0.05, this->body.getRadius() * 0.6);
+    Point p2(this->body.getRadius()* 0.125, this->body.getRadius() * 0.05, this->body.getRadius() * 0.6);
+    Point p3(-this->body.getRadius() * 0.125, this->body.getRadius() * 0.05, this->body.getRadius() * 0.6);
+    Point p4(-this->body.getRadius() * 0.125, -this->body.getRadius() * 0.05, this->body.getRadius() * 0.6);
+    Point p5(-this->body.getRadius() * 0.125, -this->body.getRadius() * 0.05, this->body.getRadius() * 0.1);
+    Point p6(this->body.getRadius() * 0.125, -this->body.getRadius() * 0.05, this->body.getRadius() * 0.1);
+    Point p7(this->body.getRadius()* 0.125, this->body.getRadius() * 0.05, this->body.getRadius() * 0.1);
+    Point p8(-this->body.getRadius() * 0.125, this->body.getRadius() * 0.05, this->body.getRadius() * 0.1);
+
+    drawer.drawParallelSolid(p1, p2, p3, p4, p5, p6, p7, p8);
 
     glPopMatrix();
 }
@@ -74,9 +81,15 @@ void Airplane::drawCockpit()
 
     GLfloat cockpitRadius = this->body.getRadius() / 2.0;
     Color cockpitColor(0.0, 0.0, 0.0);
+    
+    GLfloat mat_ambient_r[] = {0.0, 0.0, 0.0, 1.0};
+    glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_r);
 
-    glTranslatef(this->body.getRadius() / 3.0, 0.0, 0.0);
-    drawer.drawEllipse(cockpitRadius, cockpitColor);
+    glTranslatef(this->body.getRadius() / 3.0, 0.0, this->body.getRadius() * 0.15);
+    Point pcenter(0.0, 0.0, 0.0);
+    Sphere cockpit = Sphere(pcenter, cockpitRadius);
+    // drawer.drawEllipse(cockpitRadius, cockpitColor);
+    drawer.drawEllipsoid(cockpit);
 
     glPopMatrix();
 }
@@ -84,7 +97,7 @@ void Airplane::drawCockpit()
 void Airplane::drawWings()
 {
     Color wingsColor(0.0, 0.0, 0.0);
-    GLfloat mat_ambient_r[] = {0.0, 1.0, 1.0, 1.0};
+    GLfloat mat_ambient_r[] = {0.0, 0.0, 0.0, 1.0};
 
     glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_r);
 
