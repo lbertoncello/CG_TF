@@ -32,7 +32,7 @@ void Airplane::draw()
     drawCannon();
     drawMainBody();
     // drawCockpit();
-    // drawTail();
+    drawTail();
 
     glPopMatrix();
 }
@@ -43,13 +43,10 @@ void Airplane::drawMainBody()
 
     glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_g);
 
-    // glutSolidCube(this->body.getRadius());
     glPushMatrix();
-    // glScalef(1, 0.25, 0.30);
     drawer.drawEllipsoid(this->body);
-    glutWireSphere(body.getRadius(), 100, 100);
+    // glutWireSphere(body.getRadius(), 100, 100);
     glPopMatrix();
-    // drawer.drawEllipse(this->body);
 }
 
 void Airplane::drawTail()
@@ -58,9 +55,22 @@ void Airplane::drawTail()
 
     Color color(0.0, 0.0, 0.0);
 
-    glTranslatef(-this->body.getRadius() / 2, 0.0, 0.0);
-    glRotatef(90, 0.0, 0.0, 1.0);
-    drawer.drawRectangle(this->body.getRadius() / 5.0, this->body.getRadius() / 2.0, color);
+    GLfloat mat_ambient_r[] = {0.0, 0.0, 0.0, 1.0};
+
+    glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_r);
+
+    glTranslatef(-this->body.getRadius() * 0.7, 0.0, 0.0);
+
+    Point p1(this->body.getRadius() * 0.125, -this->body.getRadius() * 0.05, this->body.getRadius() * 0.6);
+    Point p2(this->body.getRadius()* 0.125, this->body.getRadius() * 0.05, this->body.getRadius() * 0.6);
+    Point p3(-this->body.getRadius() * 0.125, this->body.getRadius() * 0.05, this->body.getRadius() * 0.6);
+    Point p4(-this->body.getRadius() * 0.125, -this->body.getRadius() * 0.05, this->body.getRadius() * 0.6);
+    Point p5(-this->body.getRadius() * 0.125, -this->body.getRadius() * 0.05, this->body.getRadius() * 0.1);
+    Point p6(this->body.getRadius() * 0.125, -this->body.getRadius() * 0.05, this->body.getRadius() * 0.1);
+    Point p7(this->body.getRadius()* 0.125, this->body.getRadius() * 0.05, this->body.getRadius() * 0.1);
+    Point p8(-this->body.getRadius() * 0.125, this->body.getRadius() * 0.05, this->body.getRadius() * 0.1);
+
+    drawer.drawParallelSolid(p1, p2, p3, p4, p5, p6, p7, p8);
 
     glPopMatrix();
 }
