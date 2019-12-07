@@ -140,6 +140,7 @@ public:
     void rotatePlayerAirplaneCannon(GLfloat moviment);
     void shoot();
     void dropBomb();
+    void movePlayer();
 };
 
 #endif

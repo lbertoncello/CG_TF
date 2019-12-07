@@ -60,8 +60,13 @@ int main(int argc, char **argv)
                 glutInitWindowPosition(gameSetup->getGameRuntime().getWindowInitial_x_position(), gameSetup->getGameRuntime().getWindowInitial_y_position());
                 glutCreateWindow(gameSetup->getGameRuntime().getWindowTitle().c_str());
                 gameSetup->init();
+                // glutDisplayFunc(gameSetupDisplayFunctionWrapper);
+                glutDisplayFunc(gameSetupIdleFunctionWrapper);
+
+                // glutIdleFunc(gameSetupIdleFunctionWrapper);
+                glutIdleFunc(gameSetupDisplayFunctionWrapper);
+
                 glutReshapeFunc(gameSetupReshapeFunctionWrapper);
-                glutDisplayFunc(gameSetupDisplayFunctionWrapper);
 
                 glutKeyboardFunc(gameSetup->getGameRuntime().keyPress);
                 glutKeyboardUpFunc(gameSetup->getGameRuntime().keyUp);
@@ -70,7 +75,6 @@ int main(int argc, char **argv)
                 glutMotionFunc(gameRuntimePassiveMotionFunctionWrapper);
                 glutPassiveMotionFunc(gameRuntimePassiveMotionFunctionWrapper);
 
-                glutIdleFunc(gameSetupIdleFunctionWrapper);
                 glutMainLoop();
 
                 return 0;

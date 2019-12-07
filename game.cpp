@@ -299,7 +299,7 @@ void Game::initTerrestrialEnemiesPosition()
     }
 }
 
-void Game::drawPlayer()
+void Game::movePlayer()
 {
     if (player.isTakingOff())
     {
@@ -346,7 +346,10 @@ void Game::drawPlayer()
     {
         callGameWin();
     }
+}
 
+void Game::drawPlayer()
+{
     player.draw();
 }
 

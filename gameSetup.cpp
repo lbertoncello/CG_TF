@@ -5,10 +5,13 @@ void GameSetup::display(void)
     double camDist = 800;
     double camXYAngle = 0;
     double camXZAngle = 0;
-    int toggleCam = 0;
+    int toggleCam = 1;
 
+    glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
+
+    gameRuntime.getGame().movePlayer();
 
     if (toggleCam == 0)
     {
@@ -16,16 +19,19 @@ void GameSetup::display(void)
         // glTranslatef(0, 0, -camDist);
         // glTranslatef(gameRuntime.getGame().getPlayer().getDX(), gameRuntime.getGame().getPlayer().getDY(), -camDist);
         // glRotatef(-gameRuntime.getGame().getPlayer().getInclinationAngle(), 0, 0, 1.0);
-        Point cam1Point = gameRuntime.getGame().getPlayer().getCam1Point();
-        Point lookingPoint = gameRuntime.getGame().getPlayer().getLookingPoint();
-        gluLookAt(cam1Point.getX(), cam1Point.getY(), cam1Point.getZ(), lookingPoint.getX(), lookingPoint.getY(), lookingPoint.getZ(), 0, 0, 1);
+        Point camPoint = gameRuntime.getGame().getPlayer().getCamPoint1();
+        Point lookingPoint = gameRuntime.getGame().getPlayer().getLookingPoint1();
+        gluLookAt(camPoint.getX(), camPoint.getY(), camPoint.getZ(), lookingPoint.getX(), lookingPoint.getY(), lookingPoint.getZ(), 0, 0, 1);
         // glRotatef(camXZAngle, 1, 0, 0);
         // glRotatef(camXYAngle, 0, 1, 0);
     }
     else if (toggleCam == 1)
     {
         // PrintText(0.1, 0.1, "Static Camera at a Distance", 0, 1, 0);
-        gluLookAt(10, 10, 50, 0, 0, 0, 0, 1, 0);
+        // gluLookAt(10, 10, 50, 0, 0, 0, 0, 1, 0);
+        Point camPoint = gameRuntime.getGame().getPlayer().getCamPoint2();
+        Point lookingPoint = gameRuntime.getGame().getPlayer().getLookingPoint2();
+        gluLookAt(camPoint.getX(), camPoint.getY(), camPoint.getZ(), lookingPoint.getX(), lookingPoint.getY(), lookingPoint.getZ(), 0, 0, 1);
     }
     else if (toggleCam == 2)
     {
@@ -70,12 +76,16 @@ void GameSetup::reshape(int w, int h)
     // else
     //     gluPerspective(90, (GLfloat)w / (GLfloat)h, 10, 2000);
     // gluPerspective(90, (arena->getRaio() * 2) / (arena->getRaio() * 2), arena->getJogador()->getRaio()*0.3, arena->getRaio() * 2);
-    gluPerspective(90,
-                   (gameRuntime.getGame().getFlightArea().getArea().getRadius() * 2) / (gameRuntime.getGame().getFlightArea().getArea().getRadius() * 2),
-                   gameRuntime.getGame().getPlayer().getBody().getRadius() * 0.3,
-                   gameRuntime.getGame().getFlightArea().getArea().getRadius() * 2);
+    // gluPerspective(90,
+    //                (gameRuntime.getGame().getFlightArea().getArea().getRadius() * 2) / (gameRuntime.getGame().getFlightArea().getArea().getRadius() * 2),
+    //                gameRuntime.getGame().getPlayer().getBody().getRadius() * 0.4,
+    //                gameRuntime.getGame().getFlightArea().getArea().getRadius() * 2);
+    // gluPerspective(120,
+    //                (gameRuntime.getGame().getFlightArea().getArea().getRadius() * 2) / (gameRuntime.getGame().getFlightArea().getArea().getRadius() * 2),
+    //                gameRuntime.getGame().getPlayer().getBody().getRadius() * 0.4,
+    //                gameRuntime.getGame().getFlightArea().getArea().getRadius() * 2);
 
-    // gluPerspective(45, (GLfloat)w *0 / (GLfloat)h, 2, 1000);
+    gluPerspective(120, (GLfloat)w / (GLfloat)h, 1, 3000);
     glMatrixMode(GL_MODELVIEW);
 }
 
