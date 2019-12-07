@@ -1,6 +1,6 @@
 #include "terrestrialEnemy.h"
 
-void TerrestrialEnemy::draw()
+void TerrestrialEnemy::draw(GLuint TerrestrialEnemiesTexture)
 {
     if (!isDestroyed())
     {
@@ -14,6 +14,11 @@ void TerrestrialEnemy::draw()
         // drawer.drawRectangle2(body.getRadius() * 1.44, body.getRadius() * 1.44, body.getColor());
 
         glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_color2);
+
+        // glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR );
+        // glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR );
+
+        glBindTexture(GL_TEXTURE_2D, TerrestrialEnemiesTexture);
         // drawer.drawFilledSphere(body.getRadius() * 0.7, Color(0.3, 0.45, 0.7));
         glutSolidSphere(body.getRadius(), 100, 100);
         glPopMatrix();

@@ -67,7 +67,7 @@ public:
 
     Point getCurrentPositionAdjusted();
     Sphere getAdjustedBody();
-    void draw();
+    void draw(GLuint TerrestrialEnemiesTexture);
     void reset();
 };
 
