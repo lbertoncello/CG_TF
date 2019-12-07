@@ -62,12 +62,12 @@ void Airplane::drawTail()
     glTranslatef(-this->body.getRadius() * 0.7, 0.0, 0.0);
 
     Point p1(this->body.getRadius() * 0.125, -this->body.getRadius() * 0.05, this->body.getRadius() * 0.6);
-    Point p2(this->body.getRadius()* 0.125, this->body.getRadius() * 0.05, this->body.getRadius() * 0.6);
+    Point p2(this->body.getRadius() * 0.125, this->body.getRadius() * 0.05, this->body.getRadius() * 0.6);
     Point p3(-this->body.getRadius() * 0.125, this->body.getRadius() * 0.05, this->body.getRadius() * 0.6);
     Point p4(-this->body.getRadius() * 0.125, -this->body.getRadius() * 0.05, this->body.getRadius() * 0.6);
     Point p5(-this->body.getRadius() * 0.125, -this->body.getRadius() * 0.05, this->body.getRadius() * 0.1);
     Point p6(this->body.getRadius() * 0.125, -this->body.getRadius() * 0.05, this->body.getRadius() * 0.1);
-    Point p7(this->body.getRadius()* 0.125, this->body.getRadius() * 0.05, this->body.getRadius() * 0.1);
+    Point p7(this->body.getRadius() * 0.125, this->body.getRadius() * 0.05, this->body.getRadius() * 0.1);
     Point p8(-this->body.getRadius() * 0.125, this->body.getRadius() * 0.05, this->body.getRadius() * 0.1);
 
     drawer.drawParallelSolid(p1, p2, p3, p4, p5, p6, p7, p8);
@@ -81,7 +81,7 @@ void Airplane::drawCockpit()
 
     GLfloat cockpitRadius = this->body.getRadius() / 2.0;
     Color cockpitColor(0.0, 0.0, 0.0);
-    
+
     GLfloat mat_ambient_r[] = {0.0, 0.0, 0.0, 1.0};
     glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_r);
 
@@ -186,7 +186,7 @@ void Airplane::drawPropeller()
 
     incrementPropellerAngle();
     glTranslatef(this->body.getRadius() / 2.0, 0, 0.0);
-    glRotatef(propellerAngle, 1.0, 0.0, 0.0);
+    glRotatef(8 * propellerAngle, 1.0, 0.0, 0.0);
 
     // drawer.drawTriangle(p3, p2, p1, propellerColor);
     // drawer.drawTriangle(p4, p5, p6, propellerColor);
