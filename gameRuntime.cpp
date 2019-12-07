@@ -198,26 +198,6 @@ void GameRuntime::motion(GLint x, GLint y)
             previousX = x;
         }
     }
-
-    if (isLeftMouseButtonPressed())
-    {
-    }
-
-    if (isRightMouseButtonPressed())
-    {
-        movingCamera = true;
-        previousMousePosition = mousePosition;
-        mousePosition = Point(x, y);
-        camMovimentX = mousePosition.getX() - previousMousePosition.getX();
-        camMovimentY = mousePosition.getY() - previousMousePosition.getY();
-
-        game.moveCamera(camMovimentX, camMovimentY);
-    }
-    else
-    {
-        movingCamera = false;
-        // game.moveCamera(0, 0);
-    }
 }
 
 void GameRuntime::passiveMotion(GLint x, GLint y)
@@ -249,6 +229,5 @@ void GameRuntime::passiveMotion(GLint x, GLint y)
     else
     {
         movingCamera = false;
-        // game.moveCamera(0, 0);
     }
 }
