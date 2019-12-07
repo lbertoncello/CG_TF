@@ -2,18 +2,13 @@
 
 void GameSetup::display(void)
 {
-    double camDist = 800;
-    double camXYAngle = 0;
-    double camXZAngle = 0;
-    int toggleCam = 0;
-
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
 
     gameRuntime.getGame().calcMoviments();
 
-    if (toggleCam == 0)
+    if (gameRuntime.getToggleCam() == 0)
     {
         // PrintText(0.1, 0.1, "Movable Camera", 0, 1, 0);
         // glTranslatef(0, 0, -camDist);
@@ -25,7 +20,7 @@ void GameSetup::display(void)
         // glRotatef(camXZAngle, 1, 0, 0);
         // glRotatef(camXYAngle, 0, 1, 0);
     }
-    else if (toggleCam == 1)
+    else if (gameRuntime.getToggleCam() == 1)
     {
         // PrintText(0.1, 0.1, "Static Camera at a Distance", 0, 1, 0);
         // gluLookAt(10, 10, 50, 0, 0, 0, 0, 1, 0);
@@ -33,10 +28,13 @@ void GameSetup::display(void)
         Point lookingPoint = gameRuntime.getGame().getPlayer().getLookingPoint2();
         gluLookAt(camPoint.getX(), camPoint.getY(), camPoint.getZ(), lookingPoint.getX(), lookingPoint.getY(), lookingPoint.getZ(), 0, 0, 1);
     }
-    else if (toggleCam == 2)
+    else if (gameRuntime.getToggleCam() == 2)
     {
         // PrintText(0.1, 0.1, "Sun Camera", 0, 1, 0);
         // gluLookAt(0, 0, 0, -sin(angleYear / 180 * M_PI), 0, -cos(angleYear / 180 * M_PI), 0, 1, 0);
+        Point camPoint = gameRuntime.getGame().getPlayer().getCamPoint3();
+        Point lookingPoint = gameRuntime.getGame().getPlayer().getLookingPoint3();
+        gluLookAt(camPoint.getX(), camPoint.getY(), camPoint.getZ(), lookingPoint.getX(), lookingPoint.getY(), lookingPoint.getZ(), 0, 0, 1);
     }
 
     GLfloat light_position[] = {0.0, 0.0, 10.0, 1.0};

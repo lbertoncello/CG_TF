@@ -78,6 +78,21 @@ void GameRuntime::keyOperations(void)
     {
         game.reset();
     }
+
+    if (keyStates['1'])
+    {
+       this->toggleCam = 0;
+    }
+
+    if (keyStates['2'])
+    {
+       this->toggleCam = 1;
+    }
+
+    if (keyStates['3'])
+    {
+       this->toggleCam = 2;
+    }
 }
 
 void GameRuntime::keyPress(unsigned char key, GLint x, GLint y)
@@ -111,6 +126,18 @@ void GameRuntime::keyPress(unsigned char key, GLint x, GLint y)
         keyStates[key] = true;
     }
     if (key == '-')
+    {
+        keyStates[key] = true;
+    }
+    if (key == '1')
+    {
+        keyStates[key] = true;
+    }
+    if (key == '2')
+    {
+        keyStates[key] = true;
+    }
+    if (key == '3')
     {
         keyStates[key] = true;
     }

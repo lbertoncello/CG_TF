@@ -315,6 +315,8 @@ public:
     Point getCamPoint1();
     Point getLookingPoint2();
     Point getCamPoint2();
+    Point getLookingPoint3();
+    Point getCamPoint3();
 };
 
 #endif

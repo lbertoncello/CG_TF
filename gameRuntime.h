@@ -31,6 +31,7 @@ private:
     bool isLeftMouseButtonPressed = false;
     bool isRightMouseButtonPressed = false;
     GLfloat previousX = 0;
+    GLint toggleCam = 0;
 
 public:
     GameRuntime() {}
@@ -93,6 +94,10 @@ public:
     GLint getWindowInitial_y_position()
     {
         return this->windowInitial_y_position;
+    }
+
+    GLint getToggleCam() {
+        return this->toggleCam;
     }
 
     void setPlayerSpeedMult(GLfloat playerAirplaneSpeedMult)
