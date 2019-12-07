@@ -5,13 +5,13 @@ void GameSetup::display(void)
     double camDist = 800;
     double camXYAngle = 0;
     double camXZAngle = 0;
-    int toggleCam = 1;
+    int toggleCam = 0;
 
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
 
-    gameRuntime.getGame().movePlayer();
+    gameRuntime.getGame().calcMoviments();
 
     if (toggleCam == 0)
     {

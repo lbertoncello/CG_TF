@@ -48,6 +48,12 @@ class Game
     void drawBullets();
     void drawBombs();
     void drawScoreboard();
+    void movePlayer();
+    void moveFlightEnemies();
+    void movePlayerBullets();
+    void moveEnemyBullets();
+    void moveBullets();
+    void moveBombs();
     bool checkFlightEnemiesCollision();
     bool isPlayerInsideFlightArea(Player& player);
     bool isFlightEnemyInsideFlightArea(FlightEnemy& flightEnemy);
@@ -140,7 +146,7 @@ public:
     void rotatePlayerAirplaneCannon(GLfloat moviment);
     void shoot();
     void dropBomb();
-    void movePlayer();
+    void calcMoviments();
 };
 
 #endif
