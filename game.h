@@ -147,6 +147,8 @@ public:
     void shoot();
     void dropBomb();
     void calcMoviments();
+    void moveCamera(GLfloat movimentX, GLfloat movimentY);
+    void resetCameraAngle();
 };
 
 #endif

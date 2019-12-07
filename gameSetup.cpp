@@ -2,7 +2,6 @@
 
 void GameSetup::display(void)
 {
-    glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
 
@@ -34,7 +33,13 @@ void GameSetup::display(void)
         // gluLookAt(0, 0, 0, -sin(angleYear / 180 * M_PI), 0, -cos(angleYear / 180 * M_PI), 0, 1, 0);
         Point camPoint = gameRuntime.getGame().getPlayer().getCamPoint3();
         Point lookingPoint = gameRuntime.getGame().getPlayer().getLookingPoint3();
+
+        // if(gameRuntime.isMovingCamera()) {
+        //     glRotatef(-90 - gameRuntime.getGame().getPlayer().getCamAngleX_degrees(), 1, 1, 0);
+        // }
+
         gluLookAt(camPoint.getX(), camPoint.getY(), camPoint.getZ(), lookingPoint.getX(), lookingPoint.getY(), lookingPoint.getZ(), 0, 0, 1);
+
     }
 
     GLfloat light_position[] = {0.0, 0.0, 10.0, 1.0};
