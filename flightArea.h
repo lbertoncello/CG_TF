@@ -27,7 +27,7 @@ public:
         this->area = area;
     }
 
-    void draw();
+    void draw(GLuint groundTexture, GLuint skyTexture);
 };
 
 #endif

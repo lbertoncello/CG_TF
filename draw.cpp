@@ -68,14 +68,15 @@ void Draw::drawFilledCircle(GLfloat radius, Color color)
 
     glColor3f(color.getR(), color.getG(), color.getB());
 
-    glBegin(GL_TRIANGLE_FAN);
-    glVertex3f(x1, y1, 1.0);
+    glBegin(GL_POLYGON);
+    // glVertex3f(x1, y1, 1.0);
 
     for (angle = 1.0f; angle < 361.0f; angle += 0.2)
     {
         x2 = x1 + sin(angle) * radius;
         y2 = y1 + cos(angle) * radius;
-        glVertex3f(x2, y2, 1.0);
+        glTexCoord2f(cos(angle) * 0.5 + 0.5, sin(angle) * 0.5 + 0.5);
+        glVertex3f(x2, 0.0, y2);
     }
 
     glEnd();
@@ -301,11 +302,16 @@ void Draw::drawCylinder(Circle circle)
     {
         x = radius * cos(angle);
         z = radius * sin(angle);
+        // glTexCoord2f(x, height);
+        glTexCoord2f(angle/(2*PI), 1);
         glVertex3f(x, height, z);
+        glTexCoord2f(angle/(2*PI), 0);
         glVertex3f(x, 0.0, z);
         angle = angle + angle_stepsize;
     }
+    glTexCoord2f(2 * PI / (2*PI), 1);
     glVertex3f(radius, height, 0.0);
+    glTexCoord2f(2 * PI / (2*PI), 0.0);
     glVertex3f(radius, 0.0, 0.0);
     glEnd();
 
@@ -318,6 +324,7 @@ void Draw::drawCylinder(Circle circle)
     {
         x = radius * cos(angle);
         z = radius * sin(angle);
+        glTexCoord2f(cos(angle)*0.5f + 0.5f, sin(angle) *0.5f + 0.5f);
         glVertex3f(x, height, z);
         angle = angle + angle_stepsize;
     }
