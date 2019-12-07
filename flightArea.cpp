@@ -1,6 +1,6 @@
 #include "flightArea.h"
 
-void FlightArea::draw(GLuint groundTexture, GLuint skyTexture)
+void FlightArea::draw(GLuint groundTexture, GLuint skyTexture, GLuint horizontTexture)
 {
     GLfloat mat_ambient_b[] = { 0.0, 0.0, 1.0, 1.0 };
 
@@ -13,11 +13,18 @@ void FlightArea::draw(GLuint groundTexture, GLuint skyTexture)
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR );
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR );
 
-    glBindTexture (GL_TEXTURE_2D, skyTexture);
-    drawer.drawCylinder(this->area);
+    //paredes
+    glBindTexture (GL_TEXTURE_2D, horizontTexture);
+    drawer.drawCylinderTube(this->area);
 
-    // glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR );
-    // glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR );
+    //teto
+    glPushMatrix();
+    glTranslatef(0.0, this->area.getRadius(), 0.0);
+    glBindTexture(GL_TEXTURE_2D, skyTexture);
+    drawer.drawFilledCircle(this->area);
+    glPopMatrix();
+    
+    //chao
     glBindTexture(GL_TEXTURE_2D, groundTexture);
     drawer.drawFilledCircle(this->area);
     glPopMatrix();

@@ -26,6 +26,7 @@ private:
     GLfloat deltaIdleTime;
     GLuint groundTexture;
     GLuint skyTexture;
+    GLuint horizontTexture;
 
 public:
     GameSetup() {}

@@ -255,9 +255,9 @@ void Game::updateTakeOff(high_resolution_clock::time_point currentTime, GLfloat 
     }
 }
 
-void Game::drawFlightArea(GLuint groundTexture, GLuint skyTexture)
+void Game::drawFlightArea(GLuint groundTexture, GLuint skyTexture, GLuint horizontTexture)
 {
-    flightArea.draw(groundTexture, skyTexture);
+    flightArea.draw(groundTexture, skyTexture, horizontTexture);
 }
 
 void Game::initFlightEnemiesSpeed()
@@ -562,11 +562,11 @@ void Game::drawBombs()
     glPopMatrix();
 }
 
-void Game::drawGame(GLfloat deltaIdleTime, GLuint groundTexture, GLuint skyTexture)
+void Game::drawGame(GLfloat deltaIdleTime, GLuint groundTexture, GLuint skyTexture, GLuint horizontTexture)
 {
     this->deltaIdleTime = deltaIdleTime;
 
-    drawFlightArea(groundTexture, skyTexture);
+    drawFlightArea(groundTexture, skyTexture, horizontTexture);
     drawTerrestrialEnemies(groundTexture);
     drawFlightEnemies();
     drawAirportRunway();
