@@ -100,7 +100,7 @@ public:
     void drawGame();
     void chooseCircleToMove();
     void drawEllipsoid(Sphere sphere);
-    void drawCylinder(Circle circle);
+    void drawCylinderTube(Circle circle);
     void drawCylinder(GLfloat radius, GLfloat height);
     void drawSphere(Sphere sphere);
     void drawParallelSolid(Point p1, Point p2, Point p3, Point p4, Point p5, Point p6, Point p7, Point p8);

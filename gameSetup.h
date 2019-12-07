@@ -12,6 +12,7 @@
 #include "tinyxml.h"
 #include "gameRuntime.h"
 #include "parametersReading.h"
+#include "imageloader.h"
 
 using namespace std;
 
@@ -23,6 +24,9 @@ private:
     GLfloat currentIdleTime;
     GLfloat lastIdleTime;
     GLfloat deltaIdleTime;
+    GLuint groundTexture;
+    GLuint skyTexture;
+    GLuint horizontTexture;
 
 public:
     GameSetup() {}
@@ -38,6 +42,7 @@ public:
     void idle(void);
     void init(void);
     void reshape (int w, int h);
+    GLuint LoadTextureRAW( const char * filename );
 };
 
 #endif
