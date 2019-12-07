@@ -31,7 +31,7 @@ void Airplane::draw()
     drawWings();
     drawCannon();
     drawMainBody();
-    // drawCockpit();
+    drawCockpit();
     drawTail();
 
     glPopMatrix();
@@ -81,9 +81,15 @@ void Airplane::drawCockpit()
 
     GLfloat cockpitRadius = this->body.getRadius() / 2.0;
     Color cockpitColor(0.0, 0.0, 0.0);
+    
+    GLfloat mat_ambient_r[] = {0.0, 0.0, 0.0, 1.0};
+    glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_r);
 
-    glTranslatef(this->body.getRadius() / 3.0, 0.0, 0.0);
-    drawer.drawEllipse(cockpitRadius, cockpitColor);
+    glTranslatef(this->body.getRadius() / 3.0, 0.0, this->body.getRadius() * 0.15);
+    Point pcenter(0.0, 0.0, 0.0);
+    Sphere cockpit = Sphere(pcenter, cockpitRadius);
+    // drawer.drawEllipse(cockpitRadius, cockpitColor);
+    drawer.drawEllipsoid(cockpit);
 
     glPopMatrix();
 }
@@ -91,7 +97,7 @@ void Airplane::drawCockpit()
 void Airplane::drawWings()
 {
     Color wingsColor(0.0, 0.0, 0.0);
-    GLfloat mat_ambient_r[] = {0.0, 1.0, 1.0, 1.0};
+    GLfloat mat_ambient_r[] = {0.0, 0.0, 0.0, 1.0};
 
     glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_r);
 
