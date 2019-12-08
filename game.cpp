@@ -172,7 +172,7 @@ void Game::init()
     player.setCurrentPosition(airportRunway.getAdjustedBody().getPoint1());
     player.setInclinationAngle(airportRunway.calcInclinationAngle());
     player.setMinimumZ(0);
-    player.setMaximumZ(flightArea.getArea().getRadius() - player.getBody().getRadius());
+    player.setMaximumZ((8*2*player.getBody().getRadius()) - player.getBody().getRadius());
     beforeAirportRunwayMiddle = true;
     gameOver = false;
     gameWin = false;
