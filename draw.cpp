@@ -396,50 +396,23 @@ void Draw::drawSphere(Sphere sphere)
 
 void Draw::drawParallelSolid(Point p1, Point p2, Point p3, Point p4, Point p5, Point p6, Point p7, Point p8)
 {
+    //top
+    drawPlane(p1, p2, p3, p4);
 
-    //top-bottom
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0, 0.0);
-    glVertex3f(p1.getX(), p1.getY(), p1.getZ());
-    glTexCoord2f(0.0, 1.0);
-    glVertex3f(p2.getX(), p2.getY(), p2.getZ());
-    glTexCoord2f(1.0, 1.0);
-    glVertex3f(p3.getX(), p3.getY(), p3.getZ());
-    glTexCoord2f(1.0, 0.0);
-    glVertex3f(p4.getX(), p4.getY(), p4.getZ());
-    glTexCoord2f(0.0, 0.0);
-    glVertex3f(p5.getX(), p5.getY(), p5.getZ());
-    glTexCoord2f(0.0, 1.0);
-    glVertex3f(p6.getX(), p6.getY(), p6.getZ());
-    glTexCoord2f(1.0, 1.0);
-    glVertex3f(p7.getX(), p7.getY(), p7.getZ());
-    glTexCoord2f(1.0, 0.0);
-    glVertex3f(p8.getX(), p8.getY(), p8.getZ());
-    glEnd();
+    //bottom
+    drawPlane(p5, p6, p7, p8);
 
-    //left-right
-    glBegin(GL_QUADS);
-    glVertex3f(p1.getX(), p1.getY(), p1.getZ());
-    glVertex3f(p6.getX(), p6.getY(), p6.getZ());
-    glVertex3f(p7.getX(), p7.getY(), p7.getZ());
-    glVertex3f(p2.getX(), p2.getY(), p2.getZ());
-    glVertex3f(p3.getX(), p3.getY(), p3.getZ());
-    glVertex3f(p8.getX(), p8.getY(), p8.getZ());
-    glVertex3f(p5.getX(), p5.getY(), p5.getZ());
-    glVertex3f(p4.getX(), p4.getY(), p4.getZ());
-    glEnd();
+    //left
+    drawPlane(p1, p6, p7, p2);
+    
+    //right
+    drawPlane(p3, p8, p5, p4);
 
-    //back-front
-    glBegin(GL_QUADS);
-    glVertex3f(p4.getX(), p4.getY(), p4.getZ());
-    glVertex3f(p5.getX(), p5.getY(), p5.getZ());
-    glVertex3f(p6.getX(), p6.getY(), p6.getZ());
-    glVertex3f(p1.getX(), p1.getY(), p1.getZ());
-    glVertex3f(p2.getX(), p2.getY(), p2.getZ());
-    glVertex3f(p7.getX(), p7.getY(), p7.getZ());
-    glVertex3f(p8.getX(), p8.getY(), p8.getZ());
-    glVertex3f(p3.getX(), p3.getY(), p3.getZ());
-    glEnd();
+    //back
+    drawPlane(p4, p5, p6, p1);
+
+    //front
+    drawPlane(p2, p7, p8, p3);
 }
 
 void Draw::drawPlane(Point p1, Point p2, Point p3, Point p4)

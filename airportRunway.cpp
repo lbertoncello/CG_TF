@@ -13,6 +13,9 @@ void AirportRunway::draw(GLuint roadTexture)
     GLfloat mat_ambient_color[] = {1.0, 1.0, 1.0, 1.0};
 
     glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, mat_ambient_color);
+
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR );
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR );
     glBindTexture(GL_TEXTURE_2D, roadTexture);
 
     Line temp = this->adjustedBody;

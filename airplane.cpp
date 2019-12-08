@@ -28,7 +28,7 @@ void Airplane::draw(GLuint mainBodyTexture, GLuint wingsTexture)
     glRotatef(-calc.radiansToDegrees(moveAngleYZ), 0.0, 1.0, 0.0);
     // glRotatef(45, 0.0, 1.0, 0.0);
 
-    drawWings(wingsTexture);
+    drawWings(mainBodyTexture);
     drawCannon();
     drawMainBody(mainBodyTexture);
     drawCockpit();
@@ -39,12 +39,14 @@ void Airplane::draw(GLuint mainBodyTexture, GLuint wingsTexture)
 
 void Airplane::drawMainBody(GLuint mainBodyTexture)
 {
-    GLfloat mat_ambient_g[] = {0.0, 0.0, 0.0, 1.0};
+    GLfloat mat_ambient_g[] = {1.0, 1.0, 1.0, 1.0};
 
     // glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_g);
     glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, mat_ambient_g);
     // glMaterialfv(GL_FRONT, GL_SPECULAR, mat_ambient_g);
 
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR );
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR );
     glBindTexture(GL_TEXTURE_2D, mainBodyTexture);
     glPushMatrix();
     drawer.drawEllipsoid(this->body);
@@ -86,7 +88,7 @@ void Airplane::drawCockpit()
     Color cockpitColor(0.0, 0.0, 0.0);
 
     GLfloat mat_ambient_r[] = {0.0, 0.0, 0.0, 1.0};
-    glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_r);
+    glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, mat_ambient_r);
 
     glTranslatef(this->body.getRadius() / 3.0, 0.0, this->body.getRadius() * 0.15);
     Point pcenter(0.0, 0.0, 0.0);
@@ -100,7 +102,7 @@ void Airplane::drawCockpit()
 void Airplane::drawWings(GLuint wingsTexture)
 {
     Color wingsColor(0.0, 0.0, 0.0);
-    GLfloat mat_ambient_r[] = {0.0, 0.0, 0.0, 1.0};
+    GLfloat mat_ambient_r[] = {1.0, 1.0, 1.0, 1.0};
 
     glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_r);
 
@@ -156,7 +158,7 @@ void Airplane::drawPropeller()
 {
     Color rodColor(0.0, 0.0, 0.0);
 
-    GLfloat mat_ambient_r[] = {1.0, 1.0, 0.0, 1.0};
+    GLfloat mat_ambient_r[] = {1.0, 1.0, 1.0, 1.0};
 
     glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_r);
 
