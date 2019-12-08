@@ -567,7 +567,8 @@ Bullet *Airplane::shoot(GLfloat deltaIdleTime)
         dX + body.getRadius() * cos(calc.degreesToRadians(inclinationAngle)) + this->body.getRadius() / 2.0 * cos(resultingAngleXY));
     bulletCoordinates.setY(
         dY + body.getRadius() * sin(calc.degreesToRadians(inclinationAngle)) + this->body.getRadius() / 2.0 * sin(resultingAngleXY));
-    bulletCoordinates.setZ(dZ);
+    bulletCoordinates.setZ(dZ + (dZ * sin(moveAngleYZ)));
+    // bulletCoordinates.setZ(0 + (dZ * cos(moveAngleYZ)));
 
     Point bulletBodyCoordinates = getPositionAdjusted(bulletCoordinates);
 
