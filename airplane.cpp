@@ -564,7 +564,7 @@ Point Airplane::getLookingPoint2()
     //   GLfloat anguloHorizontal = jogador->getAnguloJogador() *M_PI/180;
     //   GLfloat anguloVertical = jogador->getAnguloJogadorVertical() *M_PI/180;
     // GLfloat horizontalAngle = calc.degreesToRadians(inclinationAngle) + moveAngleXY;
-    GLfloat horizontalAngle = cannonAngle;
+    GLfloat horizontalAngle = moveAngleXY + (-cannonAngle);
     // -90 + calc.radiansToDegrees(-cannonAngle)
 
     GLfloat lookingPoint_x = dX + (2 * body.getRadius() * cos(moveAngleYZ) * cos(horizontalAngle));
@@ -589,14 +589,24 @@ Point Airplane::getLookingPoint2()
 Point Airplane::getCamPoint2()
 {
     // GLfloat horizontalAngle = calc.degreesToRadians(inclinationAngle) + moveAngleXY;
-    GLfloat horizontalAngle = moveAngleXY;
+    GLfloat horizontalAngle = moveAngleXY + (cannonAngle);
 
     // GLfloat camPoint_x = dX + (body.getRadius() * cos((moveAngleYZ + 45)) * cos(horizontalAngle) * 1.0);
     // GLfloat camPoint_y = -dY + (body.getRadius() * cos((moveAngleYZ + 45)) * sin(horizontalAngle) * 1.0);
     // GLfloat camPoint_z = dZ + (body.getRadius() * sin((moveAngleYZ + 45)) * 1.0);
-    GLfloat camPoint_x = dX + (body.getRadius() * cos((moveAngleYZ + calc.degreesToRadians(45))) * cos(moveAngleXY) * 1.5);
-    GLfloat camPoint_y = -dY + (body.getRadius() * cos((moveAngleYZ + calc.degreesToRadians(45))) * sin(moveAngleXY) * 1.5);
+    GLfloat camPoint_x = dX + (body.getRadius() * cos((moveAngleYZ + calc.degreesToRadians(45))) * cos(horizontalAngle) * 1.5);
+    camPoint_x = dX + (body.getRadius() * 0.1 * cos(cannonAngle)) + (body.getRadius() * cos(moveAngleXY) * 1.0);
+
+    GLfloat camPoint_y = -dY + (body.getRadius() * cos((moveAngleYZ + calc.degreesToRadians(45))) * sin(horizontalAngle) * 1.5);
+    camPoint_y = -dY - (body.getRadius() * 0.1 * sin(cannonAngle)) + (body.getRadius() * sin(moveAngleXY) * 1.0);
+
     GLfloat camPoint_z = dZ + (body.getRadius() * sin((moveAngleYZ + calc.degreesToRadians(45))) * 0.8);
+    camPoint_z = dZ + (body.getRadius() * sin((-moveAngleYZ))) + (body.getRadius() * cos(-moveAngleYZ) * 0.4);
+    camPoint_z = dZ + (body.getRadius() * sin(moveAngleYZ + calc.degreesToRadians(40)));
+
+    // GLfloat camPoint_x = dX + ((body.getRadius() + (body.getRadius() / 3)) * cos((moveAngleYZ + 45)) * cos(horizontalAngle) * 0.8);
+    // GLfloat camPoint_y = -dY + ((body.getRadius() + (body.getRadius() / 3)) * cos((moveAngleYZ + 45)) * sin(horizontalAngle) * 0.8);
+    // GLfloat camPoint_z = dZ + (body.getRadius() * sin((moveAngleYZ + 45)) * 0.8);
 
     return Point(camPoint_x, camPoint_y, camPoint_z);
 }
@@ -659,7 +669,6 @@ void Airplane::moveCameraY(GLfloat moviment, GLfloat deltaIdleTime)
     {
         camAngleY = nextCameraAngle;
     }
-
 }
 
 void Airplane::resetCameraAngle()
