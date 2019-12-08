@@ -242,6 +242,7 @@ void Game::updateTakeOff(high_resolution_clock::time_point currentTime, GLfloat 
 
         // GLfloat newRadius = player.getInitialRadius() + currentRadius(sizeIncreaseTimeElapsed);
         // player.getBody().setRadius(newRadius);
+        player.move(deltaIdleTime);
     }
     else
     {
@@ -249,6 +250,7 @@ void Game::updateTakeOff(high_resolution_clock::time_point currentTime, GLfloat 
 
         if (distance < airportRunway.getScalarMiddle())
         {
+            player.setTurningUp(true);
             beforeAirportRunwayMiddle = false;
             sizeIncreaseStartTime = high_resolution_clock::now();
         }
@@ -310,6 +312,7 @@ void Game::movePlayer()
         if (timeElapsed >= TAKEOFF_TIME)
         {
             player.setTakingOff(false);
+            player.setTurningUp(false);
             player.setFlying(true);
         }
 
@@ -666,7 +669,6 @@ void Game::shoot()
 void Game::dropBomb()
 {
     bombs.push_back(this->player.dropBomb(deltaIdleTime));
-    cout << "BOMBA SOLTA" << endl;
 }
 
 void Game::calcMoviments()

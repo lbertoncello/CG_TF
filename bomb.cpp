@@ -51,7 +51,15 @@ GLfloat Bomb::calcMovement_y(GLfloat deltaIdleTime)
 
 GLfloat Bomb::calcMovement_z(GLfloat deltaIdleTime)
 {
-    return deltaIdleTime * sin(moveAngleYZ) * -10000;
+    currentTime = std::chrono::high_resolution_clock::now();
+    duration<GLfloat> timeSpan = duration_cast<duration<GLfloat>>(currentTime - dropStartTime);
+
+    GLfloat acceleration = -100;
+    GLfloat time = timeSpan.count();
+    GLfloat initialSpeed = 0;
+    GLfloat currentSpeed = initialSpeed + (acceleration * time);
+
+    return deltaIdleTime * currentSpeed;
 }
 
 Point Bomb::getCurrentPositionAdjusted()

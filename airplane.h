@@ -207,13 +207,11 @@ public:
         {
             startPosition.setX(currentPosition.getX());
             startPosition.setY(currentPosition.getY());
-            startPosition.setZ(currentPosition.getZ());
             startPositionInitialized = true;
         }
 
         dX = currentPosition.getX();
         dY = currentPosition.getY();
-        dZ = currentPosition.getZ();
 
         this->currentPosition = currentPosition;
     }
