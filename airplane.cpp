@@ -242,11 +242,13 @@ void Airplane::move(GLfloat deltaIdleTime)
     dY -= calcMovement_y(deltaIdleTime);
     dZ += calcMovement_z(deltaIdleTime);
 
-    if(dZ < minimumZ) {
+    if (dZ < minimumZ)
+    {
         dZ = minimumZ;
     }
 
-    if(dZ > maximumZ) {
+    if (dZ > maximumZ)
+    {
         dZ = maximumZ;
     }
 }
@@ -657,6 +659,15 @@ Point Airplane::getCamPoint3()
     GLfloat camPoint_x = (dX + (body.getRadius() * cos(moveAngleXY + camAngleX) * -2));
     GLfloat camPoint_y = (-dY + (body.getRadius() * sin(moveAngleXY + camAngleX) * -2));
     GLfloat camPoint_z = dZ + (body.getRadius() * (1 - sin(camAngleY)) * 1.5);
+
+    if (camPoint_z > maximumZ)
+    {
+        camPoint_z = maximumZ;
+    }
+    else if (camPoint_z < minimumZ)
+    {
+        camPoint_z = minimumZ;
+    }
 
     return Point(camPoint_x, camPoint_y, camPoint_z);
 }
