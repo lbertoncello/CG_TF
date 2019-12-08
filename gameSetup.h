@@ -27,6 +27,7 @@ private:
     GLuint groundTexture;
     GLuint skyTexture;
     GLuint horizontTexture;
+    GLuint playerMainBodyTexture;
 
 public:
     GameSetup() {}

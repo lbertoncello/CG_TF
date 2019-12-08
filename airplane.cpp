@@ -1,6 +1,6 @@
 #include "airplane.h"
 
-void Airplane::draw()
+void Airplane::draw(GLuint mainBodyTexture)
 {
     // if (!isDestroyed())
     // {
@@ -30,19 +30,22 @@ void Airplane::draw()
 
     drawWings();
     drawCannon();
-    drawMainBody();
+    drawMainBody(mainBodyTexture);
     drawCockpit();
     drawTail();
 
     glPopMatrix();
 }
 
-void Airplane::drawMainBody()
+void Airplane::drawMainBody(GLuint mainBodyTexture)
 {
-    GLfloat mat_ambient_g[] = {0.0, 1.0, 0.0, 1.0};
+    GLfloat mat_ambient_g[] = {0.2, 0.7, 0.3, 1.0};
 
-    glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_g);
+    // glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_g);
+    glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, mat_ambient_g);
+    // glMaterialfv(GL_FRONT, GL_SPECULAR, mat_ambient_g);
 
+    glBindTexture(GL_TEXTURE_2D, mainBodyTexture);
     glPushMatrix();
     drawer.drawEllipsoid(this->body);
     // glutWireSphere(body.getRadius(), 100, 100);
@@ -108,13 +111,13 @@ void Airplane::drawWings()
     // Point p4(p1.getX() + this->body.getRadius() / 3.0 - this->body.getRadius() / 6.0, this->body.getRadius());
 
     Point p1(this->body.getRadius() / 4.0, -this->body.getRadius(), this->body.getRadius() / 16.0);
-    Point p2(-this->body.getRadius() / 4.0, -this->body.getRadius(), this->body.getRadius() / 16.0);
-    Point p3(-this->body.getRadius() / 4.0, this->body.getRadius(), this->body.getRadius() / 16.0);
+    Point p2(-this->body.getRadius() / 8.0, -this->body.getRadius(), this->body.getRadius() / 16.0);
+    Point p3(-this->body.getRadius() / 8.0, this->body.getRadius(), this->body.getRadius() / 16.0);
     Point p4(this->body.getRadius() / 4.0, this->body.getRadius(), this->body.getRadius() / 16.0);
     Point p5(this->body.getRadius() / 4.0, this->body.getRadius(), -this->body.getRadius() / 16.0);
     Point p6(this->body.getRadius() / 4.0, -this->body.getRadius(), -this->body.getRadius() / 16.0);
-    Point p7(-this->body.getRadius() / 4.0, -this->body.getRadius(), -this->body.getRadius() / 16.0);
-    Point p8(-this->body.getRadius() / 4.0, this->body.getRadius(), -this->body.getRadius() / 16.0);
+    Point p7(-this->body.getRadius() / 8.0, -this->body.getRadius(), -this->body.getRadius() / 16.0);
+    Point p8(-this->body.getRadius() / 8.0, this->body.getRadius(), -this->body.getRadius() / 16.0);
 
     drawer.drawParallelSolid(p1, p2, p3, p4, p5, p6, p7, p8);
 

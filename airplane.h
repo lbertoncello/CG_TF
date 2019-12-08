@@ -55,7 +55,7 @@ protected:
         speed.push_back(0.0);
     }
 
-    void drawMainBody();
+    void drawMainBody(GLuint mainBodyTexture);
     void drawTail();
     void drawCockpit();
     void drawWings();
@@ -305,7 +305,7 @@ public:
         this->destroyed = destroyed;
     }
 
-    void draw();
+    void draw(GLuint mainBodyTexture);
     void move(GLfloat deltaIdleTime);
     bool checkIntersection(Circle flightAreaBody, Sphere enemyBody, GLfloat deltaIdleTime);
     GLfloat calcMovement_x(GLfloat deltaIdleTime);

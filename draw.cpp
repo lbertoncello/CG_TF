@@ -254,6 +254,10 @@ void Draw::drawEllipsoid(Sphere sphere)
     // glutSolidSphere(circle.getRadius(), 30, 30);
     GLfloat r = sphere.getRadius();
     int i, j;
+    GLfloat texX = 0.0;
+    GLfloat texY0 = 0.0;
+    GLfloat texY1 = 0.0;
+    GLfloat dTex = 1/30;
     for(i = 0; i <= 30; i++) {
         double lat0 = M_PI * (-0.5 + (double) (i - 1) / 30);
         double z0  = sin(lat0);
@@ -263,15 +267,22 @@ void Draw::drawEllipsoid(Sphere sphere)
         double z1 = sin(lat1);
         double zr1 = cos(lat1);
 
+        texY0 = texY1;
+        texY1 = (GLfloat)i/30.0;
+
         glBegin(GL_QUAD_STRIP);
         for(j = 0; j <= 30; j++) {
             double lng = 2 * M_PI * (double) (j - 1) / 30;
             double x = cos(lng);
             double y = sin(lng);
+            texX = (GLfloat) (j / 30.0) + 0.5; 
 
             glNormal3f(x * zr0, y * zr0, z0);
+            glTexCoord2f(texX,texY0);
             glVertex3f(r * x * zr0, 0.25*r * y * zr0, 0.30*r * z0);
+            // glTexCoord2f(cos(angle) * 0.5 + 0.5, sin(angle) * 0.5 + 0.5);
             glNormal3f(x * zr1, y * zr1, z1);
+            glTexCoord2f(texX,texY1);
             glVertex3f(r * x * zr1, 0.25 * r * y * zr1, 0.30 * r * z1);
         }
         glEnd();
