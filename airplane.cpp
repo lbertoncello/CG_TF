@@ -394,6 +394,11 @@ void Airplane::updateTurnUpAngle(GLfloat deltaIdleTime)
         if (moveAngleYZ > 0)
         {
             moveAngleYZ -= M_PI / 2.0 * deltaIdleTime;
+
+            if (moveAngleYZ < 0)
+            {
+                moveAngleYZ = 0;
+            }
         }
     }
 }
@@ -412,6 +417,11 @@ void Airplane::updateTurnDownAngle(GLfloat deltaIdleTime)
         if (moveAngleYZ < 0)
         {
             moveAngleYZ += M_PI / 2.0 * deltaIdleTime;
+
+            if (moveAngleYZ > 0)
+            {
+                moveAngleYZ = 0;
+            }
         }
     }
 }

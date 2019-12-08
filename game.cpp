@@ -153,15 +153,15 @@ bool Game::checkEnemyBulletCollision()
 
 bool Game::checkBombCollision(Bomb *bomb)
 {
-    // vector<TerrestrialEnemy>::iterator terrestrialEnemies_it;
-    // for (terrestrialEnemies_it = terrestrialEnemies.begin(); terrestrialEnemies_it != terrestrialEnemies.end(); terrestrialEnemies_it++)
-    // {
-    //     if (terrestrialEnemies_it->getAdjustedBody().checkIntersection(bomb->getAdjustedBody()))
-    //     {
-    //         terrestrialEnemies_it->setDestroyed(true);
-    //         return true;
-    //     }
-    // }
+    vector<TerrestrialEnemy>::iterator terrestrialEnemies_it;
+    for (terrestrialEnemies_it = terrestrialEnemies.begin(); terrestrialEnemies_it != terrestrialEnemies.end(); terrestrialEnemies_it++)
+    {
+        if (terrestrialEnemies_it->getAdjustedBody().checkIntersection(bomb->getAdjustedBody()))
+        {
+            terrestrialEnemies_it->setDestroyed(true);
+            return true;
+        }
+    }
 
     return false;
 }
@@ -529,10 +529,10 @@ void Game::drawBombs()
     {
         if (isBombInsideFlightArea((*bombs_it)))
         {
-            if (!isGameOver() && !isGameWin())
-            {
-                (*bombs_it)->updateSize();
-            }
+            // if (!isGameOver() && !isGameWin())
+            // {
+            //     (*bombs_it)->updateSize();
+            // }
 
             if (!(*bombs_it)->isOnTheGround())
             {
@@ -666,6 +666,7 @@ void Game::shoot()
 void Game::dropBomb()
 {
     bombs.push_back(this->player.dropBomb(deltaIdleTime));
+    cout << "BOMBA SOLTA" << endl;
 }
 
 void Game::calcMoviments()
