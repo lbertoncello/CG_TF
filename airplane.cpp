@@ -1,6 +1,6 @@
 #include "airplane.h"
 
-void Airplane::draw(GLuint mainBodyTexture, GLuint wingsTexture)
+void Airplane::draw(GLuint mainBodyTexture, GLuint tailAndPropellerTexture)
 {
     // if (!isDestroyed())
     // {
@@ -28,11 +28,11 @@ void Airplane::draw(GLuint mainBodyTexture, GLuint wingsTexture)
     glRotatef(-calc.radiansToDegrees(moveAngleYZ), 0.0, 1.0, 0.0);
     // glRotatef(45, 0.0, 1.0, 0.0);
 
-    drawWings(mainBodyTexture);
+    drawWings(mainBodyTexture, tailAndPropellerTexture);
     drawCannon();
     drawMainBody(mainBodyTexture);
     drawCockpit();
-    drawTail();
+    drawTail(tailAndPropellerTexture);
 
     glPopMatrix();
 }
@@ -54,26 +54,29 @@ void Airplane::drawMainBody(GLuint mainBodyTexture)
     glPopMatrix();
 }
 
-void Airplane::drawTail()
+void Airplane::drawTail(GLuint tailTexture)
 {
     glPushMatrix();
 
     Color color(0.0, 0.0, 0.0);
 
-    GLfloat mat_ambient_r[] = {0.0, 0.0, 0.0, 1.0};
+    GLfloat mat_ambient_r[] = {0.8, 0.8, 0.8, 1.0};
 
     glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_r);
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR );
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR );
+    glBindTexture(GL_TEXTURE_2D, tailTexture);
 
     glTranslatef(-this->body.getRadius() * 0.7, 0.0, 0.0);
 
-    Point p1(this->body.getRadius() * 0.125, -this->body.getRadius() * 0.05, this->body.getRadius() * 0.6);
-    Point p2(this->body.getRadius() * 0.125, this->body.getRadius() * 0.05, this->body.getRadius() * 0.6);
-    Point p3(-this->body.getRadius() * 0.125, this->body.getRadius() * 0.05, this->body.getRadius() * 0.6);
-    Point p4(-this->body.getRadius() * 0.125, -this->body.getRadius() * 0.05, this->body.getRadius() * 0.6);
-    Point p5(-this->body.getRadius() * 0.125, -this->body.getRadius() * 0.05, this->body.getRadius() * 0.1);
-    Point p6(this->body.getRadius() * 0.125, -this->body.getRadius() * 0.05, this->body.getRadius() * 0.1);
-    Point p7(this->body.getRadius() * 0.125, this->body.getRadius() * 0.05, this->body.getRadius() * 0.1);
-    Point p8(-this->body.getRadius() * 0.125, this->body.getRadius() * 0.05, this->body.getRadius() * 0.1);
+    Point p1(this->body.getRadius() * 0.125, -this->body.getRadius() * 0.02, this->body.getRadius() * 0.6);
+    Point p2(this->body.getRadius() * 0.125, this->body.getRadius() * 0.02, this->body.getRadius() * 0.6);
+    Point p3(-this->body.getRadius() * 0.125, this->body.getRadius() * 0.02, this->body.getRadius() * 0.6);
+    Point p4(-this->body.getRadius() * 0.125, -this->body.getRadius() * 0.02, this->body.getRadius() * 0.6);
+    Point p5(-this->body.getRadius() * 0.125, -this->body.getRadius() * 0.02, this->body.getRadius() * 0.1);
+    Point p6(this->body.getRadius() * 0.125, -this->body.getRadius() * 0.02, this->body.getRadius() * 0.1);
+    Point p7(this->body.getRadius() * 0.125, this->body.getRadius() * 0.02, this->body.getRadius() * 0.1);
+    Point p8(-this->body.getRadius() * 0.125, this->body.getRadius() * 0.02, this->body.getRadius() * 0.1);
 
     drawer.drawParallelSolid(p1, p2, p3, p4, p5, p6, p7, p8);
 
@@ -88,6 +91,7 @@ void Airplane::drawCockpit()
     Color cockpitColor(0.0, 0.0, 0.0);
 
     GLfloat mat_ambient_r[] = {0.0, 0.0, 0.0, 1.0};
+    glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_r);
     glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, mat_ambient_r);
 
     glTranslatef(this->body.getRadius() / 3.0, 0.0, this->body.getRadius() * 0.15);
@@ -99,21 +103,18 @@ void Airplane::drawCockpit()
     glPopMatrix();
 }
 
-void Airplane::drawWings(GLuint wingsTexture)
+void Airplane::drawWings(GLuint wingsTexture, GLuint propellerTexture)
 {
     Color wingsColor(0.0, 0.0, 0.0);
     GLfloat mat_ambient_r[] = {1.0, 1.0, 1.0, 1.0};
 
     glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_r);
 
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR );
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR );
     glBindTexture(GL_TEXTURE_2D, wingsTexture);
 
     glPushMatrix();
-    // Point p1(0.0, 0.0);
-    // Point p2(p1.getX() + this->body.getRadius() / 3.0, p1.getY());
-    // Point p3(p1.getX() - this->body.getRadius() / 6.0, this->body.getRadius());
-    // Point p4(p1.getX() + this->body.getRadius() / 3.0 - this->body.getRadius() / 6.0, this->body.getRadius());
-
     Point p1(this->body.getRadius() / 4.0, -this->body.getRadius(), this->body.getRadius() / 16.0);
     Point p2(-this->body.getRadius() / 8.0, -this->body.getRadius(), this->body.getRadius() / 16.0);
     Point p3(-this->body.getRadius() / 8.0, this->body.getRadius(), this->body.getRadius() / 16.0);
@@ -128,6 +129,11 @@ void Airplane::drawWings(GLuint wingsTexture)
     glPushMatrix();
 
     glTranslatef(0, this->body.getRadius() / 2.0, 0.0);
+    
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR );
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR );
+    glBindTexture(GL_TEXTURE_2D, propellerTexture);
+
     drawPropeller();
 
     glPopMatrix();

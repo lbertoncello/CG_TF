@@ -35,7 +35,7 @@ void GameSetup::display(void)
     // glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
     // glMaterialfv(GL_FRONT, GL_SHININESS, no_mat);
 
-    gameRuntime.getGame().drawGame(deltaIdleTime, this->groundTexture, this->skyTexture, this->horizontTexture, this->roadTexture, this->playerMainBodyTexture, this->enemyMainBodyTexture, this->wingsTexture);
+    gameRuntime.getGame().drawGame(deltaIdleTime, this->groundTexture, this->skyTexture, this->horizontTexture, this->roadTexture, this->playerMainBodyTexture, this->enemyMainBodyTexture, this->tailAndPropellerTexture);
 
     /* Não esperar */
     glutSwapBuffers();
@@ -97,7 +97,7 @@ void GameSetup::init(void)
     this->roadTexture = LoadTextureRAW("./textures/road.bmp");
     this->playerMainBodyTexture = LoadTextureRAW("./textures/playerMainBody.bmp");
     this->enemyMainBodyTexture = LoadTextureRAW("./textures/enemyMainBody.bmp");
-    this->wingsTexture = LoadTextureRAW("./textures/wings.bmp");
+    this->tailAndPropellerTexture = LoadTextureRAW("./textures/tailAndPropeller.bmp");
 
     // glOrtho(-gameRuntime.getGame().getFlightArea().getArea().getRadius(),
     //         gameRuntime.getGame().getFlightArea().getArea().getRadius(),

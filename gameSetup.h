@@ -30,7 +30,7 @@ private:
     GLuint roadTexture;
     GLuint playerMainBodyTexture;
     GLuint enemyMainBodyTexture;
-    GLuint wingsTexture;
+    GLuint tailAndPropellerTexture;
 
 public:
     GameSetup() {}
