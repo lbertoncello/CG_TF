@@ -355,14 +355,14 @@ void Game::movePlayer()
     }
 }
 
-void Game::drawPlayer(GLuint playerMainBodyTexture)
+void Game::drawPlayer(GLuint playerMainBodyTexture, GLuint wingsTexture)
 {
-    player.draw(playerMainBodyTexture);
+    player.draw(playerMainBodyTexture, wingsTexture);
 }
 
-void Game::drawAirportRunway()
+void Game::drawAirportRunway(GLuint roadTexture)
 {
-    airportRunway.draw();
+    airportRunway.draw(roadTexture);
 }
 
 void Game::moveFlightEnemies()
@@ -406,7 +406,7 @@ void Game::moveFlightEnemies()
     }
 }
 
-void Game::drawFlightEnemies(GLuint enemyMainBodyTexture)
+void Game::drawFlightEnemies(GLuint enemyMainBodyTexture, GLuint wingsTexture)
 {
     vector<FlightEnemy>::iterator flightEnemy_it;
     for (flightEnemy_it = flightEnemies.begin(); flightEnemy_it != flightEnemies.end(); flightEnemy_it++)
@@ -415,7 +415,7 @@ void Game::drawFlightEnemies(GLuint enemyMainBodyTexture)
         {
             glPushMatrix();
             // glTranslatef(-flightArea.getArea().getCenter_x() + flightEnemy_it->getBody().getCenter_x(), -flightArea.getArea().getCenter_y() + flightEnemy_it->getBody().getCenter_y(), 0.0);
-            flightEnemy_it->draw(enemyMainBodyTexture);
+            flightEnemy_it->draw(enemyMainBodyTexture, wingsTexture);
             glPopMatrix();
         }
     }
@@ -569,16 +569,17 @@ void Game::drawBombs()
     glPopMatrix();
 }
 
-void Game::drawGame(GLfloat deltaIdleTime, GLuint groundTexture, GLuint skyTexture, GLuint horizontTexture, GLuint playerMainBodyTexture)
+void Game::drawGame(GLfloat deltaIdleTime, GLuint groundTexture, GLuint skyTexture, GLuint horizontTexture, GLuint roadTexture, GLuint playerMainBodyTexture, GLuint enemyMainBodyTexture,
+                     GLuint wingsTexture)
 {
     this->deltaIdleTime = deltaIdleTime;
 
     drawFlightArea(groundTexture, skyTexture, horizontTexture);
     drawTerrestrialEnemies(groundTexture);
-    drawFlightEnemies(playerMainBodyTexture);
-    drawAirportRunway();
+    drawFlightEnemies(enemyMainBodyTexture, wingsTexture);
+    drawAirportRunway(roadTexture);
     drawBombs();
-    drawPlayer(playerMainBodyTexture);
+    drawPlayer(playerMainBodyTexture, wingsTexture);
     drawBullets();
     drawScoreboard();
 }

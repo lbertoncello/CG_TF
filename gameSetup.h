@@ -27,7 +27,10 @@ private:
     GLuint groundTexture;
     GLuint skyTexture;
     GLuint horizontTexture;
+    GLuint roadTexture;
     GLuint playerMainBodyTexture;
+    GLuint enemyMainBodyTexture;
+    GLuint wingsTexture;
 
 public:
     GameSetup() {}

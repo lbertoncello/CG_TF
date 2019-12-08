@@ -60,7 +60,7 @@ protected:
     void drawMainBody(GLuint mainBodyTexture);
     void drawTail();
     void drawCockpit();
-    void drawWings();
+    void drawWings(GLuint wingsTexture);
     void drawPropeller();
     void drawCannon();
     void updateTurnRightAngle(GLfloat deltaIdleTime);
@@ -313,7 +313,7 @@ public:
         this->maximumZ = maximumZ;
     }
 
-    void draw(GLuint mainBodyTexture);
+    void draw(GLuint mainBodyTexture, GLuint wingsTexture);
     void move(GLfloat deltaIdleTime);
     bool checkIntersection(Circle flightAreaBody, Sphere enemyBody, GLfloat deltaIdleTime);
     GLfloat calcMovement_x(GLfloat deltaIdleTime);

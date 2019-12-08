@@ -1,6 +1,6 @@
 #include "airplane.h"
 
-void Airplane::draw(GLuint mainBodyTexture)
+void Airplane::draw(GLuint mainBodyTexture, GLuint wingsTexture)
 {
     // if (!isDestroyed())
     // {
@@ -28,7 +28,7 @@ void Airplane::draw(GLuint mainBodyTexture)
     glRotatef(-calc.radiansToDegrees(moveAngleYZ), 0.0, 1.0, 0.0);
     // glRotatef(45, 0.0, 1.0, 0.0);
 
-    drawWings();
+    drawWings(wingsTexture);
     drawCannon();
     drawMainBody(mainBodyTexture);
     drawCockpit();
@@ -39,7 +39,7 @@ void Airplane::draw(GLuint mainBodyTexture)
 
 void Airplane::drawMainBody(GLuint mainBodyTexture)
 {
-    GLfloat mat_ambient_g[] = {0.2, 0.7, 0.3, 1.0};
+    GLfloat mat_ambient_g[] = {0.0, 0.0, 0.0, 1.0};
 
     // glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_g);
     glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, mat_ambient_g);
@@ -97,12 +97,14 @@ void Airplane::drawCockpit()
     glPopMatrix();
 }
 
-void Airplane::drawWings()
+void Airplane::drawWings(GLuint wingsTexture)
 {
     Color wingsColor(0.0, 0.0, 0.0);
     GLfloat mat_ambient_r[] = {0.0, 0.0, 0.0, 1.0};
 
     glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_r);
+
+    glBindTexture(GL_TEXTURE_2D, wingsTexture);
 
     glPushMatrix();
     // Point p1(0.0, 0.0);
