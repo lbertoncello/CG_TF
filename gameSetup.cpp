@@ -74,7 +74,7 @@ void GameSetup::reshape(int w, int h)
     gluPerspective(120,
                    (GLfloat)w / (GLfloat)h,
                    gameRuntime.getGame().getPlayer().getBody().getRadius() * 0.1,
-                   gameRuntime.getGame().getFlightArea().getArea().getRadius() * 23);
+                   gameRuntime.getGame().getFlightArea().getArea().getRadius() * 3);
 
     glMatrixMode(GL_MODELVIEW);
 }

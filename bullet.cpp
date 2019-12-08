@@ -30,7 +30,7 @@ Point Bullet::getCurrentPositionAdjusted()
     Point currentPositionAdjusted;
     currentPositionAdjusted.setX(this->body.getCenter_x() - startPosition.getX() + dX);
     currentPositionAdjusted.setY(this->body.getCenter_y() - startPosition.getY() + dY);
-    currentPositionAdjusted.setZ(this->body.getCenter_z() - startPosition.getZ() + dZ);
+    currentPositionAdjusted.setZ(this->body.getCenter_z() - startPosition.getZ() + (dZ * sin(moveAngleYZ)));
 
     return currentPositionAdjusted;
 }

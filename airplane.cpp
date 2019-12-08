@@ -241,6 +241,14 @@ void Airplane::move(GLfloat deltaIdleTime)
     dX += calcMovement_x(deltaIdleTime);
     dY -= calcMovement_y(deltaIdleTime);
     dZ += calcMovement_z(deltaIdleTime);
+
+    if(dZ < minimumZ) {
+        dZ = minimumZ;
+    }
+
+    if(dZ > maximumZ) {
+        dZ = maximumZ;
+    }
 }
 
 void Airplane::updateTurningAngles(GLfloat deltaIdleTime)
@@ -382,7 +390,7 @@ void Airplane::updateTurnLeftAngle(GLfloat deltaIdleTime)
 
 void Airplane::updateTurnUpAngle(GLfloat deltaIdleTime)
 {
-    if (isTurningUp())
+    if (isTurningUp() && this->dZ < this->maximumZ)
     {
         if (moveAngleYZ < M_PI / 4.0)
         {
@@ -405,7 +413,7 @@ void Airplane::updateTurnUpAngle(GLfloat deltaIdleTime)
 
 void Airplane::updateTurnDownAngle(GLfloat deltaIdleTime)
 {
-    if (isTurningDown())
+    if (isTurningDown() && this->dZ > this->minimumZ)
     {
         if (moveAngleYZ > -M_PI / 4.0)
         {
