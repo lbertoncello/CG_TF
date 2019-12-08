@@ -2,11 +2,12 @@
 
 Bomb* Player::dropBomb(GLfloat deltaIdleTime)
 {
-    GLfloat resultingAngle = calc.degreesToRadians(inclinationAngle);
+    GLfloat resultingAngleXY = calc.degreesToRadians(inclinationAngle);
+    GLfloat resultAngleYZ = moveAngleYZ;
     GLfloat bombSpeed = speedNorm;
-    Point bombCoordinates = Point(dX, dY);
+    Point bombCoordinates = Point(dX, dY, dZ);
     Point bombBodyCoordinates = getCurrentPositionAdjusted();
     GLfloat bombRadius = this->body.getRadius() / 4.0;
 
-    return new Bomb(bombBodyCoordinates, bombRadius, bombCoordinates, bombSpeed, resultingAngle);
+    return new Bomb(bombBodyCoordinates, bombRadius, bombCoordinates, bombSpeed, resultingAngleXY, resultAngleYZ);
 }

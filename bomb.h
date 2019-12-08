@@ -16,11 +16,13 @@ using namespace std;
 
 class Bomb
 {
-    Circle body;
+    Sphere body;
     GLfloat dX;
     GLfloat dY;
+    GLfloat dZ;
     GLfloat speedNorm;
-    GLfloat moveAngle;
+    GLfloat moveAngleXY;
+    GLfloat moveAngleYZ;
     Point startPosition;
     Draw drawer;
     Calc calc;
@@ -34,52 +36,60 @@ class Bomb
     GLfloat calcCurrentRadiusVariation();
     GLfloat calcMovement_x(GLfloat deltaIdleTime);
     GLfloat calcMovement_y(GLfloat deltaIdleTime);
+    GLfloat calcMovement_z(GLfloat deltaIdleTime);
 
 public:
     Bomb() {}
 
-    Bomb(Circle body, Point moveCoordinates, GLfloat speedNorm, GLfloat moveAngle)
+    Bomb(Sphere body, Point moveCoordinates, GLfloat speedNorm, GLfloat moveAngleXY, GLfloat moveAngleYZ)
     {
         this->body = body;
         this->speedNorm = speedNorm;
-        this->moveAngle = moveAngle;
+        this->moveAngleXY = moveAngleXY;
+        this->moveAngleYZ = moveAngleYZ;
         this->dX = moveCoordinates.getX();
         this->dY = moveCoordinates.getY();
+        this->dZ = moveCoordinates.getZ();
         dropStartTime = std::chrono::high_resolution_clock::now();
         currentTime = std::chrono::high_resolution_clock::now();
         initialRadius = this->body.getRadius();
-        calcSizeDecreaseAcceleration();
+        // calcSizeDecreaseAcceleration();
     }
 
-    Bomb(Point bodyCoordinates, GLfloat radius, Point moveCoordinates, GLfloat speedNorm, GLfloat moveAngle, Color color)
+    Bomb(Point bodyCoordinates, GLfloat radius, Point moveCoordinates, GLfloat speedNorm, GLfloat moveAngleXY, GLfloat moveAngleYZ, Color color)
     {
-        this->body = Circle(bodyCoordinates, radius, color);
+        this->body = Sphere(bodyCoordinates, radius, color);
         this->speedNorm = speedNorm;
-        this->moveAngle = moveAngle;
+        this->moveAngleXY = moveAngleXY;
+        this->moveAngleYZ = moveAngleYZ;
         this->dX = moveCoordinates.getX();
         this->dY = moveCoordinates.getY();
+        this->dZ = moveCoordinates.getZ();
         dropStartTime = std::chrono::high_resolution_clock::now();
         currentTime = std::chrono::high_resolution_clock::now();
         initialRadius = this->body.getRadius();
-        calcSizeDecreaseAcceleration();
+        // calcSizeDecreaseAcceleration();
     }
 
-    Bomb(Point bodyCoordinates, GLfloat radius, Point moveCoordinates, GLfloat speedNorm, GLfloat moveAngle)
+    Bomb(Point bodyCoordinates, GLfloat radius, Point moveCoordinates, GLfloat speedNorm, GLfloat moveAngleXY, GLfloat moveAngleYZ)
     {
-        this->body = Circle(bodyCoordinates, radius, Color(0.65, 0.2, 0.45));
+        this->body = Sphere(bodyCoordinates, radius, Color(0.65, 0.2, 0.45));
         this->speedNorm = speedNorm;
-        this->moveAngle = moveAngle;
+        this->moveAngleXY = moveAngleXY;
+        this->moveAngleYZ = moveAngleYZ;
         this->dX = moveCoordinates.getX();
         this->dY = moveCoordinates.getY();
+        this->dZ = moveCoordinates.getZ();
         this->startPosition.setX(dX);
         this->startPosition.setY(dY);
+        this->startPosition.setZ(dZ);
         dropStartTime = std::chrono::high_resolution_clock::now();
         currentTime = std::chrono::high_resolution_clock::now();
         initialRadius = this->body.getRadius();
-        calcSizeDecreaseAcceleration();
+        // calcSizeDecreaseAcceleration();
     }
 
-    Circle &getBody()
+    Sphere &getBody()
     {
         return body;
     }
@@ -91,19 +101,19 @@ public:
 
     GLfloat getspeedAngle()
     {
-        return moveAngle;
+        return moveAngleXY;
     }
 
     bool isOnTheGround()
     {
-        return onTheGround;
+        return this->dZ <= 0;
     }
 
     void draw();
     void move(GLfloat deltaIdleTime);
     void updateSize();
     Point getCurrentPositionAdjusted();
-    Circle getAdjustedBody();
+    Sphere getAdjustedBody();
 };
 
 #endif

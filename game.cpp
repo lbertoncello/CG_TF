@@ -153,15 +153,15 @@ bool Game::checkEnemyBulletCollision()
 
 bool Game::checkBombCollision(Bomb *bomb)
 {
-    // vector<TerrestrialEnemy>::iterator terrestrialEnemies_it;
-    // for (terrestrialEnemies_it = terrestrialEnemies.begin(); terrestrialEnemies_it != terrestrialEnemies.end(); terrestrialEnemies_it++)
-    // {
-    //     if (terrestrialEnemies_it->getAdjustedBody().checkIntersection(bomb->getAdjustedBody()))
-    //     {
-    //         terrestrialEnemies_it->setDestroyed(true);
-    //         return true;
-    //     }
-    // }
+    vector<TerrestrialEnemy>::iterator terrestrialEnemies_it;
+    for (terrestrialEnemies_it = terrestrialEnemies.begin(); terrestrialEnemies_it != terrestrialEnemies.end(); terrestrialEnemies_it++)
+    {
+        if (terrestrialEnemies_it->getAdjustedBody().checkIntersection(bomb->getAdjustedBody()))
+        {
+            terrestrialEnemies_it->setDestroyed(true);
+            return true;
+        }
+    }
 
     return false;
 }
@@ -171,6 +171,8 @@ void Game::init()
     airportRunway.setAdjustedBody(flightArea.getArea().getCenter_x(), flightArea.getArea().getCenter_y());
     player.setCurrentPosition(airportRunway.getAdjustedBody().getPoint1());
     player.setInclinationAngle(airportRunway.calcInclinationAngle());
+    player.setMinimumZ(0);
+    player.setMaximumZ(flightArea.getArea().getRadius() - player.getBody().getRadius());
     beforeAirportRunwayMiddle = true;
     gameOver = false;
     gameWin = false;
@@ -242,6 +244,7 @@ void Game::updateTakeOff(high_resolution_clock::time_point currentTime, GLfloat 
 
         // GLfloat newRadius = player.getInitialRadius() + currentRadius(sizeIncreaseTimeElapsed);
         // player.getBody().setRadius(newRadius);
+        player.move(deltaIdleTime);
     }
     else
     {
@@ -249,6 +252,7 @@ void Game::updateTakeOff(high_resolution_clock::time_point currentTime, GLfloat 
 
         if (distance < airportRunway.getScalarMiddle())
         {
+            player.setTurningUp(true);
             beforeAirportRunwayMiddle = false;
             sizeIncreaseStartTime = high_resolution_clock::now();
         }
@@ -282,6 +286,8 @@ void Game::initFlightEnemiesPosition()
     for (flightEnemy_it = flightEnemies.begin(); flightEnemy_it != flightEnemies.end(); flightEnemy_it++)
     {
         glPushMatrix();
+        flightEnemy_it->setMinimumZ(0);
+        flightEnemy_it->setMaximumZ(flightArea.getArea().getRadius() - flightEnemy_it->getBody().getRadius());
         flightEnemy_it->setCurrentPosition(Point(-flightArea.getArea().getCenter_x() + flightEnemy_it->getBody().getCenter_x(), -flightArea.getArea().getCenter_y() + flightEnemy_it->getBody().getCenter_y()));
         glPopMatrix();
     }
@@ -310,6 +316,7 @@ void Game::movePlayer()
         if (timeElapsed >= TAKEOFF_TIME)
         {
             player.setTakingOff(false);
+            player.setTurningUp(false);
             player.setFlying(true);
         }
 
@@ -529,10 +536,10 @@ void Game::drawBombs()
     {
         if (isBombInsideFlightArea((*bombs_it)))
         {
-            if (!isGameOver() && !isGameWin())
-            {
-                (*bombs_it)->updateSize();
-            }
+            // if (!isGameOver() && !isGameWin())
+            // {
+            //     (*bombs_it)->updateSize();
+            // }
 
             if (!(*bombs_it)->isOnTheGround())
             {

@@ -28,8 +28,11 @@ void TerrestrialEnemy::draw(GLuint TerrestrialEnemiesTexture)
 Point TerrestrialEnemy::getCurrentPositionAdjusted()
 {
     Point currentPositionAdjusted;
-    currentPositionAdjusted.setX(this->body.getCenter_x() - startPosition.getX() + dX);
-    currentPositionAdjusted.setY(this->body.getCenter_y() - startPosition.getY() + dY);
+    // currentPositionAdjusted.setX(this->body.getCenter_x() - startPosition.getX() + dX);
+    // currentPositionAdjusted.setY(this->body.getCenter_y() - startPosition.getY() + dY);
+    currentPositionAdjusted.setX(this->body.getCenter_x() + dX - this->startPosition.getX());
+    currentPositionAdjusted.setY(this->body.getCenter_y() + dY - this->startPosition.getY());
+    currentPositionAdjusted.setZ(0);
 
     return currentPositionAdjusted;
 }
