@@ -172,7 +172,7 @@ void Game::init()
     player.setCurrentPosition(airportRunway.getAdjustedBody().getPoint1());
     player.setInclinationAngle(airportRunway.calcInclinationAngle());
     player.setMinimumZ(0);
-    player.setMaximumZ((8*2*player.getBody().getRadius()) - player.getBody().getRadius());
+    player.setMaximumZ((8 * 2 * player.getBody().getRadius()) - player.getBody().getRadius());
     beforeAirportRunwayMiddle = true;
     gameOver = false;
     gameWin = false;
@@ -261,7 +261,7 @@ void Game::updateTakeOff(high_resolution_clock::time_point currentTime, GLfloat 
 
 void Game::drawFlightArea(GLuint groundTexture, GLuint skyTexture, GLuint horizontTexture)
 {
-    GLfloat heightOfSky = 8* (2 * this->getPlayer().getBody().getRadius()); //8x diametro do jogador
+    GLfloat heightOfSky = 8 * (2 * this->getPlayer().getBody().getRadius()); //8x diametro do jogador
     flightArea.draw(heightOfSky, groundTexture, skyTexture, horizontTexture);
 }
 
@@ -465,6 +465,17 @@ void Game::drawPlayerBullets()
     {
         if (isBulletInsideFlightArea((*playerBullets_it)))
         {
+            GLfloat mat_emission[] = {0.0, 0.0, 0.0, 0.0};
+            GLfloat mat_ambient[] = {0.0, 0.3, 0.0, 1.0};
+            GLfloat mat_diffuse[] = {0.0, 1.0, 0.0, 1.0};
+            GLfloat mat_specular[] = {0.0, 1.0, 0.0, 1.0};
+            // GLfloat mat_shininess[] = {1.0, 1.0, 1.0, 1.0};
+
+            glMaterialfv(GL_FRONT, GL_EMISSION, mat_emission);
+            glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+            glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+            glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+            // glMaterialfv(GL_FRONT, GL_SHININESS, mat_ambient_r);
             (*playerBullets_it)->draw();
         }
         playerBullets_it++;
@@ -504,6 +515,17 @@ void Game::drawEnemyBullets()
     {
         if (isBulletInsideFlightArea((*enemyBullets_it)))
         {
+            GLfloat mat_emission[] = {0.0, 0.0, 0.0, 0.0};
+            GLfloat mat_ambient[] = {0.3, 0.0, 0.0, 1.0};
+            GLfloat mat_diffuse[] = {1.0, 0.0, 0.0, 1.0};
+            GLfloat mat_specular[] = {1.0, 0.0, 0.0, 1.0};
+            // GLfloat mat_shininess[] = {1.0, 1.0, 1.0, 1.0};
+
+            glMaterialfv(GL_FRONT, GL_EMISSION, mat_emission);
+            glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+            glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+            glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+            // glMaterialfv(GL_FRONT, GL_SHININESS, mat_ambient_r);
             (*enemyBullets_it)->draw();
         }
         enemyBullets_it++;
@@ -571,7 +593,7 @@ void Game::drawBombs()
 }
 
 void Game::drawGame(GLfloat deltaIdleTime, GLuint groundTexture, GLuint skyTexture, GLuint horizontTexture, GLuint roadTexture, GLuint playerMainBodyTexture, GLuint enemyMainBodyTexture,
-                     GLuint tailAndPropellerTexture)
+                    GLuint tailAndPropellerTexture)
 {
     this->deltaIdleTime = deltaIdleTime;
 

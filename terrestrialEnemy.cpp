@@ -6,14 +6,21 @@ void TerrestrialEnemy::draw(GLuint TerrestrialEnemiesTexture)
     {
         glPushMatrix();
         glTranslatef(dX, -dY, 0.0);
+
+        GLfloat mat_emission[] = {0.0, 0.0, 0.0, 0.0};
+        GLfloat mat_ambient[] = {1.0, 140.0/255.0, 0.0, 1.0};
+        GLfloat mat_diffuse[] = {1.0, 140.0/255.0, 0.0, 1.0};
+        GLfloat mat_specular[] = {1.0, 140.0/255.0, 0.0, 1.0};
+        // GLfloat mat_shininess[] = {1.0, 1.0, 1.0, 1.0};
+
+        glMaterialfv(GL_FRONT, GL_EMISSION, mat_emission);
+        glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+        glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+        glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+        // glMaterialfv(GL_FRONT, GL_SHININESS, mat_ambient_r);
+
         // drawer.drawFilledSphere(this->getBody());
-        GLfloat mat_ambient_color1[] = {0.7, 0.3, 0.5, 1.0};
-        GLfloat mat_ambient_color2[] = {0.3, 0.45, 0.2, 1.0};
-
-        glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_color1);
         // drawer.drawRectangle2(body.getRadius() * 1.44, body.getRadius() * 1.44, body.getColor());
-
-        glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_color2);
 
         // glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR );
         // glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR );
@@ -42,6 +49,7 @@ Sphere TerrestrialEnemy::getAdjustedBody()
     return Sphere(this->getCurrentPositionAdjusted(), this->body.getRadius());
 }
 
-void TerrestrialEnemy::reset() {
+void TerrestrialEnemy::reset()
+{
     destroyed = false;
 }

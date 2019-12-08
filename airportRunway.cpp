@@ -10,9 +10,17 @@ void AirportRunway::setAdjustedBody(GLfloat coordinateCorrection_x, GLfloat coor
 
 void AirportRunway::draw(GLuint roadTexture)
 {
-    GLfloat mat_ambient_color[] = {1.0, 1.0, 1.0, 1.0};
+    GLfloat mat_emission[] = {0.0, 0.0, 0.0, 0.0};
+    GLfloat mat_ambient[] = {0.2, 0.2, 0.2, 1.0};
+    GLfloat mat_diffuse[] = {1.0, 1.0, 1.0, 1.0};
+    GLfloat mat_specular[] = {1.0, 1.0, 1.0, 1.0};
+    // GLfloat mat_shininess[] = {1.0, 1.0, 1.0, 1.0};
 
-    glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, mat_ambient_color);
+    glMaterialfv(GL_FRONT, GL_EMISSION, mat_emission);
+    glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+    // glMaterialfv(GL_FRONT, GL_SHININESS, mat_ambient_r);
 
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR );
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR );
