@@ -662,9 +662,14 @@ bool Game::isPlayerInsideFlightArea(Player &player)
     return flightArea.getArea().isPointInCircle(player.getCurrentPositionAdjusted());
 }
 
-void Game::rotatePlayerAirplaneCannon(GLfloat moviment)
+void Game::rotatePlayerAirplaneCannonX(GLfloat moviment)
 {
-    this->player.rotateCannon(moviment, deltaIdleTime);
+    this->player.rotateCannonX(moviment, deltaIdleTime);
+}
+
+void Game::rotatePlayerAirplaneCannonY(GLfloat moviment)
+{
+    this->player.rotateCannonY(moviment, deltaIdleTime);
 }
 
 void Game::shoot()

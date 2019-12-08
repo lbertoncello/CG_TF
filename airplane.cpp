@@ -199,6 +199,9 @@ void Airplane::drawPropeller()
 void Airplane::drawCannon()
 {
     glPushMatrix();
+    glRotatef(90, 1.0, 0.0, 0.0);
+
+    glPushMatrix();
 
     Color color(0.0, 0.0, 0.0);
     GLfloat mat_ambient_g[] = {0.2, 0.2, 0.2, 1.0};
@@ -206,9 +209,14 @@ void Airplane::drawCannon()
     glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_g);
 
     glTranslatef(this->body.getRadius() * 0.9, 0.0, 0.0);
-    glRotatef(-90 + calc.radiansToDegrees(-cannonAngle), 0.0, 0.0, 1.0);
+
+    glRotatef(-90, 0.0, 0.0, 1.0);
+    glRotatef(calc.radiansToDegrees(cannonAngleX), 1.0, 0.0, 0.0);
+    glRotatef(-calc.radiansToDegrees(cannonAngleY), 0.0, 0.0, 1.0);
+
     // drawer.drawRectangle(this->body.getRadius() / 5.0, this->body.getRadius() / 2.0, color);
     drawer.drawCylinder(this->body.getRadius() * 0.1, this->body.getRadius() * 0.5);
+    glPopMatrix();
     glPopMatrix();
 }
 
@@ -469,7 +477,7 @@ void Airplane::reset()
     takingOff = false;
     startPositionInitialized = false;
     initialRadiusInitialized = false;
-    cannonAngle = 0.0;
+    cannonAngleX = 0.0;
     propellerAngle = 0.0;
     destroyed = false;
 }
@@ -537,27 +545,45 @@ Point Airplane::getPositionAdjusted(Point position)
     return currentPositionAdjusted;
 }
 
-void Airplane::rotateCannon(GLfloat moviment, GLfloat deltaIdleTime)
+void Airplane::rotateCannonX(GLfloat moviment, GLfloat deltaIdleTime)
 {
-    GLfloat nextCannonAngle = this->cannonAngle + moviment * 0.1 * deltaIdleTime;
+    GLfloat nextcannonAngleX = this->cannonAngleX + moviment * 0.1 * deltaIdleTime;
 
-    if (nextCannonAngle > M_PI / 4.0)
+    if (nextcannonAngleX > M_PI /6.0)
     {
-        cannonAngle = M_PI / 4.0;
+        cannonAngleX = M_PI / 6.0;
     }
-    else if (nextCannonAngle < -M_PI / 4.0)
+    else if (nextcannonAngleX < -M_PI / 6.0)
     {
-        cannonAngle = -M_PI / 4.0;
+        cannonAngleX = -M_PI / 6.0;
     }
     else
     {
-        cannonAngle = nextCannonAngle;
+        cannonAngleX = nextcannonAngleX;
+    }
+}
+
+void Airplane::rotateCannonY(GLfloat moviment, GLfloat deltaIdleTime)
+{
+    GLfloat nextcannonAngleY = this->cannonAngleY + moviment * 0.1 * deltaIdleTime;
+
+    if (nextcannonAngleY > M_PI / 6.0)
+    {
+        cannonAngleY = M_PI / 6.0;
+    }
+    else if (nextcannonAngleY < -M_PI / 6.0)
+    {
+        cannonAngleY = -M_PI / 6.0;
+    }
+    else
+    {
+        cannonAngleY = nextcannonAngleY;
     }
 }
 
 Bullet *Airplane::shoot(GLfloat deltaIdleTime)
 {
-    GLfloat resultingAngleXY = calc.degreesToRadians(inclinationAngle) + cannonAngle;
+    GLfloat resultingAngleXY = calc.degreesToRadians(inclinationAngle) + cannonAngleX;
     GLfloat resultingAngleYZ = moveAngleYZ;
     GLfloat bulletSpeed = speedNorm * bulletSpeedMultiplier;
     GLfloat bulletRadius = this->body.getRadius() / 8.0;
@@ -599,8 +625,8 @@ Point Airplane::getLookingPoint2()
     //   GLfloat anguloHorizontal = jogador->getAnguloJogador() *M_PI/180;
     //   GLfloat anguloVertical = jogador->getAnguloJogadorVertical() *M_PI/180;
     // GLfloat horizontalAngle = calc.degreesToRadians(inclinationAngle) + moveAngleXY;
-    GLfloat horizontalAngle = moveAngleXY + (-cannonAngle);
-    // -90 + calc.radiansToDegrees(-cannonAngle)
+    GLfloat horizontalAngle = moveAngleXY + (-cannonAngleX);
+    // -90 + calc.radiansToDegrees(-cannonAngleX)
 
     GLfloat lookingPoint_x = dX + (2 * body.getRadius() * cos(moveAngleYZ) * cos(horizontalAngle));
     GLfloat lookingPoint_y = -dY + (2 * body.getRadius() * cos(moveAngleYZ) * sin(horizontalAngle));
@@ -624,16 +650,16 @@ Point Airplane::getLookingPoint2()
 Point Airplane::getCamPoint2()
 {
     // GLfloat horizontalAngle = calc.degreesToRadians(inclinationAngle) + moveAngleXY;
-    GLfloat horizontalAngle = moveAngleXY + (cannonAngle);
+    GLfloat horizontalAngle = moveAngleXY + (cannonAngleX);
 
     // GLfloat camPoint_x = dX + (body.getRadius() * cos((moveAngleYZ + 45)) * cos(horizontalAngle) * 1.0);
     // GLfloat camPoint_y = -dY + (body.getRadius() * cos((moveAngleYZ + 45)) * sin(horizontalAngle) * 1.0);
     // GLfloat camPoint_z = dZ + (body.getRadius() * sin((moveAngleYZ + 45)) * 1.0);
     GLfloat camPoint_x = dX + (body.getRadius() * cos((moveAngleYZ + calc.degreesToRadians(45))) * cos(horizontalAngle) * 1.5);
-    camPoint_x = dX + (body.getRadius() * 0.1 * cos(cannonAngle)) + (body.getRadius() * cos(moveAngleXY) * 1.0);
+    camPoint_x = dX + (body.getRadius() * 0.1 * cos(cannonAngleX)) + (body.getRadius() * cos(moveAngleXY) * 1.0);
 
     GLfloat camPoint_y = -dY + (body.getRadius() * cos((moveAngleYZ + calc.degreesToRadians(45))) * sin(horizontalAngle) * 1.5);
-    camPoint_y = -dY - (body.getRadius() * 0.1 * sin(cannonAngle)) + (body.getRadius() * sin(moveAngleXY) * 1.0);
+    camPoint_y = -dY - (body.getRadius() * 0.1 * sin(cannonAngleX)) + (body.getRadius() * sin(moveAngleXY) * 1.0);
 
     GLfloat camPoint_z = dZ + (body.getRadius() * sin((moveAngleYZ + calc.degreesToRadians(45))) * 0.8);
     camPoint_z = dZ + (body.getRadius() * sin((-moveAngleYZ))) + (body.getRadius() * cos(-moveAngleYZ) * 0.4);

@@ -143,7 +143,8 @@ public:
     void init();
     void drawGame(GLfloat deltaIdleTime, GLuint groundTexture, GLuint skyTexture, GLuint horizontTexture, GLuint roadTexture, GLuint playerMainBodyTexture, GLuint enemyMainBodyTexture, GLuint tailAndPropellerTexture);
     void reset();
-    void rotatePlayerAirplaneCannon(GLfloat moviment);
+    void rotatePlayerAirplaneCannonX(GLfloat moviment);
+    void rotatePlayerAirplaneCannonY(GLfloat moviment);
     void shoot();
     void dropBomb();
     void calcMoviments();
