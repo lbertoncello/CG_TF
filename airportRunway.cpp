@@ -8,17 +8,32 @@ void AirportRunway::setAdjustedBody(GLfloat coordinateCorrection_x, GLfloat coor
     this->adjustedBody = Line(p1, p2);
 }
 
-void AirportRunway::draw()
+void AirportRunway::draw(GLuint roadTexture)
 {
-    GLfloat mat_ambient_color[] = {1.0, 1.0, 0.5, 1.0};
+    GLfloat mat_ambient_color[] = {1.0, 1.0, 1.0, 1.0};
 
-    glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_color);
+    glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, mat_ambient_color);
+
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR );
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR );
+    glBindTexture(GL_TEXTURE_2D, roadTexture);
 
     Line temp = this->adjustedBody;
     temp.getPoint1().setY(-temp.getPoint1_y());
     temp.getPoint2().setY(-temp.getPoint2_y());
 
-    drawer.drawLine(temp);
+    glPushMatrix();
+    glTranslatef(temp.getPoint1_x(), temp.getPoint1_y(), 0.0);
+    glRotatef(-this->calcInclinationAngle(), 0.0, 0.0, 1.0);
+    GLfloat x2novo = temp.getPoint2_x() * cos(this->calcInclinationAngle()*(M_PI/180)) - temp.getPoint2_y() * sin(this->calcInclinationAngle()*(M_PI/180));
+    Point p1(-10.0, 20.0, 0.1);
+    Point p2(-10.0, -20.0, 0.1);
+    Point p3(x2novo + 20, -20.0, 0.1);
+    Point p4(x2novo + 20, 20.0, 0.1);
+
+    // drawer.drawLine(temp);
+    drawer.drawPlane(p1, p2, p3, p4);
+    glPopMatrix();
 }
 
 GLfloat AirportRunway::calcInclinationAngle()

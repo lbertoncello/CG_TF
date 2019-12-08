@@ -172,7 +172,7 @@ void Game::init()
     player.setCurrentPosition(airportRunway.getAdjustedBody().getPoint1());
     player.setInclinationAngle(airportRunway.calcInclinationAngle());
     player.setMinimumZ(0);
-    player.setMaximumZ(flightArea.getArea().getRadius() - player.getBody().getRadius());
+    player.setMaximumZ((8*2*player.getBody().getRadius()) - player.getBody().getRadius());
     beforeAirportRunwayMiddle = true;
     gameOver = false;
     gameWin = false;
@@ -261,7 +261,8 @@ void Game::updateTakeOff(high_resolution_clock::time_point currentTime, GLfloat 
 
 void Game::drawFlightArea(GLuint groundTexture, GLuint skyTexture, GLuint horizontTexture)
 {
-    flightArea.draw(groundTexture, skyTexture, horizontTexture);
+    GLfloat heightOfSky = 8* (2 * this->getPlayer().getBody().getRadius()); //8x diametro do jogador
+    flightArea.draw(heightOfSky, groundTexture, skyTexture, horizontTexture);
 }
 
 void Game::initFlightEnemiesSpeed()
@@ -355,14 +356,14 @@ void Game::movePlayer()
     }
 }
 
-void Game::drawPlayer()
+void Game::drawPlayer(GLuint playerMainBodyTexture, GLuint tailAndPropellerTexture)
 {
-    player.draw();
+    player.draw(playerMainBodyTexture, tailAndPropellerTexture);
 }
 
-void Game::drawAirportRunway()
+void Game::drawAirportRunway(GLuint roadTexture)
 {
-    airportRunway.draw();
+    airportRunway.draw(roadTexture);
 }
 
 void Game::moveFlightEnemies()
@@ -406,7 +407,7 @@ void Game::moveFlightEnemies()
     }
 }
 
-void Game::drawFlightEnemies()
+void Game::drawFlightEnemies(GLuint enemyMainBodyTexture, GLuint tailAndPropellerTexture)
 {
     vector<FlightEnemy>::iterator flightEnemy_it;
     for (flightEnemy_it = flightEnemies.begin(); flightEnemy_it != flightEnemies.end(); flightEnemy_it++)
@@ -415,7 +416,7 @@ void Game::drawFlightEnemies()
         {
             glPushMatrix();
             // glTranslatef(-flightArea.getArea().getCenter_x() + flightEnemy_it->getBody().getCenter_x(), -flightArea.getArea().getCenter_y() + flightEnemy_it->getBody().getCenter_y(), 0.0);
-            flightEnemy_it->draw();
+            flightEnemy_it->draw(enemyMainBodyTexture, tailAndPropellerTexture);
             glPopMatrix();
         }
     }
@@ -569,16 +570,17 @@ void Game::drawBombs()
     glPopMatrix();
 }
 
-void Game::drawGame(GLfloat deltaIdleTime, GLuint groundTexture, GLuint skyTexture, GLuint horizontTexture)
+void Game::drawGame(GLfloat deltaIdleTime, GLuint groundTexture, GLuint skyTexture, GLuint horizontTexture, GLuint roadTexture, GLuint playerMainBodyTexture, GLuint enemyMainBodyTexture,
+                     GLuint tailAndPropellerTexture)
 {
     this->deltaIdleTime = deltaIdleTime;
 
     drawFlightArea(groundTexture, skyTexture, horizontTexture);
     drawTerrestrialEnemies(groundTexture);
-    drawFlightEnemies();
-    drawAirportRunway();
+    drawFlightEnemies(enemyMainBodyTexture, tailAndPropellerTexture);
+    drawAirportRunway(roadTexture);
     drawBombs();
-    drawPlayer();
+    drawPlayer(playerMainBodyTexture, tailAndPropellerTexture);
     drawBullets();
     drawScoreboard();
 }

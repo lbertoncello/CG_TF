@@ -39,9 +39,9 @@ class Game
     GLint amountOfDamagedTerrestrialEnemies();
     GLint amountOfUndamagedTerrestrialEnemies();
     void drawFlightArea(GLuint groundTexture, GLuint skyTexture, GLuint horizontTexture);
-    void drawPlayer();
-    void drawAirportRunway();
-    void drawFlightEnemies();
+    void drawPlayer(GLuint playerMainBodyTexture, GLuint tailAndPropellerTexture);
+    void drawAirportRunway(GLuint roadTexture);
+    void drawFlightEnemies(GLuint enemyMainBodyTexture, GLuint tailAndPropellerTexture);
     void drawTerrestrialEnemies(GLuint TerrestrialEnemiesTexture);
     void drawPlayerBullets();
     void drawEnemyBullets();
@@ -141,7 +141,7 @@ public:
 
     void takeOff();
     void init();
-    void drawGame(GLfloat deltaIdleTime, GLuint groundTexture, GLuint skyTexture, GLuint horizontTexture);
+    void drawGame(GLfloat deltaIdleTime, GLuint groundTexture, GLuint skyTexture, GLuint horizontTexture, GLuint roadTexture, GLuint playerMainBodyTexture, GLuint enemyMainBodyTexture, GLuint tailAndPropellerTexture);
     void reset();
     void rotatePlayerAirplaneCannon(GLfloat moviment);
     void shoot();

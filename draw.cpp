@@ -254,6 +254,10 @@ void Draw::drawEllipsoid(Sphere sphere)
     // glutSolidSphere(circle.getRadius(), 30, 30);
     GLfloat r = sphere.getRadius();
     int i, j;
+    GLfloat texX = 0.0;
+    GLfloat texY0 = 0.0;
+    GLfloat texY1 = 0.0;
+    GLfloat dTex = 1/30;
     for(i = 0; i <= 30; i++) {
         double lat0 = M_PI * (-0.5 + (double) (i - 1) / 30);
         double z0  = sin(lat0);
@@ -263,25 +267,30 @@ void Draw::drawEllipsoid(Sphere sphere)
         double z1 = sin(lat1);
         double zr1 = cos(lat1);
 
+        texY0 = texY1;
+        texY1 = (GLfloat)i/30.0;
+
         glBegin(GL_QUAD_STRIP);
         for(j = 0; j <= 30; j++) {
             double lng = 2 * M_PI * (double) (j - 1) / 30;
             double x = cos(lng);
             double y = sin(lng);
+            texX = (GLfloat) (j / 30.0) + 0.5; 
 
             glNormal3f(x * zr0, y * zr0, z0);
+            glTexCoord2f(texX,texY0);
             glVertex3f(r * x * zr0, 0.25*r * y * zr0, 0.30*r * z0);
+            // glTexCoord2f(cos(angle) * 0.5 + 0.5, sin(angle) * 0.5 + 0.5);
             glNormal3f(x * zr1, y * zr1, z1);
+            glTexCoord2f(texX,texY1);
             glVertex3f(r * x * zr1, 0.25 * r * y * zr1, 0.30 * r * z1);
         }
         glEnd();
     }
 }
 
-void Draw::drawCylinderTube(Circle circle)
+void Draw::drawCylinderTube(GLfloat radius, GLfloat height)
 {
-    GLfloat radius = circle.getRadius(); // * 0.1;
-    GLfloat height = circle.getRadius(); // * 0.5;
     GLfloat R = 1.0;
     GLfloat G = 1.0;
     GLfloat B = 1.0;
@@ -314,22 +323,6 @@ void Draw::drawCylinderTube(Circle circle)
     glTexCoord2f(2 * PI / (2*PI), 0.0);
     glVertex3f(radius, 0.0, 0.0);
     glEnd();
-
-    /** Draw the circle on top of cylinder */
-    // glColor3ub(R,G,B);
-    // glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_g);
-    // glBegin(GL_POLYGON);
-    // angle = 0.0;
-    // while (angle < 2 * PI)
-    // {
-    //     x = radius * cos(angle);
-    //     z = radius * sin(angle);
-    //     glTexCoord2f(cos(angle)*0.5f + 0.5f, sin(angle) *0.5f + 0.5f);
-    //     glVertex3f(x, height, z);
-    //     angle = angle + angle_stepsize;
-    // }
-    // glVertex3f(radius, height, 0.0);
-    // glEnd();
 }
 
 void Draw::drawCylinder(GLfloat radius, GLfloat height)
@@ -385,40 +378,35 @@ void Draw::drawSphere(Sphere sphere)
 
 void Draw::drawParallelSolid(Point p1, Point p2, Point p3, Point p4, Point p5, Point p6, Point p7, Point p8)
 {
+    //top
+    drawPlane(p1, p2, p3, p4);
 
-    //top-bottom
-    glBegin(GL_QUADS);
-    glVertex3f(p1.getX(), p1.getY(), p1.getZ());
-    glVertex3f(p2.getX(), p2.getY(), p2.getZ());
-    glVertex3f(p3.getX(), p3.getY(), p3.getZ());
-    glVertex3f(p4.getX(), p4.getY(), p4.getZ());
-    glVertex3f(p5.getX(), p5.getY(), p5.getZ());
-    glVertex3f(p6.getX(), p6.getY(), p6.getZ());
-    glVertex3f(p7.getX(), p7.getY(), p7.getZ());
-    glVertex3f(p8.getX(), p8.getY(), p8.getZ());
-    glEnd();
+    //bottom
+    drawPlane(p5, p6, p7, p8);
 
-    //left-right
-    glBegin(GL_QUADS);
-    glVertex3f(p1.getX(), p1.getY(), p1.getZ());
-    glVertex3f(p6.getX(), p6.getY(), p6.getZ());
-    glVertex3f(p7.getX(), p7.getY(), p7.getZ());
-    glVertex3f(p2.getX(), p2.getY(), p2.getZ());
-    glVertex3f(p3.getX(), p3.getY(), p3.getZ());
-    glVertex3f(p8.getX(), p8.getY(), p8.getZ());
-    glVertex3f(p5.getX(), p5.getY(), p5.getZ());
-    glVertex3f(p4.getX(), p4.getY(), p4.getZ());
-    glEnd();
+    //left
+    drawPlane(p1, p6, p7, p2);
+    
+    //right
+    drawPlane(p3, p8, p5, p4);
 
-    //back-front
+    //back
+    drawPlane(p4, p5, p6, p1);
+
+    //front
+    drawPlane(p2, p7, p8, p3);
+}
+
+void Draw::drawPlane(Point p1, Point p2, Point p3, Point p4)
+{
     glBegin(GL_QUADS);
-    glVertex3f(p4.getX(), p4.getY(), p4.getZ());
-    glVertex3f(p5.getX(), p5.getY(), p5.getZ());
-    glVertex3f(p6.getX(), p6.getY(), p6.getZ());
+    glTexCoord2f(0.0, 0.0);
     glVertex3f(p1.getX(), p1.getY(), p1.getZ());
+    glTexCoord2f(0.0, 1.0);
     glVertex3f(p2.getX(), p2.getY(), p2.getZ());
-    glVertex3f(p7.getX(), p7.getY(), p7.getZ());
-    glVertex3f(p8.getX(), p8.getY(), p8.getZ());
+    glTexCoord2f(1.0, 1.0);
     glVertex3f(p3.getX(), p3.getY(), p3.getZ());
+    glTexCoord2f(1.0, 0.0);
+    glVertex3f(p4.getX(), p4.getY(), p4.getZ());
     glEnd();
 }

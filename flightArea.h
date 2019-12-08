@@ -27,7 +27,7 @@ public:
         this->area = area;
     }
 
-    void draw(GLuint groundTexture, GLuint skyTexture, GLuint horizontTexture);
+    void draw(GLfloat heightOfSky, GLuint groundTexture, GLuint skyTexture, GLuint horizontTexture);
 };
 
 #endif
