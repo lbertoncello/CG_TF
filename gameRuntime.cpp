@@ -38,7 +38,10 @@ void GameRuntime::keyOperations(void)
         }
         else
         {
-            game.getPlayer().setTurningUp(false);
+            if (!game.isPlayerTakingOff())
+            {
+                game.getPlayer().setTurningUp(false);
+            }
         }
         if (keyStates['s'])
         {
@@ -49,7 +52,10 @@ void GameRuntime::keyOperations(void)
         }
         else
         {
-            game.getPlayer().setTurningDown(false);
+            if (!game.isPlayerTakingOff())
+            {
+                game.getPlayer().setTurningDown(false);
+            }
         }
         if (keyStates['u'])
         {
