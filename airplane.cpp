@@ -126,36 +126,23 @@ void Airplane::drawWings(GLuint wingsTexture, GLuint propellerTexture)
 
     drawer.drawParallelSolid(p1, p2, p3, p4, p5, p6, p7, p8);
 
+    //propeller
     glPushMatrix();
-
     glTranslatef(0, this->body.getRadius() / 2.0, 0.0);
-    
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR );
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR );
     glBindTexture(GL_TEXTURE_2D, propellerTexture);
-
     drawPropeller();
-
     glPopMatrix();
 
-    // drawer.drawRectangle(p4, p2, p1, p3, wingsColor);
-
-    // glPopMatrix();
-
-    // glPushMatrix();
-    // Point p5(0.0, 0.0);
-    // Point p6(p1.getX() + this->body.getRadius() / 3.0, p1.getY());
-    // Point p7(p1.getX() - this->body.getRadius() / 6.0, -this->body.getRadius());
-    // Point p8(p1.getX() + this->body.getRadius() / 3.0 - this->body.getRadius() / 6.0, -this->body.getRadius());
-
+    //propeller
     glPushMatrix();
-
     glTranslatef(0, -this->body.getRadius() / 2.0, 0.0);
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR );
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR );
+    glBindTexture(GL_TEXTURE_2D, propellerTexture);
     drawPropeller();
-
     glPopMatrix();
-
-    // drawer.drawRectangle(p6, p8, p7, p5, wingsColor);
 
     glPopMatrix();
 }

@@ -261,7 +261,8 @@ void Game::updateTakeOff(high_resolution_clock::time_point currentTime, GLfloat 
 
 void Game::drawFlightArea(GLuint groundTexture, GLuint skyTexture, GLuint horizontTexture)
 {
-    flightArea.draw(groundTexture, skyTexture, horizontTexture);
+    GLfloat heightOfSky = 8* (2 * this->getPlayer().getBody().getRadius()); //8x diametro do jogador
+    flightArea.draw(heightOfSky, groundTexture, skyTexture, horizontTexture);
 }
 
 void Game::initFlightEnemiesSpeed()

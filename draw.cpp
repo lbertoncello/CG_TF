@@ -289,10 +289,8 @@ void Draw::drawEllipsoid(Sphere sphere)
     }
 }
 
-void Draw::drawCylinderTube(Circle circle)
+void Draw::drawCylinderTube(GLfloat radius, GLfloat height)
 {
-    GLfloat radius = circle.getRadius(); // * 0.1;
-    GLfloat height = circle.getRadius(); // * 0.5;
     GLfloat R = 1.0;
     GLfloat G = 1.0;
     GLfloat B = 1.0;
@@ -325,22 +323,6 @@ void Draw::drawCylinderTube(Circle circle)
     glTexCoord2f(2 * PI / (2*PI), 0.0);
     glVertex3f(radius, 0.0, 0.0);
     glEnd();
-
-    /** Draw the circle on top of cylinder */
-    // glColor3ub(R,G,B);
-    // glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_g);
-    // glBegin(GL_POLYGON);
-    // angle = 0.0;
-    // while (angle < 2 * PI)
-    // {
-    //     x = radius * cos(angle);
-    //     z = radius * sin(angle);
-    //     glTexCoord2f(cos(angle)*0.5f + 0.5f, sin(angle) *0.5f + 0.5f);
-    //     glVertex3f(x, height, z);
-    //     angle = angle + angle_stepsize;
-    // }
-    // glVertex3f(radius, height, 0.0);
-    // glEnd();
 }
 
 void Draw::drawCylinder(GLfloat radius, GLfloat height)
