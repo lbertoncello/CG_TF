@@ -171,6 +171,8 @@ void Game::init()
     airportRunway.setAdjustedBody(flightArea.getArea().getCenter_x(), flightArea.getArea().getCenter_y());
     player.setCurrentPosition(airportRunway.getAdjustedBody().getPoint1());
     player.setInclinationAngle(airportRunway.calcInclinationAngle());
+    player.setMinimumZ(0);
+    player.setMaximumZ(flightArea.getArea().getRadius() - player.getBody().getRadius());
     beforeAirportRunwayMiddle = true;
     gameOver = false;
     gameWin = false;
@@ -284,6 +286,8 @@ void Game::initFlightEnemiesPosition()
     for (flightEnemy_it = flightEnemies.begin(); flightEnemy_it != flightEnemies.end(); flightEnemy_it++)
     {
         glPushMatrix();
+        flightEnemy_it->setMinimumZ(0);
+        flightEnemy_it->setMaximumZ(flightArea.getArea().getRadius() - flightEnemy_it->getBody().getRadius());
         flightEnemy_it->setCurrentPosition(Point(-flightArea.getArea().getCenter_x() + flightEnemy_it->getBody().getCenter_x(), -flightArea.getArea().getCenter_y() + flightEnemy_it->getBody().getCenter_y()));
         glPopMatrix();
     }

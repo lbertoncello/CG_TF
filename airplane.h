@@ -47,6 +47,8 @@ protected:
     bool destroyed = false;
     GLfloat camAngleX = 0;
     GLfloat camAngleY = 0;
+    GLfloat minimumZ = 0;
+    GLfloat maximumZ = 0;
 
     void speedInit()
     {
@@ -301,6 +303,14 @@ public:
     void setDestroyed(bool destroyed)
     {
         this->destroyed = destroyed;
+    }
+
+    void setMinimumZ(GLfloat minimumZ) {
+        this->minimumZ = minimumZ;
+    }
+
+    void setMaximumZ(GLfloat maximumZ) {
+        this->maximumZ = maximumZ;
     }
 
     void draw();
