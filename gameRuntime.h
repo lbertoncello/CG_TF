@@ -31,6 +31,7 @@ private:
     bool leftMouseButtonPressed = false;
     bool rightMouseButtonPressed = false;
     GLfloat previousX = 0;
+    GLfloat previousY = 0;
     GLint toggleCam = 0;
     Point mousePosition;
     Point previousMousePosition;

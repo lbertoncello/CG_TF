@@ -42,7 +42,8 @@ protected:
     GLfloat airplaneSpeedMultiplier = 1.0;
     GLfloat bulletSpeedMultiplier = 1.0;
     Calc calc;
-    GLfloat cannonAngle = 0.0;
+    GLfloat cannonAngleX = 0.0;
+    GLfloat cannonAngleY = 0.0;
     GLfloat propellerAngle = 0.0;
     bool destroyed = false;
     GLfloat camAngleX = 0;
@@ -330,7 +331,8 @@ public:
     void reset();
     void teleport();
     Point getCurrentPositionAdjusted();
-    void rotateCannon(GLfloat moviment, GLfloat deltaIdleTime);
+    void rotateCannonX(GLfloat moviment, GLfloat deltaIdleTime);
+    void rotateCannonY(GLfloat moviment, GLfloat deltaIdleTime);
     Bullet *shoot(GLfloat deltaIdleTime);
     Point getLookingPoint1();
     Point getCamPoint1();
