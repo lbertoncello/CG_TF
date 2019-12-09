@@ -12,6 +12,9 @@
 
 #define TURN_LEFT 0
 #define TURN_RIGHT 1
+#define TURN_UP 2
+#define TURN_DOWN 3
+#define MOVE_DURATION 3.0
 
 using namespace std::chrono;
 
@@ -21,6 +24,7 @@ class FlightEnemy : public Airplane
     GLfloat shotsFrequency;
     high_resolution_clock::time_point lastShotStartTime;
     high_resolution_clock::time_point currentTime;
+    high_resolution_clock::time_point lastDirectionChange;
     GLfloat timeToShot = 0;
 
 public:
@@ -33,6 +37,7 @@ public:
     }
 
     void autoMove(GLfloat deltaIdleTime);
+    bool checkAutoMove();
     bool checkAutoShot();
     Bullet* autoShoot(GLfloat deltaIdleTime);
 };

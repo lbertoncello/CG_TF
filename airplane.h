@@ -314,6 +314,10 @@ public:
         this->maximumZ = maximumZ;
     }
 
+    void setDZ(GLfloat dZ) {
+        this->dZ = dZ;
+    }
+
     void draw(GLuint mainBodyTexture, GLuint tailAndPropellerTexture);
     void move(GLfloat deltaIdleTime);
     bool checkIntersection(Circle flightAreaBody, Sphere enemyBody, GLfloat deltaIdleTime);

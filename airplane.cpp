@@ -50,8 +50,8 @@ void Airplane::drawMainBody(GLuint mainBodyTexture)
     glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
     glMaterialf(GL_FRONT, GL_SHININESS, 60.0);
 
-    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR );
-    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR );
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glBindTexture(GL_TEXTURE_2D, mainBodyTexture);
     glPushMatrix();
     drawer.drawEllipsoid(this->body);
@@ -74,8 +74,8 @@ void Airplane::drawTail(GLuint tailTexture)
     glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
     glMaterialf(GL_FRONT, GL_SHININESS, 60.0);
 
-    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR );
-    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR );
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glBindTexture(GL_TEXTURE_2D, tailTexture);
 
     glTranslatef(-this->body.getRadius() * 0.7, 0.0, 0.0);
@@ -133,8 +133,8 @@ void Airplane::drawWings(GLuint wingsTexture, GLuint propellerTexture)
     glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
     glMaterialf(GL_FRONT, GL_SHININESS, 60.0);
 
-    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR );
-    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR );
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glBindTexture(GL_TEXTURE_2D, wingsTexture);
 
     glPushMatrix();
@@ -152,8 +152,8 @@ void Airplane::drawWings(GLuint wingsTexture, GLuint propellerTexture)
     //propeller
     glPushMatrix();
     glTranslatef(0, this->body.getRadius() / 2.0, 0.0);
-    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR );
-    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR );
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glBindTexture(GL_TEXTURE_2D, propellerTexture);
     drawPropeller();
     glPopMatrix();
@@ -161,8 +161,8 @@ void Airplane::drawWings(GLuint wingsTexture, GLuint propellerTexture)
     //propeller
     glPushMatrix();
     glTranslatef(0, -this->body.getRadius() / 2.0, 0.0);
-    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR );
-    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR );
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glBindTexture(GL_TEXTURE_2D, propellerTexture);
     drawPropeller();
     glPopMatrix();
@@ -233,7 +233,7 @@ void Airplane::drawCannon()
 
     glPushMatrix();
 
-   GLfloat mat_emission[] = {0.0, 0.0, 0.0, 0.0};
+    GLfloat mat_emission[] = {0.0, 0.0, 0.0, 0.0};
     GLfloat mat_ambient[] = {0.1, 0.1, 0.1, 1.0};
     GLfloat mat_diffuse[] = {0.9, 0.9, 0.9, 1.0};
     GLfloat mat_specular[] = {1.0, 1.0, 1.0, 1.0};
@@ -585,7 +585,7 @@ void Airplane::rotateCannonX(GLfloat moviment, GLfloat deltaIdleTime)
 {
     GLfloat nextcannonAngleX = this->cannonAngleX + moviment * 0.1 * deltaIdleTime;
 
-    if (nextcannonAngleX > M_PI /6.0)
+    if (nextcannonAngleX > M_PI / 6.0)
     {
         cannonAngleX = M_PI / 6.0;
     }
@@ -620,7 +620,7 @@ void Airplane::rotateCannonY(GLfloat moviment, GLfloat deltaIdleTime)
 Bullet *Airplane::shoot(GLfloat deltaIdleTime)
 {
     GLfloat resultingAngleXY = calc.degreesToRadians(inclinationAngle) + cannonAngleX;
-    GLfloat resultingAngleYZ = moveAngleYZ;
+    GLfloat resultingAngleYZ = moveAngleYZ + cannonAngleY;
     GLfloat bulletSpeed = speedNorm * bulletSpeedMultiplier;
     GLfloat bulletRadius = this->body.getRadius() / 8.0;
     Point bulletCoordinates;
@@ -629,7 +629,7 @@ Bullet *Airplane::shoot(GLfloat deltaIdleTime)
         dX + body.getRadius() * cos(calc.degreesToRadians(inclinationAngle)) + this->body.getRadius() / 2.0 * cos(resultingAngleXY));
     bulletCoordinates.setY(
         dY + body.getRadius() * sin(calc.degreesToRadians(inclinationAngle)) + this->body.getRadius() / 2.0 * sin(resultingAngleXY));
-    bulletCoordinates.setZ(dZ + (dZ * sin(moveAngleYZ)));
+    bulletCoordinates.setZ(dZ - (body.getRadius() / 2 * sin(-moveAngleYZ)) + (body.getRadius() * sin(-cannonAngleY)));
     // bulletCoordinates.setZ(0 + (dZ * cos(moveAngleYZ)));
 
     Point bulletBodyCoordinates = getPositionAdjusted(bulletCoordinates);
