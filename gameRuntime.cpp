@@ -149,6 +149,10 @@ void GameRuntime::keyPress(unsigned char key, GLint x, GLint y)
     {
         keyStates[key] = true;
     }
+    if (key == ' ')
+    {
+        keyStates[key] = true;
+    }
 }
 
 void GameRuntime::keyUp(unsigned char key, GLint x, GLint y)
@@ -170,7 +174,7 @@ void GameRuntime::mouse(GLint button, GLint state, GLint x, GLint y)
                 }
             }
 
-            if (button == GLUT_RIGHT_BUTTON)
+            if (button == GLUT_RIGHT_BUTTON && keyStates[' '] == false)
             {
                 rightMouseButtonPressed = true;
 
@@ -185,9 +189,16 @@ void GameRuntime::mouse(GLint button, GLint state, GLint x, GLint y)
 
     if (button == GLUT_RIGHT_BUTTON)
     {
-        rightMouseButtonPressed = true;
+        if (keyStates[' '] == true)
+        {
+            rightMouseButtonPressed = true;
 
-        if (state == GLUT_UP)
+            if (state == GLUT_UP)
+            {
+                rightMouseButtonPressed = false;
+            }
+        }
+        else
         {
             rightMouseButtonPressed = false;
         }
