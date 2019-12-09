@@ -88,7 +88,7 @@ void GameSetup::init(void)
     glShadeModel(GL_SMOOTH);
     glEnable(GL_LIGHTING);
     glEnable(GL_TEXTURE_2D);
-    glEnable(GL_LIGHT0);
+    // glEnable(GL_LIGHT0);
     glEnable(GL_DEPTH_TEST);
 
     this->groundTexture = LoadTextureRAW("./textures/ground.bmp");

@@ -38,6 +38,7 @@ private:
     GLfloat camMovimentX = 0;
     GLfloat camMovimentY = 0;
     bool movingCamera = false;
+    static bool canSwitchNightMode;
 
 public:
     GameRuntime() {}
