@@ -39,8 +39,17 @@ void Bullet::draw()
 {
     glPushMatrix();
 
-    GLfloat mat_ambient_color[] = {0.62, 0.80, 0.22, 1.0};
-    glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_color);
+    // GLfloat mat_emission[] = {0.0, 0.0, 0.0, 0.0};
+    // GLfloat mat_ambient[] = {0.0, 1.0, 0.0, 1.0};
+    // GLfloat mat_diffuse[] = {0.0, 1.0, 0.0, 1.0};
+    // GLfloat mat_specular[] = {0.0, 1.0, 0.0, 1.0};
+    // // GLfloat mat_shininess[] = {1.0, 1.0, 1.0, 1.0};
+
+    // glMaterialfv(GL_FRONT, GL_EMISSION, mat_emission);
+    // glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+    // glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+    // glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+    // // glMaterialfv(GL_FRONT, GL_SHININESS, mat_ambient_r);
 
     glTranslatef(dX, -dY, dZ);
     // drawer.drawFilledSphere(this->body);

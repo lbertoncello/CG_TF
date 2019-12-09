@@ -15,11 +15,11 @@ void Airplane::draw(GLuint mainBodyTexture, GLuint tailAndPropellerTexture)
     //     drawTail();
     //     glPopMatrix();
     // }
-    GLfloat no_mat[] = {0.0, 0.0, 0.0, 1.0};
-    glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,
-                 no_mat);
-    glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
-    glMaterialfv(GL_FRONT, GL_SHININESS, no_mat);
+    // GLfloat no_mat[] = {0.0, 0.0, 0.0, 1.0};
+    // glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,
+    //              no_mat);
+    // glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
+    // glMaterialfv(GL_FRONT, GL_SHININESS, no_mat);
 
     glPushMatrix();
 
@@ -39,11 +39,17 @@ void Airplane::draw(GLuint mainBodyTexture, GLuint tailAndPropellerTexture)
 
 void Airplane::drawMainBody(GLuint mainBodyTexture)
 {
-    GLfloat mat_ambient_g[] = {1.0, 1.0, 1.0, 1.0};
+    GLfloat mat_emission[] = {0.0, 0.0, 0.0, 0.0};
+    GLfloat mat_ambient[] = {0.2, 0.2, 0.2, 1.0};
+    GLfloat mat_diffuse[] = {1.0, 1.0, 1.0, 1.0};
+    GLfloat mat_specular[] = {1.0, 1.0, 1.0, 1.0};
+    // GLfloat mat_shininess[] = {1.0, 1.0, 1.0, 1.0};
 
-    // glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_g);
-    glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, mat_ambient_g);
-    // glMaterialfv(GL_FRONT, GL_SPECULAR, mat_ambient_g);
+    glMaterialfv(GL_FRONT, GL_EMISSION, mat_emission);
+    glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+    // glMaterialfv(GL_FRONT, GL_SHININESS, mat_ambient_r);
 
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR );
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR );
@@ -58,11 +64,18 @@ void Airplane::drawTail(GLuint tailTexture)
 {
     glPushMatrix();
 
-    Color color(0.0, 0.0, 0.0);
+    GLfloat mat_emission[] = {0.0, 0.0, 0.0, 0.0};
+    GLfloat mat_ambient[] = {0.2, 0.2, 0.2, 1.0};
+    GLfloat mat_diffuse[] = {0.8, 0.8, 0.8, 1.0};
+    GLfloat mat_specular[] = {1.0, 1.0, 1.0, 1.0};
+    // GLfloat mat_shininess[] = {1.0, 1.0, 1.0, 1.0};
 
-    GLfloat mat_ambient_r[] = {0.8, 0.8, 0.8, 1.0};
+    glMaterialfv(GL_FRONT, GL_EMISSION, mat_emission);
+    glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+    // glMaterialfv(GL_FRONT, GL_SHININESS, mat_ambient_r);
 
-    glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_r);
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR );
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR );
     glBindTexture(GL_TEXTURE_2D, tailTexture);
@@ -88,11 +101,17 @@ void Airplane::drawCockpit()
     glPushMatrix();
 
     GLfloat cockpitRadius = this->body.getRadius() / 2.0;
-    Color cockpitColor(0.0, 0.0, 0.0);
+    GLfloat mat_emission[] = {0.0, 0.0, 0.0, 0.0};
+    GLfloat mat_ambient[] = {0.0, 0.0, 0.0, 1.0};
+    GLfloat mat_diffuse[] = {0.0, 0.0, 0.0, 1.0};
+    GLfloat mat_specular[] = {0.1, 0.1, 0.1, 1.0};
+    // GLfloat mat_shininess[] = {1.0, 1.0, 1.0, 1.0};
 
-    GLfloat mat_ambient_r[] = {0.0, 0.0, 0.0, 1.0};
-    glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_r);
-    glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, mat_ambient_r);
+    glMaterialfv(GL_FRONT, GL_EMISSION, mat_emission);
+    glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+    // glMaterialfv(GL_FRONT, GL_SHININESS, mat_ambient_r);
 
     glTranslatef(this->body.getRadius() / 3.0, 0.0, this->body.getRadius() * 0.15);
     Point pcenter(0.0, 0.0, 0.0);
@@ -106,9 +125,17 @@ void Airplane::drawCockpit()
 void Airplane::drawWings(GLuint wingsTexture, GLuint propellerTexture)
 {
     Color wingsColor(0.0, 0.0, 0.0);
-    GLfloat mat_ambient_r[] = {1.0, 1.0, 1.0, 1.0};
+    GLfloat mat_emission[] = {0.0, 0.0, 0.0, 0.0};
+    GLfloat mat_ambient[] = {0.2, 0.2, 0.2, 1.0};
+    GLfloat mat_diffuse[] = {1.0, 1.0, 1.0, 1.0};
+    GLfloat mat_specular[] = {1.0, 1.0, 1.0, 1.0};
+    // GLfloat mat_shininess[] = {1.0, 1.0, 1.0, 1.0};
 
-    glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_r);
+    glMaterialfv(GL_FRONT, GL_EMISSION, mat_emission);
+    glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+    // glMaterialfv(GL_FRONT, GL_SHININESS, mat_ambient_r);
 
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR );
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR );
@@ -151,9 +178,17 @@ void Airplane::drawPropeller()
 {
     Color rodColor(0.0, 0.0, 0.0);
 
-    GLfloat mat_ambient_r[] = {1.0, 1.0, 1.0, 1.0};
+    GLfloat mat_emission[] = {0.0, 0.0, 0.0, 0.0};
+    GLfloat mat_ambient[] = {0.2, 0.2, 0.2, 1.0};
+    GLfloat mat_diffuse[] = {1.0, 1.0, 1.0, 1.0};
+    GLfloat mat_specular[] = {1.0, 1.0, 1.0, 1.0};
+    // GLfloat mat_shininess[] = {1.0, 1.0, 1.0, 1.0};
 
-    glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_r);
+    glMaterialfv(GL_FRONT, GL_EMISSION, mat_emission);
+    glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+    // glMaterialfv(GL_FRONT, GL_SHININESS, mat_ambient_r);
 
     glPushMatrix();
 
@@ -203,10 +238,17 @@ void Airplane::drawCannon()
 
     glPushMatrix();
 
-    Color color(0.0, 0.0, 0.0);
-    GLfloat mat_ambient_g[] = {0.2, 0.2, 0.2, 1.0};
+   GLfloat mat_emission[] = {0.0, 0.0, 0.0, 0.0};
+    GLfloat mat_ambient[] = {0.1, 0.1, 0.1, 1.0};
+    GLfloat mat_diffuse[] = {0.1, 0.1, 0.1, 1.0};
+    GLfloat mat_specular[] = {0.1, 0.1, 0.1, 1.0};
+    // GLfloat mat_shininess[] = {1.0, 1.0, 1.0, 1.0};
 
-    glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_g);
+    glMaterialfv(GL_FRONT, GL_EMISSION, mat_emission);
+    glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+    // glMaterialfv(GL_FRONT, GL_SHININESS, mat_ambient_r);
 
     glTranslatef(this->body.getRadius() * 0.9, 0.0, 0.0);
 
