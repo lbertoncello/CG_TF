@@ -659,6 +659,7 @@ void Game::drawScoreboard()
 {
     string scoreboard = "ELIMINADAS: " + to_string(amountOfDamagedTerrestrialEnemies()) + " | RESTANTES: " + to_string(amountOfUndamagedTerrestrialEnemies());
     Point position(125, -270);
+    drawer.PrintText(0.1, 0.1, scoreboard.c_str(), 1, 0, 0);
 
     drawer.drawText(scoreboard, position);
 }

@@ -2,10 +2,19 @@
 
 void GameSetup::display(void)
 {
+    Draw drawer;
+
+    // drawer.PrintText(0.5, 0.5, "TESTE", 1, 0, 0);
+
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
 
+    // drawer.PrintText(0.5, 0.5, "TESTE", 1, 0, 0);
+
     gameRuntime.getGame().calcMoviments();
+
+    // drawer.PrintText(0.5, 0.5, "TESTE", 1, 0, 0);
+    gameRuntime.getGame().drawScoreboard();
 
     if (gameRuntime.getToggleCam() == 0)
     {
@@ -26,19 +35,28 @@ void GameSetup::display(void)
         gluLookAt(camPoint.getX(), camPoint.getY(), camPoint.getZ(), lookingPoint.getX(), lookingPoint.getY(), lookingPoint.getZ(), 0, 0, 1);
     }
 
-    if(gameRuntime.getGame().isNightMode())
+    drawer.PrintText(0.5, 0.5, "TESTE", 1, 0, 0);
+
+    if (gameRuntime.getGame().isNightMode())
     {
         glDisable(GL_LIGHT0);
-    } else {
+    }
+    else
+    {
         glEnable(GL_LIGHT0);
         GLfloat light_position[] = {0.0, 0.0, 10.0, 0.0};
         glLightfv(GL_LIGHT0, GL_POSITION, light_position);
     }
 
+    drawer.PrintText(0.5, 0.5, "TESTE", 1, 0, 0);
+
     gameRuntime.getGame().drawGame(deltaIdleTime, this->groundTexture, this->skyTexture, this->horizontTexture, this->roadTexture, this->playerMainBodyTexture, this->enemyMainBodyTexture, this->tailAndPropellerTexture);
 
+    drawer.PrintText(0.5, 0.5, "TESTE", 1, 0, 0);
     /* Não esperar */
     glutSwapBuffers();
+
+    drawer.PrintText(0.5, 0.5, "TESTE", 1, 0, 0);
 }
 
 void GameSetup::idle(void)
