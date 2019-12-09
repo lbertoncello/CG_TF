@@ -8,16 +8,15 @@ void TerrestrialEnemy::draw(GLuint TerrestrialEnemiesTexture)
         glTranslatef(dX, -dY, 0.0);
 
         GLfloat mat_emission[] = {0.0, 0.0, 0.0, 0.0};
-        GLfloat mat_ambient[] = {1.0, 140.0/255.0, 0.0, 1.0};
-        GLfloat mat_diffuse[] = {1.0, 140.0/255.0, 0.0, 1.0};
-        GLfloat mat_specular[] = {1.0, 140.0/255.0, 0.0, 1.0};
-        // GLfloat mat_shininess[] = {1.0, 1.0, 1.0, 1.0};
+        GLfloat mat_ambient[] = {0.2, 0.2*140.0/255.0, 0.0, 1.0};
+        GLfloat mat_diffuse[] = {0.8, 0.8*140.0/255.0, 0.0, 1.0};
+        GLfloat mat_specular[] = {1.0, 1.0, 1.0, 1.0};
 
         glMaterialfv(GL_FRONT, GL_EMISSION, mat_emission);
         glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
         glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
         glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-        // glMaterialfv(GL_FRONT, GL_SHININESS, mat_ambient_r);
+        glMaterialf(GL_FRONT, GL_SHININESS, 60.0);
 
         // drawer.drawFilledSphere(this->getBody());
         // drawer.drawRectangle2(body.getRadius() * 1.44, body.getRadius() * 1.44, body.getColor());

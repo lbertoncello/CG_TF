@@ -302,9 +302,9 @@ void Draw::drawCylinderTube(GLfloat radius, GLfloat height)
 
     /** Draw the tube */
     // glColor3ub(R-40,G-40,B-40);
-    GLfloat mat_ambient_g[] = {R, G, B, 1.0};
+    // GLfloat mat_ambient_g[] = {R, G, B, 1.0};
 
-    glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_g);
+    // glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_g);
     glBegin(GL_QUAD_STRIP);
     angle = 0.0;
     while (angle < 2 * PI)

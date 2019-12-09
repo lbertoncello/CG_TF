@@ -467,15 +467,14 @@ void Game::drawPlayerBullets()
         {
             GLfloat mat_emission[] = {0.0, 0.0, 0.0, 0.0};
             GLfloat mat_ambient[] = {0.0, 0.3, 0.0, 1.0};
-            GLfloat mat_diffuse[] = {0.0, 1.0, 0.0, 1.0};
+            GLfloat mat_diffuse[] = {0.0, 0.7, 0.0, 1.0};
             GLfloat mat_specular[] = {0.0, 1.0, 0.0, 1.0};
-            // GLfloat mat_shininess[] = {1.0, 1.0, 1.0, 1.0};
 
             glMaterialfv(GL_FRONT, GL_EMISSION, mat_emission);
             glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
             glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
             glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-            // glMaterialfv(GL_FRONT, GL_SHININESS, mat_ambient_r);
+            glMaterialf(GL_FRONT, GL_SHININESS, 60.0);
             (*playerBullets_it)->draw();
         }
         playerBullets_it++;
@@ -517,15 +516,14 @@ void Game::drawEnemyBullets()
         {
             GLfloat mat_emission[] = {0.0, 0.0, 0.0, 0.0};
             GLfloat mat_ambient[] = {0.3, 0.0, 0.0, 1.0};
-            GLfloat mat_diffuse[] = {1.0, 0.0, 0.0, 1.0};
+            GLfloat mat_diffuse[] = {0.7, 0.0, 0.0, 1.0};
             GLfloat mat_specular[] = {1.0, 0.0, 0.0, 1.0};
-            // GLfloat mat_shininess[] = {1.0, 1.0, 1.0, 1.0};
 
             glMaterialfv(GL_FRONT, GL_EMISSION, mat_emission);
             glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
             glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
             glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-            // glMaterialfv(GL_FRONT, GL_SHININESS, mat_ambient_r);
+            glMaterialf(GL_FRONT, GL_SHININESS, 60.0);
             (*enemyBullets_it)->draw();
         }
         enemyBullets_it++;
