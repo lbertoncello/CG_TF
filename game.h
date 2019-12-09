@@ -160,6 +160,8 @@ public:
     void moveCamera(GLfloat movimentX, GLfloat movimentY);
     void resetCameraAngle();
     void drawScoreboard();
+    void checkGameOver();
+    void checkGameWin();
 
 };
 
