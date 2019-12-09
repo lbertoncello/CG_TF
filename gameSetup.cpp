@@ -26,13 +26,16 @@ void GameSetup::display(void)
         gluLookAt(camPoint.getX(), camPoint.getY(), camPoint.getZ(), lookingPoint.getX(), lookingPoint.getY(), lookingPoint.getZ(), 0, 0, 1);
     }
 
-    if(gameRuntime.getGame().isNightMode())
+    if (gameRuntime.getGame().isNightMode())
     {
+        glEnable(GL_LIGHT1);
         glDisable(GL_LIGHT0);
-    } else {
+    }
+    else
+    {
         glEnable(GL_LIGHT0);
-        GLfloat light_position[] = {0.0, 0.0, 10.0, 0.0};
-        glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+        glDisable(GL_LIGHT1);
+        gameRuntime.getGame().setLight();
     }
 
     gameRuntime.getGame().drawGame(deltaIdleTime, this->groundTexture, this->skyTexture, this->horizontTexture, this->roadTexture, this->playerMainBodyTexture, this->enemyMainBodyTexture, this->tailAndPropellerTexture);

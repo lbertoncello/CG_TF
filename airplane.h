@@ -77,6 +77,7 @@ protected:
     Point getPositionAdjusted(Point position);
     void moveCameraX(GLfloat moviment, GLfloat deltaIdleTime);
     void moveCameraY(GLfloat moviment, GLfloat deltaIdleTime);
+    void setAirplaneLight();
 
 public:
     Airplane()
@@ -318,7 +319,7 @@ public:
         this->dZ = dZ;
     }
 
-    void draw(GLuint mainBodyTexture, GLuint tailAndPropellerTexture, bool isNightMode);
+    void draw(GLuint mainBodyTexture, GLuint tailAndPropellerTexture, bool isNightMode, bool isPlayer);
     void move(GLfloat deltaIdleTime);
     bool checkIntersection(Circle flightAreaBody, Sphere enemyBody, GLfloat deltaIdleTime);
     GLfloat calcMovement_x(GLfloat deltaIdleTime);
