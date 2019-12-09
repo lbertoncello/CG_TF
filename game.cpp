@@ -684,9 +684,14 @@ bool Game::isPlayerInsideFlightArea(Player &player)
     return flightArea.getArea().isPointInCircle(player.getCurrentPositionAdjusted());
 }
 
-void Game::rotatePlayerAirplaneCannon(GLfloat moviment)
+void Game::rotatePlayerAirplaneCannonX(GLfloat moviment)
 {
-    this->player.rotateCannon(moviment, deltaIdleTime);
+    this->player.rotateCannonX(moviment, deltaIdleTime);
+}
+
+void Game::rotatePlayerAirplaneCannonY(GLfloat moviment)
+{
+    this->player.rotateCannonY(moviment, deltaIdleTime);
 }
 
 void Game::shoot()
@@ -696,7 +701,10 @@ void Game::shoot()
 
 void Game::dropBomb()
 {
-    bombs.push_back(this->player.dropBomb(deltaIdleTime));
+    if (!player.isTurningUp() && !player.isTurningDown())
+    {
+        bombs.push_back(this->player.dropBomb(deltaIdleTime));
+    }
 }
 
 void Game::calcMoviments()

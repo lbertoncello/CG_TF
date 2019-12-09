@@ -200,8 +200,11 @@ void GameRuntime::motion(GLint x, GLint y)
     {
         if (game.isPlayerFlying())
         {
-            game.rotatePlayerAirplaneCannon(x - previousX);
+            game.rotatePlayerAirplaneCannonX(x - previousX);
             previousX = x;
+
+            game.rotatePlayerAirplaneCannonY(y - previousY);
+            previousY = y;
         }
     }
 }
@@ -215,8 +218,11 @@ void GameRuntime::passiveMotion(GLint x, GLint y)
     {
         if (game.isPlayerFlying())
         {
-            game.rotatePlayerAirplaneCannon(x - previousX);
+            game.rotatePlayerAirplaneCannonX(x - previousX);
             previousX = x;
+
+            game.rotatePlayerAirplaneCannonY(y - previousY);
+            previousY = y;
         }
     }
 
