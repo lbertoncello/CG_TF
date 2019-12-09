@@ -171,8 +171,10 @@ void Game::init()
     airportRunway.setAdjustedBody(flightArea.getArea().getCenter_x(), flightArea.getArea().getCenter_y());
     player.setCurrentPosition(airportRunway.getAdjustedBody().getPoint1());
     player.setInclinationAngle(airportRunway.calcInclinationAngle());
-    player.setMinimumZ(0);
+    player.setMinimumZ(0 + player.getBody().getRadius());
     player.setMaximumZ((8 * 2 * player.getBody().getRadius()) - player.getBody().getRadius());
+    player.getBody().setCenter_z(player.getBody().getRadius() / 2);
+    player.setDZ(player.getBody().getRadius() / 2);
     beforeAirportRunwayMiddle = true;
     gameOver = false;
     gameWin = false;
@@ -287,8 +289,10 @@ void Game::initFlightEnemiesPosition()
     for (flightEnemy_it = flightEnemies.begin(); flightEnemy_it != flightEnemies.end(); flightEnemy_it++)
     {
         glPushMatrix();
-        flightEnemy_it->setMinimumZ(0);
-        flightEnemy_it->setMaximumZ(flightArea.getArea().getRadius() - flightEnemy_it->getBody().getRadius());
+        flightEnemy_it->setDZ(player.getBody().getRadius() * 8);
+        flightEnemy_it->getBody().setCenter_z(player.getBody().getRadius() * 8);
+        flightEnemy_it->setMinimumZ(0 + flightEnemy_it->getBody().getRadius());
+        flightEnemy_it->setMaximumZ((8 * 2 * player.getBody().getRadius()) - flightEnemy_it->getBody().getRadius());
         flightEnemy_it->setCurrentPosition(Point(-flightArea.getArea().getCenter_x() + flightEnemy_it->getBody().getCenter_x(), -flightArea.getArea().getCenter_y() + flightEnemy_it->getBody().getCenter_y()));
         glPopMatrix();
     }
