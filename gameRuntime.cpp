@@ -1,6 +1,7 @@
 #include "gameRuntime.h"
 
 bool *GameRuntime::keyStates = new bool[256];
+bool GameRuntime::canSwitchNightMode = true;
 
 void GameRuntime::keyOperations(void)
 {
@@ -66,7 +67,11 @@ void GameRuntime::keyOperations(void)
         }
         if (keyStates['n'])
         {
-            game.setNightMode(!game.isNightMode());
+            if(canSwitchNightMode)
+            {
+                game.setNightMode(!game.isNightMode());
+            }
+            canSwitchNightMode = false;
         }
         if (keyStates['+'])
         {
@@ -166,6 +171,10 @@ void GameRuntime::keyPress(unsigned char key, GLint x, GLint y)
 void GameRuntime::keyUp(unsigned char key, GLint x, GLint y)
 {
     keyStates[key] = false; // Set the state of the current key to not pressed
+    if(key == 'n')
+    {
+        canSwitchNightMode = true;
+    }
 }
 
 void GameRuntime::mouse(GLint button, GLint state, GLint x, GLint y)
