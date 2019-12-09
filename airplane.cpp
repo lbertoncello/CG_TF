@@ -1,6 +1,6 @@
 #include "airplane.h"
 
-void Airplane::draw(GLuint mainBodyTexture, GLuint tailAndPropellerTexture, bool isNightMode)
+void Airplane::draw(GLuint mainBodyTexture, GLuint tailAndPropellerTexture, bool isNightMode, bool isPlayer)
 {
     // if (!isDestroyed())
     // {
@@ -33,6 +33,11 @@ void Airplane::draw(GLuint mainBodyTexture, GLuint tailAndPropellerTexture, bool
     drawMainBody(mainBodyTexture, isNightMode);
     drawCockpit();
     drawTail(tailAndPropellerTexture, isNightMode);
+
+    if(isPlayer)
+    {
+        setAirplaneLight();
+    }
 
     glPopMatrix();
 }
@@ -824,4 +829,25 @@ void Airplane::resetCameraAngle()
 {
     camAngleX = 0;
     camAngleY = 0;
+}
+
+void Airplane::setAirplaneLight()
+{
+    glPushMatrix();
+    glTranslatef(this->body.getRadius(), 0.0, 0.0);
+    GLfloat alturaFarol = this->body.getRadius()*0.1 + 0.1;
+    GLfloat light1_pos[] = {0.0, 0.0, alturaFarol, 1.0};
+    GLfloat light1_direction[] = {1.0, 0.0, 0.0};
+    GLfloat light1_angle[] = {20.0};
+    GLfloat light1_ambient[] = {1.0, 1.0, 1.0, 1.0};
+    GLfloat light1_diffuse[] = {1.0, 1.0, 1.0, 1.0};
+    GLfloat light1_specular[] = {1.0, 1.0, 1.0, 1.0};
+    glLightfv(GL_LIGHT1, GL_AMBIENT, light1_ambient);
+    glLightfv(GL_LIGHT1, GL_DIFFUSE, light1_diffuse);
+    glLightfv(GL_LIGHT1, GL_SPECULAR, light1_specular);
+    glLightfv(GL_LIGHT1, GL_POSITION, light1_pos);
+    glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, light1_direction);
+    glLightfv(GL_LIGHT1, GL_SPOT_CUTOFF, light1_angle);
+
+    glPopMatrix();
 }

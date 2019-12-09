@@ -382,7 +382,7 @@ void Game::movePlayer()
 
 void Game::drawPlayer(GLuint playerMainBodyTexture, GLuint tailAndPropellerTexture)
 {
-    player.draw(playerMainBodyTexture, tailAndPropellerTexture, isNightMode());
+    player.draw(playerMainBodyTexture, tailAndPropellerTexture, isNightMode(), true);
 }
 
 void Game::drawAirportRunway(GLuint roadTexture)
@@ -440,7 +440,7 @@ void Game::drawFlightEnemies(GLuint enemyMainBodyTexture, GLuint tailAndPropelle
         {
             glPushMatrix();
             // glTranslatef(-flightArea.getArea().getCenter_x() + flightEnemy_it->getBody().getCenter_x(), -flightArea.getArea().getCenter_y() + flightEnemy_it->getBody().getCenter_y(), 0.0);
-            flightEnemy_it->draw(enemyMainBodyTexture, tailAndPropellerTexture, isNightMode());
+            flightEnemy_it->draw(enemyMainBodyTexture, tailAndPropellerTexture, isNightMode(), false);
             glPopMatrix();
         }
     }
