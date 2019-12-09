@@ -11,7 +11,7 @@ void AirportRunway::setAdjustedBody(GLfloat coordinateCorrection_x, GLfloat coor
 void AirportRunway::draw(GLuint roadTexture)
 {
     GLfloat mat_emission[] = {0.0, 0.0, 0.0, 0.0};
-    GLfloat mat_ambient[] = {0.2, 0.2, 0.2, 1.0};
+    GLfloat mat_ambient[] = {0.0, 0.0, 0.0, 0.0};
     GLfloat mat_diffuse[] = {0.8, 0.8, 0.8, 1.0};
     GLfloat mat_specular[] = {1.0, 1.0, 1.0, 1.0};
 

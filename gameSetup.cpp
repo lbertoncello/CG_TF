@@ -26,7 +26,7 @@ void GameSetup::display(void)
         gluLookAt(camPoint.getX(), camPoint.getY(), camPoint.getZ(), lookingPoint.getX(), lookingPoint.getY(), lookingPoint.getZ(), 0, 0, 1);
     }
 
-    // GLfloat light_position[] = {0.0, 0.0, 10.0, 1.0};
+    // GLfloat light_position[] = {0.0, 0.0, 10.0, 0.0};
     // glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 
     gameRuntime.getGame().drawGame(deltaIdleTime, this->groundTexture, this->skyTexture, this->horizontTexture, this->roadTexture, this->playerMainBodyTexture, this->enemyMainBodyTexture, this->tailAndPropellerTexture);
@@ -82,7 +82,7 @@ void GameSetup::init(void)
     glShadeModel(GL_SMOOTH);
     glEnable(GL_LIGHTING);
     glEnable(GL_TEXTURE_2D);
-    glEnable(GL_LIGHT0);
+    // glEnable(GL_LIGHT0);
     glEnable(GL_DEPTH_TEST);
 
     this->groundTexture = LoadTextureRAW("./textures/ground.bmp");

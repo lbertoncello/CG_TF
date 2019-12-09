@@ -3,7 +3,7 @@
 void FlightArea::draw(GLfloat heightOfSky, GLuint groundTexture, GLuint skyTexture, GLuint horizontTexture)
 {
     GLfloat mat_emission[] = {0.0, 0.0, 0.0, 0.0};
-    GLfloat mat_ambient[] = {0.2, 0.2, 0.2, 1.0};
+    GLfloat mat_ambient[] = {0.0, 0.0, 0.0, 0.0};
     GLfloat mat_diffuse[] = {1.0, 1.0, 1.0, 1.0};
     GLfloat mat_specular[] = {1.0, 1.0, 1.0, 1.0};
 

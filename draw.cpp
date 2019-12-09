@@ -291,27 +291,17 @@ void Draw::drawEllipsoid(Sphere sphere)
 
 void Draw::drawCylinderTube(GLfloat radius, GLfloat height)
 {
-    GLfloat R = 1.0;
-    GLfloat G = 1.0;
-    GLfloat B = 1.0;
-
     GLfloat x = 0.0;
     GLfloat z = 0.0;
     GLfloat angle = 0.0;
     GLfloat angle_stepsize = 0.1;
 
-    /** Draw the tube */
-    // glColor3ub(R-40,G-40,B-40);
-    // GLfloat mat_ambient_g[] = {R, G, B, 1.0};
-
-    // glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_g);
     glBegin(GL_QUAD_STRIP);
     angle = 0.0;
     while (angle < 2 * PI)
     {
         x = radius * cos(angle);
         z = radius * sin(angle);
-        // glTexCoord2f(x, height);
         glTexCoord2f(angle/(2*PI), 1);
         glVertex3f(x, height, z);
         glTexCoord2f(angle/(2*PI), 0);
@@ -327,20 +317,11 @@ void Draw::drawCylinderTube(GLfloat radius, GLfloat height)
 
 void Draw::drawCylinder(GLfloat radius, GLfloat height)
 {
-    // GLfloat R = 1.0;
-    // GLfloat G = 1.0;
-    // GLfloat B = 1.0;
-
     GLfloat x = 0.0;
     GLfloat z = 0.0;
     GLfloat angle = 0.0;
     GLfloat angle_stepsize = 0.1;
 
-    /** Draw the tube */
-    // glColor3ub(R-40,G-40,B-40);
-    // GLfloat mat_ambient_g[] = {R, G, B, 1.0};
-
-    // glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_g);
     glBegin(GL_QUAD_STRIP);
     angle = 0.0;
     while (angle < 2 * PI)
@@ -355,9 +336,7 @@ void Draw::drawCylinder(GLfloat radius, GLfloat height)
     glVertex3f(radius, 0.0, 0.0);
     glEnd();
 
-    /** Draw the circle on top of cylinder */
-    // glColor3ub(R,G,B);
-    // glMaterialfv(GL_FRONT, GL_EMISSION, mat_ambient_g);
+
     glBegin(GL_POLYGON);
     angle = 0.0;
     while (angle < 2 * PI)

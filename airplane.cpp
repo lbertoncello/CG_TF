@@ -40,7 +40,7 @@ void Airplane::draw(GLuint mainBodyTexture, GLuint tailAndPropellerTexture)
 void Airplane::drawMainBody(GLuint mainBodyTexture)
 {
     GLfloat mat_emission[] = {0.0, 0.0, 0.0, 0.0};
-    GLfloat mat_ambient[] = {0.2, 0.2, 0.2, 1.0};
+    GLfloat mat_ambient[] = {0.0, 0.0, 0.0, 0.0};
     GLfloat mat_diffuse[] = {0.8, 0.8, 0.8, 1.0};
     GLfloat mat_specular[] = {1.0, 1.0, 1.0, 1.0};
 
@@ -64,7 +64,7 @@ void Airplane::drawTail(GLuint tailTexture)
     glPushMatrix();
 
     GLfloat mat_emission[] = {0.0, 0.0, 0.0, 0.0};
-    GLfloat mat_ambient[] = {0.2, 0.2, 0.2, 1.0};
+    GLfloat mat_ambient[] = {0.0, 0.0, 0.0, 0.0};
     GLfloat mat_diffuse[] = {0.8, 0.8, 0.8, 1.0};
     GLfloat mat_specular[] = {1.0, 1.0, 1.0, 1.0};
 
@@ -121,9 +121,9 @@ void Airplane::drawCockpit()
 
 void Airplane::drawWings(GLuint wingsTexture, GLuint propellerTexture)
 {
-    Color wingsColor(0.0, 0.0, 0.0);
+    // Color wingsColor(0.0, 0.0, 0.0);
     GLfloat mat_emission[] = {0.0, 0.0, 0.0, 0.0};
-    GLfloat mat_ambient[] = {0.2, 0.2, 0.2, 1.0};
+    GLfloat mat_ambient[] = {0.0, 0.0, 0.0, 0.0};
     GLfloat mat_diffuse[] = {0.8, 0.8, 0.8, 1.0};
     GLfloat mat_specular[] = {1.0, 1.0, 1.0, 1.0};
 
@@ -172,10 +172,10 @@ void Airplane::drawWings(GLuint wingsTexture, GLuint propellerTexture)
 
 void Airplane::drawPropeller()
 {
-    Color rodColor(0.0, 0.0, 0.0);
+    // Color rodColor(0.0, 0.0, 0.0);
 
     GLfloat mat_emission[] = {0.0, 0.0, 0.0, 0.0};
-    GLfloat mat_ambient[] = {0.2, 0.2, 0.2, 1.0};
+    GLfloat mat_ambient[] = {0.0, 0.0, 0.0, 0.0};
     GLfloat mat_diffuse[] = {0.8, 0.8, 0.8, 1.0};
     GLfloat mat_specular[] = {1.0, 1.0, 1.0, 1.0};
 

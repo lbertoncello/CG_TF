@@ -23,8 +23,7 @@ void TerrestrialEnemy::draw(GLuint TerrestrialEnemiesTexture)
 
         // glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR );
         // glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR );
-
-        glBindTexture(GL_TEXTURE_2D, TerrestrialEnemiesTexture);
+        // glBindTexture(GL_TEXTURE_2D, TerrestrialEnemiesTexture);
         // drawer.drawFilledSphere(body.getRadius() * 0.7, Color(0.3, 0.45, 0.7));
         glutSolidSphere(body.getRadius(), 100, 100);
         glPopMatrix();
