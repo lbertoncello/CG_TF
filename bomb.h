@@ -109,7 +109,7 @@ public:
         return this->dZ <= 0;
     }
 
-    void draw(bool isNightMode);
+    void draw();
     void move(GLfloat deltaIdleTime);
     void updateSize();
     Point getCurrentPositionAdjusted();

@@ -586,7 +586,7 @@ void Game::drawBombs()
                     (*bombs_it)->move(deltaIdleTime);
                 }
 
-                (*bombs_it)->draw(isNightMode());
+                (*bombs_it)->draw();
                 bombs_it++;
             }
             else
