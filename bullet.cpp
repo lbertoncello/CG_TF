@@ -22,7 +22,7 @@ GLfloat Bullet::calcMovement_y(GLfloat deltaIdleTime)
 GLfloat Bullet::calcMovement_z(GLfloat deltaIdleTime)
 {
     // return speedNorm * deltaIdleTime * sin(moveAngle);
-    return speedNorm * deltaIdleTime * sin(moveAngleYZ);
+    return speedNorm * deltaIdleTime * sin(-moveAngleYZ);
 }
 
 Point Bullet::getCurrentPositionAdjusted()
