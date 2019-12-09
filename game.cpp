@@ -294,7 +294,8 @@ void Game::initFlightEnemiesPosition()
         flightEnemy_it->getBody().setCenter_z(player.getBody().getRadius() * 8);
         flightEnemy_it->setMinimumZ(0 + flightEnemy_it->getBody().getRadius());
         flightEnemy_it->setMaximumZ((8 * 2 * player.getBody().getRadius()) - flightEnemy_it->getBody().getRadius());
-        flightEnemy_it->setCurrentPosition(Point(-flightArea.getArea().getCenter_x() + flightEnemy_it->getBody().getCenter_x(), -flightArea.getArea().getCenter_y() + flightEnemy_it->getBody().getCenter_y()));
+        // flightEnemy_it->setCurrentPosition(Point(-flightArea.getArea().getCenter_x() + flightEnemy_it->getBody().getCenter_x(), -flightArea.getArea().getCenter_y() + flightEnemy_it->getBody().getCenter_y()));
+        flightEnemy_it->setCurrentPosition(-flightArea.getArea().getCenter_x() + flightEnemy_it->getBody().getCenter_x(), -flightArea.getArea().getCenter_y() + flightEnemy_it->getBody().getCenter_y(), player.getBody().getRadius() * 8);
         glPopMatrix();
     }
 }

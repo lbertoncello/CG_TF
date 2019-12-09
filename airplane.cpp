@@ -43,11 +43,13 @@ void Airplane::drawMainBody(GLuint mainBodyTexture, bool isNightMode)
     GLfloat mat_diffuse[] = {0.8, 0.8, 0.8, 1.0};
     GLfloat mat_specular[] = {1.0, 1.0, 1.0, 1.0};
 
-    if(isNightMode)
+    if (isNightMode)
     {
         GLfloat mat_ambient[] = {0.0, 0.0, 0.0, 0.0};
         glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
-    } else {
+    }
+    else
+    {
         GLfloat mat_ambient[] = {0.2, 0.2, 0.2, 1.0};
         glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
     }
@@ -74,11 +76,13 @@ void Airplane::drawTail(GLuint tailTexture, bool isNightMode)
     GLfloat mat_diffuse[] = {0.8, 0.8, 0.8, 1.0};
     GLfloat mat_specular[] = {1.0, 1.0, 1.0, 1.0};
 
-    if(isNightMode)
+    if (isNightMode)
     {
         GLfloat mat_ambient[] = {0.0, 0.0, 0.0, 0.0};
         glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
-    } else {
+    }
+    else
+    {
         GLfloat mat_ambient[] = {0.2, 0.2, 0.2, 1.0};
         glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
     }
@@ -140,11 +144,13 @@ void Airplane::drawWings(GLuint wingsTexture, GLuint propellerTexture, bool isNi
     GLfloat mat_diffuse[] = {0.8, 0.8, 0.8, 1.0};
     GLfloat mat_specular[] = {1.0, 1.0, 1.0, 1.0};
 
-    if(isNightMode)
+    if (isNightMode)
     {
         GLfloat mat_ambient[] = {0.0, 0.0, 0.0, 0.0};
         glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
-    } else {
+    }
+    else
+    {
         GLfloat mat_ambient[] = {0.2, 0.2, 0.2, 1.0};
         glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
     }
@@ -197,11 +203,13 @@ void Airplane::drawPropeller(bool isNightMode)
     GLfloat mat_diffuse[] = {0.8, 0.8, 0.8, 1.0};
     GLfloat mat_specular[] = {1.0, 1.0, 1.0, 1.0};
 
-    if(isNightMode)
+    if (isNightMode)
     {
         GLfloat mat_ambient[] = {0.0, 0.0, 0.0, 0.0};
         glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
-    } else {
+    }
+    else
+    {
         GLfloat mat_ambient[] = {0.2, 0.2, 0.2, 1.0};
         glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
     }
@@ -263,11 +271,13 @@ void Airplane::drawCannon(bool isNightMode)
     GLfloat mat_diffuse[] = {0.9, 0.9, 0.9, 1.0};
     GLfloat mat_specular[] = {1.0, 1.0, 1.0, 1.0};
 
-    if(isNightMode)
+    if (isNightMode)
     {
         GLfloat mat_ambient[] = {0.0, 0.0, 0.0, 0.0};
         glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
-    } else {
+    }
+    else
+    {
         GLfloat mat_ambient[] = {0.1, 0.1, 0.1, 1.0};
         glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
     }
@@ -653,7 +663,7 @@ void Airplane::rotateCannonY(GLfloat moviment, GLfloat deltaIdleTime)
 Bullet *Airplane::shoot(GLfloat deltaIdleTime)
 {
     GLfloat resultingAngleXY = calc.degreesToRadians(inclinationAngle) + cannonAngleX;
-    GLfloat resultingAngleYZ = moveAngleYZ + cannonAngleY;
+    GLfloat resultingAngleYZ = moveAngleYZ - cannonAngleY;
     GLfloat bulletSpeed = speedNorm * bulletSpeedMultiplier;
     GLfloat bulletRadius = this->body.getRadius() / 8.0;
     Point bulletCoordinates;
@@ -662,7 +672,7 @@ Bullet *Airplane::shoot(GLfloat deltaIdleTime)
         dX + body.getRadius() * cos(calc.degreesToRadians(inclinationAngle)) + this->body.getRadius() / 2.0 * cos(resultingAngleXY));
     bulletCoordinates.setY(
         dY + body.getRadius() * sin(calc.degreesToRadians(inclinationAngle)) + this->body.getRadius() / 2.0 * sin(resultingAngleXY));
-    bulletCoordinates.setZ(dZ - (body.getRadius() / 2 * sin(-moveAngleYZ)) + (body.getRadius() * sin(-cannonAngleY)));
+    bulletCoordinates.setZ(dZ + (body.getRadius() * sin(moveAngleYZ)) + (body.getRadius() / 2  * sin(-cannonAngleY + moveAngleYZ)));
     // bulletCoordinates.setZ(0 + (dZ * cos(moveAngleYZ)));
 
     Point bulletBodyCoordinates = getPositionAdjusted(bulletCoordinates);

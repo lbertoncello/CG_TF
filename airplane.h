@@ -112,7 +112,7 @@ public:
         return currentPosition;
     }
 
-    Point getStartPosition()
+    Point &getStartPosition()
     {
         return startPosition;
     }
@@ -217,6 +217,23 @@ public:
         dY = currentPosition.getY();
 
         this->currentPosition = currentPosition;
+    }
+
+    void setCurrentPosition(GLfloat x, GLfloat y, GLfloat z)
+    {
+        if (startPositionInitialized == false)
+        {
+            startPosition.setX(x);
+            startPosition.setY(y);
+            startPosition.setZ(z);
+            startPositionInitialized = true;
+        }
+
+        dX = x;
+        dY = y;
+        dZ = z;
+
+        this->currentPosition = Point(x, y, z);
     }
 
     void setFlying(bool flying)

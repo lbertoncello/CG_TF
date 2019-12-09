@@ -22,7 +22,7 @@ GLfloat Bullet::calcMovement_y(GLfloat deltaIdleTime)
 GLfloat Bullet::calcMovement_z(GLfloat deltaIdleTime)
 {
     // return speedNorm * deltaIdleTime * sin(moveAngle);
-    return speedNorm * deltaIdleTime * sin(-moveAngleYZ);
+    return speedNorm * deltaIdleTime * sin(moveAngleYZ);
 }
 
 Point Bullet::getCurrentPositionAdjusted()
@@ -30,7 +30,7 @@ Point Bullet::getCurrentPositionAdjusted()
     Point currentPositionAdjusted;
     currentPositionAdjusted.setX(this->body.getCenter_x() - startPosition.getX() + dX);
     currentPositionAdjusted.setY(this->body.getCenter_y() - startPosition.getY() + dY);
-    currentPositionAdjusted.setZ(this->body.getCenter_z() - startPosition.getZ() + dZ);
+    currentPositionAdjusted.setZ(dZ);
 
     return currentPositionAdjusted;
 }
