@@ -64,6 +64,10 @@ void GameRuntime::keyOperations(void)
                 game.takeOff();
             }
         }
+        if (keyStates['n'])
+        {
+            game.setNightMode(!game.isNightMode());
+        }
         if (keyStates['+'])
         {
             if (game.isPlayerFlying())
@@ -122,6 +126,10 @@ void GameRuntime::keyPress(unsigned char key, GLint x, GLint y)
         keyStates[key] = true;
     }
     if (key == 'u')
+    {
+        keyStates[key] = true;
+    }
+    if(key == 'n')
     {
         keyStates[key] = true;
     }

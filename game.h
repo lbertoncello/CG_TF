@@ -30,6 +30,7 @@ class Game
     GLfloat deltaIdleTime;
     bool gameOver;
     bool gameWin;
+    bool nightMode;
 
     void updateTakeOff(high_resolution_clock::time_point currentTime, GLfloat takeOffTimeElapsed);
     vector<GLfloat> calcTakeOffAcceleration();
@@ -99,6 +100,10 @@ public:
         return this->gameWin;
     }
 
+    bool isNightMode() {
+        return this->nightMode;
+    }
+
     void setFlightArea(FlightArea flightArea)
     {
         this->flightArea = flightArea;
@@ -112,6 +117,11 @@ public:
     void setAirportRunway(AirportRunway airportRunway)
     {
         this->airportRunway = airportRunway;
+    }
+
+    void setNightMode(bool state)
+    {
+        this->nightMode = state;
     }
 
     void addFlightEnemy(FlightEnemy flightEnemy)

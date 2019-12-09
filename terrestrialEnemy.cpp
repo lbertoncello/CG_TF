@@ -1,6 +1,6 @@
 #include "terrestrialEnemy.h"
 
-void TerrestrialEnemy::draw(GLuint TerrestrialEnemiesTexture)
+void TerrestrialEnemy::draw(GLuint TerrestrialEnemiesTexture, bool isNightMode)
 {
     if (!isDestroyed())
     {
@@ -8,12 +8,21 @@ void TerrestrialEnemy::draw(GLuint TerrestrialEnemiesTexture)
         glTranslatef(dX, -dY, 0.0);
 
         GLfloat mat_emission[] = {0.0, 0.0, 0.0, 0.0};
-        GLfloat mat_ambient[] = {0.2, 0.2*140.0/255.0, 0.0, 1.0};
-        GLfloat mat_diffuse[] = {0.8, 0.8*140.0/255.0, 0.0, 1.0};
+        GLfloat mat_diffuse[] = {0.8, 0.8 * 140.0 / 255.0, 0.0, 1.0};
         GLfloat mat_specular[] = {1.0, 1.0, 1.0, 1.0};
 
+        if (isNightMode)
+        {
+            GLfloat mat_ambient[] = {0.0, 0.0, 0.0, 0.0};
+            glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+        }
+        else
+        {
+            GLfloat mat_ambient[] = {0.2, 0.2 * 140.0 / 255.0, 0.0, 1.0};
+            glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+        }
+
         glMaterialfv(GL_FRONT, GL_EMISSION, mat_emission);
-        glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
         glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
         glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
         glMaterialf(GL_FRONT, GL_SHININESS, 60.0);

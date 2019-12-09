@@ -47,7 +47,7 @@ public:
     
     void setAdjustedBody(GLfloat coordinateCorrection_x, GLfloat coordinateCorrection_y);
 
-    void draw(GLuint roadTexture);
+    void draw(GLuint roadTexture, bool isNightMode);
     GLfloat calcInclinationAngle();
 };
 

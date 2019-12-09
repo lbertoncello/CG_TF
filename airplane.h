@@ -58,12 +58,12 @@ protected:
         speed.push_back(0.0);
     }
 
-    void drawMainBody(GLuint mainBodyTexture);
-    void drawTail(GLuint tailTexture);
+    void drawMainBody(GLuint mainBodyTexture, bool isNightMode);
+    void drawTail(GLuint tailTexture, bool isNightMode);
     void drawCockpit();
-    void drawWings(GLuint wingsTexture, GLuint propellerTexture);
-    void drawPropeller();
-    void drawCannon();
+    void drawWings(GLuint wingsTexture, GLuint propellerTexture, bool isNightMode);
+    void drawPropeller(bool isNightMode);
+    void drawCannon(bool isNightMode);
     void updateTurnRightAngle(GLfloat deltaIdleTime);
     void updateTurnLeftAngle(GLfloat deltaIdleTime);
     void updateTurnUpAngle(GLfloat deltaIdleTime);
@@ -318,7 +318,7 @@ public:
         this->dZ = dZ;
     }
 
-    void draw(GLuint mainBodyTexture, GLuint tailAndPropellerTexture);
+    void draw(GLuint mainBodyTexture, GLuint tailAndPropellerTexture, bool isNightMode);
     void move(GLfloat deltaIdleTime);
     bool checkIntersection(Circle flightAreaBody, Sphere enemyBody, GLfloat deltaIdleTime);
     GLfloat calcMovement_x(GLfloat deltaIdleTime);

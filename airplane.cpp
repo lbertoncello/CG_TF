@@ -1,6 +1,6 @@
 #include "airplane.h"
 
-void Airplane::draw(GLuint mainBodyTexture, GLuint tailAndPropellerTexture)
+void Airplane::draw(GLuint mainBodyTexture, GLuint tailAndPropellerTexture, bool isNightMode)
 {
     // if (!isDestroyed())
     // {
@@ -28,24 +28,31 @@ void Airplane::draw(GLuint mainBodyTexture, GLuint tailAndPropellerTexture)
     glRotatef(-calc.radiansToDegrees(moveAngleYZ), 0.0, 1.0, 0.0);
     // glRotatef(45, 0.0, 1.0, 0.0);
 
-    drawWings(mainBodyTexture, tailAndPropellerTexture);
-    drawCannon();
-    drawMainBody(mainBodyTexture);
+    drawWings(mainBodyTexture, tailAndPropellerTexture, isNightMode);
+    drawCannon(isNightMode);
+    drawMainBody(mainBodyTexture, isNightMode);
     drawCockpit();
-    drawTail(tailAndPropellerTexture);
+    drawTail(tailAndPropellerTexture, isNightMode);
 
     glPopMatrix();
 }
 
-void Airplane::drawMainBody(GLuint mainBodyTexture)
+void Airplane::drawMainBody(GLuint mainBodyTexture, bool isNightMode)
 {
     GLfloat mat_emission[] = {0.0, 0.0, 0.0, 0.0};
-    GLfloat mat_ambient[] = {0.0, 0.0, 0.0, 0.0};
     GLfloat mat_diffuse[] = {0.8, 0.8, 0.8, 1.0};
     GLfloat mat_specular[] = {1.0, 1.0, 1.0, 1.0};
 
+    if(isNightMode)
+    {
+        GLfloat mat_ambient[] = {0.0, 0.0, 0.0, 0.0};
+        glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+    } else {
+        GLfloat mat_ambient[] = {0.2, 0.2, 0.2, 1.0};
+        glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+    }
+
     glMaterialfv(GL_FRONT, GL_EMISSION, mat_emission);
-    glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
     glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
     glMaterialf(GL_FRONT, GL_SHININESS, 60.0);
@@ -59,17 +66,24 @@ void Airplane::drawMainBody(GLuint mainBodyTexture)
     glPopMatrix();
 }
 
-void Airplane::drawTail(GLuint tailTexture)
+void Airplane::drawTail(GLuint tailTexture, bool isNightMode)
 {
     glPushMatrix();
 
     GLfloat mat_emission[] = {0.0, 0.0, 0.0, 0.0};
-    GLfloat mat_ambient[] = {0.0, 0.0, 0.0, 0.0};
     GLfloat mat_diffuse[] = {0.8, 0.8, 0.8, 1.0};
     GLfloat mat_specular[] = {1.0, 1.0, 1.0, 1.0};
 
+    if(isNightMode)
+    {
+        GLfloat mat_ambient[] = {0.0, 0.0, 0.0, 0.0};
+        glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+    } else {
+        GLfloat mat_ambient[] = {0.2, 0.2, 0.2, 1.0};
+        glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+    }
+
     glMaterialfv(GL_FRONT, GL_EMISSION, mat_emission);
-    glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
     glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
     glMaterialf(GL_FRONT, GL_SHININESS, 60.0);
@@ -119,16 +133,23 @@ void Airplane::drawCockpit()
     glPopMatrix();
 }
 
-void Airplane::drawWings(GLuint wingsTexture, GLuint propellerTexture)
+void Airplane::drawWings(GLuint wingsTexture, GLuint propellerTexture, bool isNightMode)
 {
     // Color wingsColor(0.0, 0.0, 0.0);
     GLfloat mat_emission[] = {0.0, 0.0, 0.0, 0.0};
-    GLfloat mat_ambient[] = {0.0, 0.0, 0.0, 0.0};
     GLfloat mat_diffuse[] = {0.8, 0.8, 0.8, 1.0};
     GLfloat mat_specular[] = {1.0, 1.0, 1.0, 1.0};
 
+    if(isNightMode)
+    {
+        GLfloat mat_ambient[] = {0.0, 0.0, 0.0, 0.0};
+        glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+    } else {
+        GLfloat mat_ambient[] = {0.2, 0.2, 0.2, 1.0};
+        glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+    }
+
     glMaterialfv(GL_FRONT, GL_EMISSION, mat_emission);
-    glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
     glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
     glMaterialf(GL_FRONT, GL_SHININESS, 60.0);
@@ -155,7 +176,7 @@ void Airplane::drawWings(GLuint wingsTexture, GLuint propellerTexture)
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glBindTexture(GL_TEXTURE_2D, propellerTexture);
-    drawPropeller();
+    drawPropeller(isNightMode);
     glPopMatrix();
 
     //propeller
@@ -164,23 +185,28 @@ void Airplane::drawWings(GLuint wingsTexture, GLuint propellerTexture)
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glBindTexture(GL_TEXTURE_2D, propellerTexture);
-    drawPropeller();
+    drawPropeller(isNightMode);
     glPopMatrix();
 
     glPopMatrix();
 }
 
-void Airplane::drawPropeller()
+void Airplane::drawPropeller(bool isNightMode)
 {
-    // Color rodColor(0.0, 0.0, 0.0);
-
     GLfloat mat_emission[] = {0.0, 0.0, 0.0, 0.0};
-    GLfloat mat_ambient[] = {0.0, 0.0, 0.0, 0.0};
     GLfloat mat_diffuse[] = {0.8, 0.8, 0.8, 1.0};
     GLfloat mat_specular[] = {1.0, 1.0, 1.0, 1.0};
 
+    if(isNightMode)
+    {
+        GLfloat mat_ambient[] = {0.0, 0.0, 0.0, 0.0};
+        glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+    } else {
+        GLfloat mat_ambient[] = {0.2, 0.2, 0.2, 1.0};
+        glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+    }
+
     glMaterialfv(GL_FRONT, GL_EMISSION, mat_emission);
-    glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
     glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
     glMaterialf(GL_FRONT, GL_SHININESS, 60.0);
@@ -226,7 +252,7 @@ void Airplane::drawPropeller()
     glPopMatrix();
 }
 
-void Airplane::drawCannon()
+void Airplane::drawCannon(bool isNightMode)
 {
     glPushMatrix();
     glRotatef(90, 1.0, 0.0, 0.0);
@@ -234,12 +260,19 @@ void Airplane::drawCannon()
     glPushMatrix();
 
     GLfloat mat_emission[] = {0.0, 0.0, 0.0, 0.0};
-    GLfloat mat_ambient[] = {0.1, 0.1, 0.1, 1.0};
     GLfloat mat_diffuse[] = {0.9, 0.9, 0.9, 1.0};
     GLfloat mat_specular[] = {1.0, 1.0, 1.0, 1.0};
 
+    if(isNightMode)
+    {
+        GLfloat mat_ambient[] = {0.0, 0.0, 0.0, 0.0};
+        glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+    } else {
+        GLfloat mat_ambient[] = {0.1, 0.1, 0.1, 1.0};
+        glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+    }
+
     glMaterialfv(GL_FRONT, GL_EMISSION, mat_emission);
-    glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
     glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
     glMaterialf(GL_FRONT, GL_SHININESS, 60.0);

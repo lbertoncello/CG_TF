@@ -178,6 +178,7 @@ void Game::init()
     beforeAirportRunwayMiddle = true;
     gameOver = false;
     gameWin = false;
+    nightMode = false;
     initFlightEnemiesPosition();
     initTerrestrialEnemiesPosition();
     initFlightEnemiesSpeed();
@@ -264,7 +265,7 @@ void Game::updateTakeOff(high_resolution_clock::time_point currentTime, GLfloat 
 void Game::drawFlightArea(GLuint groundTexture, GLuint skyTexture, GLuint horizontTexture)
 {
     GLfloat heightOfSky = 8 * (2 * this->getPlayer().getBody().getRadius()); //8x diametro do jogador
-    flightArea.draw(heightOfSky, groundTexture, skyTexture, horizontTexture);
+    flightArea.draw(heightOfSky, groundTexture, skyTexture, horizontTexture, isNightMode());
 }
 
 void Game::initFlightEnemiesSpeed()
@@ -362,12 +363,12 @@ void Game::movePlayer()
 
 void Game::drawPlayer(GLuint playerMainBodyTexture, GLuint tailAndPropellerTexture)
 {
-    player.draw(playerMainBodyTexture, tailAndPropellerTexture);
+    player.draw(playerMainBodyTexture, tailAndPropellerTexture, isNightMode());
 }
 
 void Game::drawAirportRunway(GLuint roadTexture)
 {
-    airportRunway.draw(roadTexture);
+    airportRunway.draw(roadTexture, isNightMode());
 }
 
 void Game::moveFlightEnemies()
@@ -420,7 +421,7 @@ void Game::drawFlightEnemies(GLuint enemyMainBodyTexture, GLuint tailAndPropelle
         {
             glPushMatrix();
             // glTranslatef(-flightArea.getArea().getCenter_x() + flightEnemy_it->getBody().getCenter_x(), -flightArea.getArea().getCenter_y() + flightEnemy_it->getBody().getCenter_y(), 0.0);
-            flightEnemy_it->draw(enemyMainBodyTexture, tailAndPropellerTexture);
+            flightEnemy_it->draw(enemyMainBodyTexture, tailAndPropellerTexture, isNightMode());
             glPopMatrix();
         }
     }
@@ -433,7 +434,7 @@ void Game::drawTerrestrialEnemies(GLuint TerrestrialEnemiesTexture)
     {
         // glPushMatrix();
         // glTranslatef(-flightArea.getArea().getCenter_x() + terrestrialEnemies_it->getBody().getCenter_x(), -flightArea.getArea().getCenter_y() + terrestrialEnemies_it->getBody().getCenter_y(), 0.0);
-        terrestrialEnemies_it->draw(TerrestrialEnemiesTexture);
+        terrestrialEnemies_it->draw(TerrestrialEnemiesTexture, isNightMode());
         // glPopMatrix();
     }
 }
@@ -470,12 +471,17 @@ void Game::drawPlayerBullets()
         if (isBulletInsideFlightArea((*playerBullets_it)))
         {
             GLfloat mat_emission[] = {0.0, 0.0, 0.0, 0.0};
-            GLfloat mat_ambient[] = {0.0, 0.3, 0.0, 1.0};
+            if(isNightMode())
+            {
+                GLfloat mat_ambient[] = {0.0, 0.0, 0.0, 1.0};
+                glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+            } else {
+                GLfloat mat_ambient[] = {0.0, 0.3, 0.0, 1.0};
+            }
             GLfloat mat_diffuse[] = {0.0, 0.7, 0.0, 1.0};
             GLfloat mat_specular[] = {0.0, 1.0, 0.0, 1.0};
 
             glMaterialfv(GL_FRONT, GL_EMISSION, mat_emission);
-            glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
             glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
             glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
             glMaterialf(GL_FRONT, GL_SHININESS, 60.0);
@@ -519,12 +525,19 @@ void Game::drawEnemyBullets()
         if (isBulletInsideFlightArea((*enemyBullets_it)))
         {
             GLfloat mat_emission[] = {0.0, 0.0, 0.0, 0.0};
-            GLfloat mat_ambient[] = {0.3, 0.0, 0.0, 1.0};
             GLfloat mat_diffuse[] = {0.7, 0.0, 0.0, 1.0};
             GLfloat mat_specular[] = {1.0, 0.0, 0.0, 1.0};
 
+            if(isNightMode())
+            {
+                GLfloat mat_ambient[] = {0.0, 0.0, 0.0, 1.0};
+                glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+            } else {
+                GLfloat mat_ambient[] = {0.3, 0.0, 0.0, 1.0};
+                glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+            }
+
             glMaterialfv(GL_FRONT, GL_EMISSION, mat_emission);
-            glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
             glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
             glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
             glMaterialf(GL_FRONT, GL_SHININESS, 60.0);
@@ -573,7 +586,7 @@ void Game::drawBombs()
                     (*bombs_it)->move(deltaIdleTime);
                 }
 
-                (*bombs_it)->draw();
+                (*bombs_it)->draw(isNightMode());
                 bombs_it++;
             }
             else
