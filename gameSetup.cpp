@@ -2,10 +2,16 @@
 
 void GameSetup::display(void)
 {
+    Draw drawer;
+
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
 
     gameRuntime.getGame().calcMoviments();
+
+    gameRuntime.getGame().drawScoreboard();
+    gameRuntime.getGame().checkGameOver();
+    gameRuntime.getGame().checkGameWin();
 
     if (gameRuntime.getToggleCam() == 0)
     {

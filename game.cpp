@@ -70,10 +70,28 @@ void Game::callGameOver()
         flightEnemy_it->setSpeedNorm(0.0);
     }
 
-    string text = "GAME OVER";
-    Point position(-15, 0);
+    // string text = "GAME OVER";
+    // Point position(-15, 0);
 
-    drawer.drawText(text, position);
+    // drawer.drawText(text, position);
+}
+
+void Game::checkGameOver()
+{
+    if (isGameOver())
+    {
+        string text = "GAME OVER";
+        drawer.PrintText(0.40, 0.5, text.c_str(), 1, 0, 0);
+    }
+}
+
+void Game::checkGameWin()
+{
+    if (isGameWin())
+    {
+        string text = "VOCE VENCEU!";
+        drawer.PrintText(0.40, 0.5, text.c_str(), 1, 0, 0);
+    }
 }
 
 void Game::callGameWin()
@@ -89,10 +107,10 @@ void Game::callGameWin()
         flightEnemy_it->setSpeedNorm(0.0);
     }
 
-    string text = "VOCE VENCEU!";
-    Point position(-15, 0);
+    // string text = "VOCE VENCEU!";
+    // Point position(-15, 0);
 
-    drawer.drawText(text, position);
+    // drawer.drawText(text, position);
 }
 
 void Game::reset()
@@ -294,7 +312,8 @@ void Game::initFlightEnemiesPosition()
         flightEnemy_it->getBody().setCenter_z(player.getBody().getRadius() * 8);
         flightEnemy_it->setMinimumZ(0 + flightEnemy_it->getBody().getRadius());
         flightEnemy_it->setMaximumZ((8 * 2 * player.getBody().getRadius()) - flightEnemy_it->getBody().getRadius());
-        flightEnemy_it->setCurrentPosition(Point(-flightArea.getArea().getCenter_x() + flightEnemy_it->getBody().getCenter_x(), -flightArea.getArea().getCenter_y() + flightEnemy_it->getBody().getCenter_y()));
+        // flightEnemy_it->setCurrentPosition(Point(-flightArea.getArea().getCenter_x() + flightEnemy_it->getBody().getCenter_x(), -flightArea.getArea().getCenter_y() + flightEnemy_it->getBody().getCenter_y()));
+        flightEnemy_it->setCurrentPosition(-flightArea.getArea().getCenter_x() + flightEnemy_it->getBody().getCenter_x(), -flightArea.getArea().getCenter_y() + flightEnemy_it->getBody().getCenter_y(), player.getBody().getRadius() * 8);
         glPopMatrix();
     }
 }
@@ -471,11 +490,13 @@ void Game::drawPlayerBullets()
         if (isBulletInsideFlightArea((*playerBullets_it)))
         {
             GLfloat mat_emission[] = {0.0, 0.0, 0.0, 0.0};
-            if(isNightMode())
+            if (isNightMode())
             {
                 GLfloat mat_ambient[] = {0.0, 0.0, 0.0, 1.0};
                 glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
-            } else {
+            }
+            else
+            {
                 GLfloat mat_ambient[] = {0.0, 0.3, 0.0, 1.0};
             }
             GLfloat mat_diffuse[] = {0.0, 0.7, 0.0, 1.0};
@@ -528,11 +549,13 @@ void Game::drawEnemyBullets()
             GLfloat mat_diffuse[] = {0.7, 0.0, 0.0, 1.0};
             GLfloat mat_specular[] = {1.0, 0.0, 0.0, 1.0};
 
-            if(isNightMode())
+            if (isNightMode())
             {
                 GLfloat mat_ambient[] = {0.0, 0.0, 0.0, 1.0};
                 glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
-            } else {
+            }
+            else
+            {
                 GLfloat mat_ambient[] = {0.3, 0.0, 0.0, 1.0};
                 glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
             }
@@ -657,9 +680,10 @@ GLint Game::amountOfDamagedTerrestrialEnemies()
 void Game::drawScoreboard()
 {
     string scoreboard = "ELIMINADAS: " + to_string(amountOfDamagedTerrestrialEnemies()) + " | RESTANTES: " + to_string(amountOfUndamagedTerrestrialEnemies());
-    Point position(125, -270);
+    // Point position(125, -270);
+    drawer.PrintText(0.55, 0.95, scoreboard.c_str(), 1, 0, 0);
 
-    drawer.drawText(scoreboard, position);
+    // drawer.drawText(scoreboard, position);
 }
 
 bool Game::isBulletInsideFlightArea(Bullet *bullet)

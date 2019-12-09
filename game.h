@@ -48,7 +48,6 @@ class Game
     void drawEnemyBullets();
     void drawBullets();
     void drawBombs();
-    void drawScoreboard();
     void movePlayer();
     void moveFlightEnemies();
     void movePlayerBullets();
@@ -173,6 +172,10 @@ public:
     void calcMoviments();
     void moveCamera(GLfloat movimentX, GLfloat movimentY);
     void resetCameraAngle();
+    void drawScoreboard();
+    void checkGameOver();
+    void checkGameWin();
+
 };
 
 #endif

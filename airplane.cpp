@@ -668,7 +668,7 @@ void Airplane::rotateCannonY(GLfloat moviment, GLfloat deltaIdleTime)
 Bullet *Airplane::shoot(GLfloat deltaIdleTime)
 {
     GLfloat resultingAngleXY = calc.degreesToRadians(inclinationAngle) + cannonAngleX;
-    GLfloat resultingAngleYZ = moveAngleYZ + cannonAngleY;
+    GLfloat resultingAngleYZ = moveAngleYZ - cannonAngleY;
     GLfloat bulletSpeed = speedNorm * bulletSpeedMultiplier;
     GLfloat bulletRadius = this->body.getRadius() / 8.0;
     Point bulletCoordinates;
@@ -677,7 +677,7 @@ Bullet *Airplane::shoot(GLfloat deltaIdleTime)
         dX + body.getRadius() * cos(calc.degreesToRadians(inclinationAngle)) + this->body.getRadius() / 2.0 * cos(resultingAngleXY));
     bulletCoordinates.setY(
         dY + body.getRadius() * sin(calc.degreesToRadians(inclinationAngle)) + this->body.getRadius() / 2.0 * sin(resultingAngleXY));
-    bulletCoordinates.setZ(dZ - (body.getRadius() / 2 * sin(-moveAngleYZ)) + (body.getRadius() * sin(-cannonAngleY)));
+    bulletCoordinates.setZ(dZ + (body.getRadius() * sin(moveAngleYZ)) + (body.getRadius() / 2  * sin(-cannonAngleY + moveAngleYZ)));
     // bulletCoordinates.setZ(0 + (dZ * cos(moveAngleYZ)));
 
     Point bulletBodyCoordinates = getPositionAdjusted(bulletCoordinates);
