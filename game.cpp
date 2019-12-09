@@ -172,7 +172,7 @@ void Game::init()
     player.setCurrentPosition(airportRunway.getAdjustedBody().getPoint1());
     player.setInclinationAngle(airportRunway.calcInclinationAngle());
     player.setMinimumZ(0);
-    player.setMaximumZ((8*2*player.getBody().getRadius()) - player.getBody().getRadius());
+    player.setMaximumZ((8 * 2 * player.getBody().getRadius()) - player.getBody().getRadius());
     beforeAirportRunwayMiddle = true;
     gameOver = false;
     gameWin = false;
@@ -261,7 +261,7 @@ void Game::updateTakeOff(high_resolution_clock::time_point currentTime, GLfloat 
 
 void Game::drawFlightArea(GLuint groundTexture, GLuint skyTexture, GLuint horizontTexture)
 {
-    GLfloat heightOfSky = 8* (2 * this->getPlayer().getBody().getRadius()); //8x diametro do jogador
+    GLfloat heightOfSky = 8 * (2 * this->getPlayer().getBody().getRadius()); //8x diametro do jogador
     flightArea.draw(heightOfSky, groundTexture, skyTexture, horizontTexture);
 }
 
@@ -571,7 +571,7 @@ void Game::drawBombs()
 }
 
 void Game::drawGame(GLfloat deltaIdleTime, GLuint groundTexture, GLuint skyTexture, GLuint horizontTexture, GLuint roadTexture, GLuint playerMainBodyTexture, GLuint enemyMainBodyTexture,
-                     GLuint tailAndPropellerTexture)
+                    GLuint tailAndPropellerTexture)
 {
     this->deltaIdleTime = deltaIdleTime;
 
@@ -679,7 +679,10 @@ void Game::shoot()
 
 void Game::dropBomb()
 {
-    bombs.push_back(this->player.dropBomb(deltaIdleTime));
+    if (!player.isTurningUp() && !player.isTurningDown())
+    {
+        bombs.push_back(this->player.dropBomb(deltaIdleTime));
+    }
 }
 
 void Game::calcMoviments()
