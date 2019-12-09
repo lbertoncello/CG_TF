@@ -29,18 +29,20 @@ void FlightArea::draw(GLfloat heightOfSky, GLuint groundTexture, GLuint skyTextu
 
     //paredes
     glBindTexture (GL_TEXTURE_2D, horizontTexture);
-    drawer.drawCylinderTube(this->area.getRadius(), heightOfSky);
+    drawer.drawCylinderTube(this->area.getRadius() + 20, heightOfSky);
+
+    Circle area_aux = Circle(this->area.getCenter_x(), this->area.getCenter_y(), this->area.getRadius() + 20);
 
     //teto
     glPushMatrix();
     glTranslatef(0.0, heightOfSky, 0.0);
     glBindTexture(GL_TEXTURE_2D, skyTexture);
-    drawer.drawFilledCircle(this->area);
+    drawer.drawFilledCircle(area_aux);
     glPopMatrix();
     
     //chao
     glBindTexture(GL_TEXTURE_2D, groundTexture);
-    drawer.drawFilledCircle(this->area);
+    drawer.drawFilledCircle(area_aux);
     glPopMatrix();
 }
 
