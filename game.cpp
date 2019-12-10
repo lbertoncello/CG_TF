@@ -763,3 +763,14 @@ void Game::resetCameraAngle()
 {
     player.resetCameraAngle();
 }
+
+void Game::drawMinimap()
+{
+    glPushMatrix();
+
+    glTranslatef(-100, -100, 0);
+    drawer.drawCircle(Circle(Point(), flightArea.getArea().getRadius()));
+    player.draw2D();
+
+    glPopMatrix();
+}
