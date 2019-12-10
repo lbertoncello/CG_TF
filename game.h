@@ -127,11 +127,12 @@ public:
 
     void setLight()
     {
+        GLfloat alturaLight = (8 * 2 * this->getPlayer().getBody().getRadius()) - 0.1;
         // GLfloat light_position[] = {0.0, 0.0, 10.0, 0.0};
         GLfloat light_ambient[] = {0.2, 0.2, 0.2, 1.0};
         GLfloat light_diffuse[] = {0.8, 0.8, 0.8, 1.0};
         GLfloat light_specular[] = {1.0, 1.0, 1.0, 1.0};
-        GLfloat light0_pos[] = {0, 0, -1 + 8 * (2 * this->getPlayer().getBody().getRadius()), 0.0};
+        GLfloat light0_pos[] = {0, 0, alturaLight, 1.0};
         glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
         glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
         glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
