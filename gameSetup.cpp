@@ -13,7 +13,7 @@ void GameSetup::display(void)
     gameRuntime.getGame().checkGameOver();
     gameRuntime.getGame().checkGameWin();
 
-    this->drawMinimap();
+    // this->drawMinimap();
 
     if (gameRuntime.getToggleCam() == 0)
     {
