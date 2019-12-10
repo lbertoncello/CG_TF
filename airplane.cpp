@@ -59,14 +59,16 @@ void Airplane::draw2D()
 {
     if (!isDestroyed())
     {
-        glPushMatrix();
+        // glPushMatrix();
         // glTranslatef(dX / 2, dY / 2, 0.0);
         glTranslatef(dX , dY , 0.0);
         // glRotatef(inclinationAngle, 0.0, 0.0, 1.0);
 
         drawer.drawFilledCircle2(body.getRadius(), body.getColor());
 
-        glPopMatrix();
+        glTranslatef(-dX , -dY , 0.0);
+
+        // glPopMatrix();
     }
 }
 
