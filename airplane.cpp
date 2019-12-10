@@ -61,12 +61,12 @@ void Airplane::draw2D()
     {
         // glPushMatrix();
         // glTranslatef(dX / 2, dY / 2, 0.0);
-        glTranslatef(dX , dY , 0.0);
+        glTranslatef(dX, dY, 0.0);
         // glRotatef(inclinationAngle, 0.0, 0.0, 1.0);
 
         drawer.drawFilledCircle2(body.getRadius(), body.getColor());
 
-        glTranslatef(-dX , -dY , 0.0);
+        glTranslatef(-dX, -dY, 0.0);
 
         // glPopMatrix();
     }
@@ -507,6 +507,18 @@ void Airplane::updateTurnRightAngle(GLfloat deltaIdleTime)
             rotationAngle -= M_PI / 2.0 * deltaIdleTime;
         }
     }
+    else if (!isTurningLeft())
+    {
+        if (rotationAngle < 0)
+        {
+            rotationAngle += M_PI / 2.0 * deltaIdleTime;
+
+            if (rotationAngle > 0)
+            {
+                rotationAngle = 0;
+            }
+        }
+    }
 }
 
 void Airplane::updateTurnLeftAngle(GLfloat deltaIdleTime)
@@ -518,6 +530,18 @@ void Airplane::updateTurnLeftAngle(GLfloat deltaIdleTime)
         if (calc.radiansToDegrees(rotationAngle) < 30)
         {
             rotationAngle += M_PI / 2.0 * deltaIdleTime;
+        }
+    }
+    else if (!isTurningRight())
+    {
+        if (rotationAngle > 0)
+        {
+            rotationAngle -= M_PI / 2.0 * deltaIdleTime;
+
+            if (rotationAngle < 0)
+            {
+                rotationAngle = 0;
+            }
         }
     }
 }
