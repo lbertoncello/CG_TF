@@ -13,20 +13,25 @@ void GameSetup::display(void)
     gameRuntime.getGame().checkGameOver();
     gameRuntime.getGame().checkGameWin();
 
+    // this->drawMinimap();
+
     if (gameRuntime.getToggleCam() == 0)
     {
+        drawer.PrintText(0.04, 0.95, "CAMERA 1", 1, 0, 0);
         Point camPoint = gameRuntime.getGame().getPlayer().getCamPoint1();
         Point lookingPoint = gameRuntime.getGame().getPlayer().getLookingPoint1();
         gluLookAt(camPoint.getX(), camPoint.getY(), camPoint.getZ(), lookingPoint.getX(), lookingPoint.getY(), lookingPoint.getZ(), 0, 0, 1);
     }
     else if (gameRuntime.getToggleCam() == 1)
     {
+        drawer.PrintText(0.04, 0.95, "CAMERA 2", 1, 0, 0);
         Point camPoint = gameRuntime.getGame().getPlayer().getCamPoint2();
         Point lookingPoint = gameRuntime.getGame().getPlayer().getLookingPoint2();
         gluLookAt(camPoint.getX(), camPoint.getY(), camPoint.getZ(), lookingPoint.getX(), lookingPoint.getY(), lookingPoint.getZ(), 0, 0, 1);
     }
     else if (gameRuntime.getToggleCam() == 2)
     {
+        drawer.PrintText(0.04, 0.95, "CAMERA 3", 1, 0, 0);
         Point camPoint = gameRuntime.getGame().getPlayer().getCamPoint3();
         Point lookingPoint = gameRuntime.getGame().getPlayer().getLookingPoint3();
         gluLookAt(camPoint.getX(), camPoint.getY(), camPoint.getZ(), lookingPoint.getX(), lookingPoint.getY(), lookingPoint.getZ(), 0, 0, 1);
@@ -155,4 +160,20 @@ GLuint GameSetup::LoadTextureRAW(const char *filename)
     delete image;
 
     return texture;
+}
+
+void GameSetup::drawMinimap()
+{
+    glMatrixMode (GL_PROJECTION);
+    glPushMatrix();
+        glLoadIdentity();
+        glOrtho(-250,250,250,-250,-1,1);
+        glPushAttrib(GL_ENABLE_BIT);
+        glDisable(GL_LIGHTING);
+        glDisable(GL_TEXTURE_2D);
+            // arena->desenhaMinimapa(arena->getRaio());
+            gameRuntime.getGame().drawMinimap();
+        glPopAttrib();
+    glPopMatrix();
+    glMatrixMode(GL_MODELVIEW);
 }

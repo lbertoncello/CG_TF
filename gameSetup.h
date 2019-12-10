@@ -32,6 +32,8 @@ private:
     GLuint enemyMainBodyTexture;
     GLuint tailAndPropellerTexture;
 
+    void drawMinimap();
+
 public:
     GameSetup() {}
 

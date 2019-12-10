@@ -37,8 +37,9 @@ protected:
     bool initialRadiusInitialized = false;
     Draw drawer;
     vector<GLfloat> speed;
-    GLfloat moveAngleXY;
-    GLfloat moveAngleYZ;
+    GLfloat moveAngleXY = 0.0;
+    GLfloat moveAngleYZ = 0.0;
+    GLfloat rotationAngle = 0.0;
     GLfloat airplaneSpeedMultiplier = 1.0;
     GLfloat bulletSpeedMultiplier = 1.0;
     Calc calc;
@@ -64,6 +65,12 @@ protected:
     void drawWings(GLuint wingsTexture, GLuint propellerTexture, bool isNightMode);
     void drawPropeller(bool isNightMode);
     void drawCannon(bool isNightMode);
+    void drawMainBody2D();
+    void drawTail2D();
+    void drawCockpit2D();
+    void drawWings2D();
+    void drawPropeller2D();
+    void drawCannon2D();
     void updateTurnRightAngle(GLfloat deltaIdleTime);
     void updateTurnLeftAngle(GLfloat deltaIdleTime);
     void updateTurnUpAngle(GLfloat deltaIdleTime);
@@ -337,6 +344,7 @@ public:
     }
 
     void draw(GLuint mainBodyTexture, GLuint tailAndPropellerTexture, bool isNightMode, bool isPlayer);
+    void draw2D();
     void move(GLfloat deltaIdleTime);
     bool checkIntersection(Circle flightAreaBody, Sphere enemyBody, GLfloat deltaIdleTime);
     GLfloat calcMovement_x(GLfloat deltaIdleTime);
