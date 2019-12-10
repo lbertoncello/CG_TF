@@ -793,7 +793,11 @@ void Game::resetCameraAngle()
 
 void Game::drawMap()
 {
-    // glPushMatrix();
+    // glLoadIdentity();
+
+    glPushMatrix();
+
+    glMatrixMode(GL_PROJECTION);
 
     glScalef(0.25, 0.25, 0);
     glTranslatef(650, 650, 0);
@@ -803,7 +807,7 @@ void Game::drawMap()
     drawFlightEnemies2D();
     player.draw2D();
 
-    // glPopMatrix();
-    glTranslatef(-650, -650, 0);
-    glScalef(-0.25, -0.25, 0);
+    glPopMatrix();
+    // glTranslatef(-650, -650, 0);
+    // glScalef(-0.25, -0.25, 0);
 }
