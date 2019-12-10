@@ -30,25 +30,12 @@ void Airplane::draw(GLuint mainBodyTexture, GLuint tailAndPropellerTexture, bool
     {
         if (isFlying())
         {
-            // if (calc.radiansToDegrees(rotationAngle) > 30)
-            // {
-            //     glRotatef(-30, 1.0, 0.0, 0.0);
-            // }
-            // else if (calc.radiansToDegrees(rotationAngle) < -30)
-            // {
-            //     glRotatef(30, 1.0, 0.0, 0.0);
-            // }
-            // else
-            // {
-            //     glRotatef(calc.radiansToDegrees(-rotationAngle), 1.0, 0.0, 0.0);
-            // }
-
             glRotatef(calc.radiansToDegrees(-rotationAngle), 1.0, 0.0, 0.0);
         }
     }
     else
     {
-        glRotatef(calc.radiansToDegrees(-moveAngleXY), 1.0, 0.0, 0.0);
+        glRotatef(calc.radiansToDegrees(-rotationAngle), 1.0, 0.0, 0.0);
     }
 
     glRotatef(-calc.radiansToDegrees(moveAngleYZ), 0.0, 1.0, 0.0);
@@ -73,21 +60,14 @@ void Airplane::draw2D()
     if (!isDestroyed())
     {
         glPushMatrix();
-        glTranslatef(dX / 2, dY / 2, 0.0);
-        glRotatef(inclinationAngle, 0.0, 0.0, 1.0);
+        // glTranslatef(dX / 2, dY / 2, 0.0);
+        glTranslatef(dX , dY , 0.0);
+        // glRotatef(inclinationAngle, 0.0, 0.0, 1.0);
 
-        // drawWings2D();
-        // drawCannon2D();
-        drawMainBody2D();
-        // drawCockpit2D();
-        // drawTail2D();
+        drawer.drawFilledCircle2(body.getRadius(), body.getColor());
+
         glPopMatrix();
     }
-}
-
-void Airplane::drawMainBody2D()
-{
-    drawer.drawEllipse(Circle(body.getCenter(), body.getRadius()));
 }
 
 void Airplane::drawMainBody(GLuint mainBodyTexture, bool isNightMode)

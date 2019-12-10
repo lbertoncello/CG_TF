@@ -39,6 +39,20 @@ void TerrestrialEnemy::draw(GLuint TerrestrialEnemiesTexture, bool isNightMode)
     }
 }
 
+void TerrestrialEnemy::draw2D()
+{
+    if (!isDestroyed())
+    {
+        glPushMatrix();
+        // glTranslatef(dX / 2, dY / 2, 0.0);
+        glTranslatef(dX, dY, 0.0);
+
+        drawer.drawFilledCircle2(body.getRadius(), body.getColor());
+
+        glPopMatrix();
+    }
+}
+
 Point TerrestrialEnemy::getCurrentPositionAdjusted()
 {
     Point currentPositionAdjusted;

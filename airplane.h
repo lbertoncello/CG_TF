@@ -65,12 +65,6 @@ protected:
     void drawWings(GLuint wingsTexture, GLuint propellerTexture, bool isNightMode);
     void drawPropeller(bool isNightMode);
     void drawCannon(bool isNightMode);
-    void drawMainBody2D();
-    void drawTail2D();
-    void drawCockpit2D();
-    void drawWings2D();
-    void drawPropeller2D();
-    void drawCannon2D();
     void updateTurnRightAngle(GLfloat deltaIdleTime);
     void updateTurnLeftAngle(GLfloat deltaIdleTime);
     void updateTurnUpAngle(GLfloat deltaIdleTime);

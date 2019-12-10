@@ -48,6 +48,8 @@ class Game
     void drawEnemyBullets();
     void drawBullets();
     void drawBombs();
+    void drawFlightEnemies2D();
+    void drawTerrestrialEnemies2D();
     void movePlayer();
     void moveFlightEnemies();
     void movePlayerBullets();

@@ -91,6 +91,7 @@ public:
     void drawFilledCircle(GLfloat radius, Color color);
     void drawFilledCircle(Color color);
     void drawFilledCircle(Circle circle);
+    void drawFilledCircle2(GLfloat radius, Color color);
     void drawAllCircles(Color color);
     void drawAllCircles();
     void drawLine(Line line);
