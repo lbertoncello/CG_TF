@@ -446,6 +446,21 @@ void Game::drawFlightEnemies(GLuint enemyMainBodyTexture, GLuint tailAndPropelle
     }
 }
 
+void Game::drawFlightEnemies2D()
+{
+    vector<FlightEnemy>::iterator flightEnemy_it;
+    for (flightEnemy_it = flightEnemies.begin(); flightEnemy_it != flightEnemies.end(); flightEnemy_it++)
+    {
+        if (!flightEnemy_it->isDestroyed())
+        {
+            glPushMatrix();
+            // glTranslatef(-flightArea.getArea().getCenter_x() + flightEnemy_it->getBody().getCenter_x(), -flightArea.getArea().getCenter_y() + flightEnemy_it->getBody().getCenter_y(), 0.0);
+            flightEnemy_it->draw2D();
+            glPopMatrix();
+        }
+    }
+}
+
 void Game::drawTerrestrialEnemies(GLuint TerrestrialEnemiesTexture)
 {
     vector<TerrestrialEnemy>::iterator terrestrialEnemies_it;
@@ -454,6 +469,18 @@ void Game::drawTerrestrialEnemies(GLuint TerrestrialEnemiesTexture)
         // glPushMatrix();
         // glTranslatef(-flightArea.getArea().getCenter_x() + terrestrialEnemies_it->getBody().getCenter_x(), -flightArea.getArea().getCenter_y() + terrestrialEnemies_it->getBody().getCenter_y(), 0.0);
         terrestrialEnemies_it->draw(TerrestrialEnemiesTexture, isNightMode());
+        // glPopMatrix();
+    }
+}
+
+void Game::drawTerrestrialEnemies2D()
+{
+    vector<TerrestrialEnemy>::iterator terrestrialEnemies_it;
+    for (terrestrialEnemies_it = terrestrialEnemies.begin(); terrestrialEnemies_it != terrestrialEnemies.end(); terrestrialEnemies_it++)
+    {
+        // glPushMatrix();
+        // glTranslatef(-flightArea.getArea().getCenter_x() + terrestrialEnemies_it->getBody().getCenter_x(), -flightArea.getArea().getCenter_y() + terrestrialEnemies_it->getBody().getCenter_y(), 0.0);
+        terrestrialEnemies_it->draw2D();
         // glPopMatrix();
     }
 }
@@ -768,8 +795,12 @@ void Game::drawMinimap()
 {
     glPushMatrix();
 
-    glTranslatef(-100, -100, 0);
-    drawer.drawCircle(Circle(Point(), flightArea.getArea().getRadius()));
+    glScalef(0.25, 0.25, 0);
+    glTranslatef(650, 650, 0);
+    // drawer.drawCircle(Circle(Point(), flightArea.getArea().getRadius() - 140));
+    drawer.drawCircle(Circle(Point(), flightArea.getArea().getRadius(), flightArea.getArea().getColor()));
+    drawTerrestrialEnemies2D();
+    drawFlightEnemies2D();
     player.draw2D();
 
     glPopMatrix();

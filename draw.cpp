@@ -83,6 +83,29 @@ void Draw::drawFilledCircle(GLfloat radius, Color color)
     glEnd();
 }
 
+void Draw::drawFilledCircle2(GLfloat radius, Color color)
+{
+    //filled circle
+    GLfloat x2, y2;
+    GLfloat x1 = 0;
+    GLfloat y1 = 0;
+    GLfloat angle;
+
+    glColor3f(color.getR(), color.getG(), color.getB());
+
+    glBegin(GL_TRIANGLE_FAN);
+    glVertex2f(x1, y1);
+
+    for (angle = 1.0f; angle < 361.0f; angle += 0.2)
+    {
+        x2 = x1 + sin(angle) * radius;
+        y2 = y1 + cos(angle) * radius;
+        glVertex2f(x2, y2);
+    }
+
+    glEnd();
+}
+
 void Draw::drawRectangle(Point p1, Point p2, Point p3, Point p4, Color color)
 {
     glColor3f(color.getR(), color.getG(), color.getB());

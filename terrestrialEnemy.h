@@ -68,6 +68,7 @@ public:
     Point getCurrentPositionAdjusted();
     Sphere getAdjustedBody();
     void draw(GLuint TerrestrialEnemiesTexture, bool isNightMode);
+    void draw2D();
     void reset();
 };
 
