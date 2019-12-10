@@ -104,7 +104,7 @@ public:
     void drawCylinder(GLfloat radius, GLfloat height);
     void drawSphere(Sphere sphere);
     void drawParallelSolid(Point p1, Point p2, Point p3, Point p4, Point p5, Point p6, Point p7, Point p8);
-    void drawPlane(Point p1, Point p2, Point p3, Point p4);
+    void drawPlane(Point p1, Point p2, Point p3, Point p4, GLfloat normalX, GLfloat normalY, GLfloat normalZ);
     void PrintText(GLfloat x, GLfloat y, const char * text, double r, double g, double b);
     void RasterChars(GLfloat x, GLfloat y, GLfloat z, const char * text, double r, double g, double b);
 };

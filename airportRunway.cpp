@@ -46,7 +46,7 @@ void AirportRunway::draw(GLuint roadTexture, bool isNightMode)
     Point p4(x2novo + 20, 20.0, 0.1);
 
     // drawer.drawLine(temp);
-    drawer.drawPlane(p1, p2, p3, p4);
+    drawer.drawPlane(p1, p2, p3, p4, 0.0, 0.0, 1.0);
     glPopMatrix();
 }
 

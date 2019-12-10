@@ -76,6 +76,7 @@ void Draw::drawFilledCircle(GLfloat radius, Color color)
         x2 = x1 + sin(angle) * radius;
         y2 = y1 + cos(angle) * radius;
         glTexCoord2f(cos(angle) * 0.5 + 0.5, sin(angle) * 0.5 + 0.5);
+        glNormal3f(0.0, 1.0, 0.0);
         glVertex3f(x2, 0.0, y2);
     }
 
@@ -280,7 +281,6 @@ void Draw::drawEllipsoid(Sphere sphere)
             glNormal3f(x * zr0, y * zr0, z0);
             glTexCoord2f(texX,texY0);
             glVertex3f(r * x * zr0, 0.25*r * y * zr0, 0.30*r * z0);
-            // glTexCoord2f(cos(angle) * 0.5 + 0.5, sin(angle) * 0.5 + 0.5);
             glNormal3f(x * zr1, y * zr1, z1);
             glTexCoord2f(texX,texY1);
             glVertex3f(r * x * zr1, 0.25 * r * y * zr1, 0.30 * r * z1);
@@ -358,27 +358,28 @@ void Draw::drawSphere(Sphere sphere)
 void Draw::drawParallelSolid(Point p1, Point p2, Point p3, Point p4, Point p5, Point p6, Point p7, Point p8)
 {
     //top
-    drawPlane(p1, p2, p3, p4);
+    drawPlane(p1, p2, p3, p4, 0.0, 0.0, 1.0);
 
     //bottom
-    drawPlane(p5, p6, p7, p8);
+    drawPlane(p5, p6, p7, p8, 0.0, 0.0, -1.0);
 
     //left
-    drawPlane(p1, p6, p7, p2);
+    drawPlane(p1, p6, p7, p2, 0.0, 1.0, 0.0);
     
     //right
-    drawPlane(p3, p8, p5, p4);
+    drawPlane(p3, p8, p5, p4, 0.0, -1.0, 0.0);
 
     //back
-    drawPlane(p4, p5, p6, p1);
+    drawPlane(p4, p5, p6, p1, 1.0, 0.0, 0.0);
 
     //front
-    drawPlane(p2, p7, p8, p3);
+    drawPlane(p2, p7, p8, p3, -1.0, 0.0, 1.0);
 }
 
-void Draw::drawPlane(Point p1, Point p2, Point p3, Point p4)
+void Draw::drawPlane(Point p1, Point p2, Point p3, Point p4, GLfloat normalX, GLfloat normalY, GLfloat normalZ)
 {
     glBegin(GL_QUADS);
+    glNormal3f(normalX, normalY, normalZ);
     glTexCoord2f(0.0, 0.0);
     glVertex3f(p1.getX(), p1.getY(), p1.getZ());
     glTexCoord2f(0.0, 1.0);
