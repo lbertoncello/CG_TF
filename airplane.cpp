@@ -875,12 +875,11 @@ void Airplane::setAirplaneLight()
 {
     glPushMatrix();
     glTranslatef(this->body.getRadius(), 0.0, 0.0);
-    GLfloat alturaFarol = this->body.getRadius() * 0.1 + 0.1;
-    GLfloat light1_pos[] = {0.0, 0.0, alturaFarol, 1.0};
+    GLfloat light1_pos[] = {0.0, 0.0, 0.0, 1.0};
     GLfloat light1_direction[] = {1.0, 0.0, 0.0};
-    GLfloat light1_angle[] = {20.0};
-    GLfloat light1_ambient[] = {1.0, 1.0, 1.0, 1.0};
-    GLfloat light1_diffuse[] = {1.0, 1.0, 1.0, 1.0};
+    GLfloat light1_angle[] = {25.0};
+    GLfloat light1_ambient[] = {0.2, 0.2, 0.2, 1.0};
+    GLfloat light1_diffuse[] = {0.8, 0.8, 0.8, 1.0};
     GLfloat light1_specular[] = {1.0, 1.0, 1.0, 1.0};
     glLightfv(GL_LIGHT1, GL_AMBIENT, light1_ambient);
     glLightfv(GL_LIGHT1, GL_DIFFUSE, light1_diffuse);
