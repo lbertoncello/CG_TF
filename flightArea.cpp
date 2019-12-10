@@ -44,6 +44,8 @@ void FlightArea::draw(GLfloat heightOfSky, GLuint groundTexture, GLuint skyTextu
     //teto
     glPushMatrix();
     glTranslatef(0.0, heightOfSky, 0.0);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glBindTexture(GL_TEXTURE_2D, skyTexture);
     drawer.drawFilledCircle(area_aux);
     glPopMatrix();
@@ -72,6 +74,8 @@ void FlightArea::draw(GLfloat heightOfSky, GLuint groundTexture, GLuint skyTextu
         glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
     }
     //chao
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glBindTexture(GL_TEXTURE_2D, groundTexture);
     drawer.drawFilledCircle(area_aux);
     glPopMatrix();
