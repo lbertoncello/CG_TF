@@ -25,6 +25,32 @@ void Airplane::draw(GLuint mainBodyTexture, GLuint tailAndPropellerTexture, bool
 
     glTranslatef(dX, -dY, dZ);
     glRotatef(-inclinationAngle, 0.0, 0.0, 1.0);
+
+    if (isPlayer)
+    {
+        if (isFlying())
+        {
+            // if (calc.radiansToDegrees(rotationAngle) > 30)
+            // {
+            //     glRotatef(-30, 1.0, 0.0, 0.0);
+            // }
+            // else if (calc.radiansToDegrees(rotationAngle) < -30)
+            // {
+            //     glRotatef(30, 1.0, 0.0, 0.0);
+            // }
+            // else
+            // {
+            //     glRotatef(calc.radiansToDegrees(-rotationAngle), 1.0, 0.0, 0.0);
+            // }
+
+            glRotatef(calc.radiansToDegrees(-rotationAngle), 1.0, 0.0, 0.0);
+        }
+    }
+    else
+    {
+        glRotatef(calc.radiansToDegrees(-moveAngleXY), 1.0, 0.0, 0.0);
+    }
+
     glRotatef(-calc.radiansToDegrees(moveAngleYZ), 0.0, 1.0, 0.0);
     // glRotatef(45, 0.0, 1.0, 0.0);
 
@@ -34,12 +60,34 @@ void Airplane::draw(GLuint mainBodyTexture, GLuint tailAndPropellerTexture, bool
     drawCockpit();
     drawTail(tailAndPropellerTexture, isNightMode);
 
-    if(isPlayer)
+    if (isPlayer)
     {
         setAirplaneLight();
     }
 
     glPopMatrix();
+}
+
+void Airplane::draw2D()
+{
+    if (!isDestroyed())
+    {
+        glPushMatrix();
+        glTranslatef(dX / 2, dY / 2, 0.0);
+        glRotatef(inclinationAngle, 0.0, 0.0, 1.0);
+
+        // drawWings2D();
+        // drawCannon2D();
+        drawMainBody2D();
+        // drawCockpit2D();
+        // drawTail2D();
+        glPopMatrix();
+    }
+}
+
+void Airplane::drawMainBody2D()
+{
+    drawer.drawEllipse(Circle(body.getCenter(), body.getRadius()));
 }
 
 void Airplane::drawMainBody(GLuint mainBodyTexture, bool isNightMode)
@@ -471,6 +519,11 @@ void Airplane::updateTurnRightAngle(GLfloat deltaIdleTime)
     if (isTurningRight())
     {
         moveAngleXY -= M_PI / 2.0 * deltaIdleTime;
+
+        if (calc.radiansToDegrees(rotationAngle) > -30)
+        {
+            rotationAngle -= M_PI / 2.0 * deltaIdleTime;
+        }
     }
 }
 
@@ -479,6 +532,11 @@ void Airplane::updateTurnLeftAngle(GLfloat deltaIdleTime)
     if (isTurningLeft())
     {
         moveAngleXY += M_PI / 2.0 * deltaIdleTime;
+
+        if (calc.radiansToDegrees(rotationAngle) < 30)
+        {
+            rotationAngle += M_PI / 2.0 * deltaIdleTime;
+        }
     }
 }
 
@@ -677,7 +735,7 @@ Bullet *Airplane::shoot(GLfloat deltaIdleTime)
         dX + body.getRadius() * cos(calc.degreesToRadians(inclinationAngle)) + this->body.getRadius() / 2.0 * cos(resultingAngleXY));
     bulletCoordinates.setY(
         dY + body.getRadius() * sin(calc.degreesToRadians(inclinationAngle)) + this->body.getRadius() / 2.0 * sin(resultingAngleXY));
-    bulletCoordinates.setZ(dZ + (body.getRadius() * sin(moveAngleYZ)) + (body.getRadius() / 2  * sin(-cannonAngleY + moveAngleYZ)));
+    bulletCoordinates.setZ(dZ + (body.getRadius() * sin(moveAngleYZ)) + (body.getRadius() / 2 * sin(-cannonAngleY + moveAngleYZ)));
     // bulletCoordinates.setZ(0 + (dZ * cos(moveAngleYZ)));
 
     Point bulletBodyCoordinates = getPositionAdjusted(bulletCoordinates);
@@ -835,7 +893,7 @@ void Airplane::setAirplaneLight()
 {
     glPushMatrix();
     glTranslatef(this->body.getRadius(), 0.0, 0.0);
-    GLfloat alturaFarol = this->body.getRadius()*0.1 + 0.1;
+    GLfloat alturaFarol = this->body.getRadius() * 0.1 + 0.1;
     GLfloat light1_pos[] = {0.0, 0.0, alturaFarol, 1.0};
     GLfloat light1_direction[] = {1.0, 0.0, 0.0};
     GLfloat light1_angle[] = {20.0};
