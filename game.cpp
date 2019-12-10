@@ -453,10 +453,10 @@ void Game::drawFlightEnemies2D()
     {
         if (!flightEnemy_it->isDestroyed())
         {
-            glPushMatrix();
+            // glPushMatrix();
             // glTranslatef(-flightArea.getArea().getCenter_x() + flightEnemy_it->getBody().getCenter_x(), -flightArea.getArea().getCenter_y() + flightEnemy_it->getBody().getCenter_y(), 0.0);
             flightEnemy_it->draw2D();
-            glPopMatrix();
+            // glPopMatrix();
         }
     }
 }
@@ -791,17 +791,20 @@ void Game::resetCameraAngle()
     player.resetCameraAngle();
 }
 
-void Game::drawMinimap()
+void Game::drawMap()
 {
-    glPushMatrix();
+    // glPushMatrix();
 
     glScalef(0.25, 0.25, 0);
     glTranslatef(650, 650, 0);
+
     // drawer.drawCircle(Circle(Point(), flightArea.getArea().getRadius() - 140));
     drawer.drawCircle(Circle(Point(), flightArea.getArea().getRadius(), flightArea.getArea().getColor()));
     drawTerrestrialEnemies2D();
     drawFlightEnemies2D();
     player.draw2D();
 
-    glPopMatrix();
+    // glPopMatrix();
+    glTranslatef(-650, -650, 0);
+    glScalef(-0.25, -0.25, 0);
 }
