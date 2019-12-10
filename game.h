@@ -167,7 +167,7 @@ public:
     void takeOff();
     void init();
     void drawGame(GLfloat deltaIdleTime, GLuint groundTexture, GLuint skyTexture, GLuint horizontTexture, GLuint roadTexture, GLuint playerMainBodyTexture, GLuint enemyMainBodyTexture, GLuint tailAndPropellerTexture);
-    void drawMinimap();
+    void drawMap();
     void reset();
     void rotatePlayerAirplaneCannonX(GLfloat moviment);
     void rotatePlayerAirplaneCannonY(GLfloat moviment);

@@ -172,7 +172,7 @@ void GameSetup::drawMinimap()
         glDisable(GL_LIGHTING);
         glDisable(GL_TEXTURE_2D);
             // arena->desenhaMinimapa(arena->getRaio());
-            gameRuntime.getGame().drawMinimap();
+            gameRuntime.getGame().drawMap();
         glPopAttrib();
     glPopMatrix();
     glMatrixMode(GL_MODELVIEW);
